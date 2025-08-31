@@ -1,19 +1,631 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>{% block title %}My Flask App{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourism in Jharkhand</title>
+    <!-- Link to your CSS file with correct path -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Basic CSS to ensure page looks good even if external CSS doesn't load */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header styles */
+        header {
+            background: linear-gradient(135deg, #0d9488 0%, #0d9488 100%);
+            color: #fff;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(71, 134, 104, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background-color: rgba(7, 6, 6, 0.2);
+        }
+        
+        /* Hero section */
+        .hero {
+            background: url("{{ url_for('static', filename='images/Districts_of_Jharkhand_map.svg.png') }}") no-repeat center center/cover; 
+            height: 120vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: whitesmoke;
+            margin-top: 10px;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(137, 113, 113, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #e67e22;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            background: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Section styles */
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #065f46;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #e67e22;
+            border-radius: 2px;
+        }
+        
+        /* Destinations */
+        .destinations {
+            background-color: #fff;
+        }
+        
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .destination-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .destination-card:hover .card-img img {
+            transform: scale(1.1);
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #5a5454;
+        }
+        
+        /* Culture section */
+        .culture {
+            background-color: #f9f9f9;
+        }
+        
+        .culture-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .culture-item {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .culture-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .culture-text {
+            flex: 1;
+        }
+        
+        .culture-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .culture-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Contact section */
+        .contact {
+            background-color: #fff;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .contact-info-item i {
+            font-size: 1.5rem;
+            color: #1a6e3a;
+        }
+        
+        .contact-form {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background: #0d9488;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-logo h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .footer-links h3,
+        .footer-newsletter h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-links h3::after,
+        .footer-newsletter h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: #e67e22;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #e67e22;
+        }
+        
+        .footer-newsletter p {
+            margin-bottom: 1rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px;
+        }
+        
+        .newsletter-form button {
+            background: #e67e22;
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            background: #d35400;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .culture-item,
+            .culture-item:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav>
-        <h1>Hello </h1>
-        <a href="{{ url_for('home') }}">Home</a> |
-        <a href="{{ url_for('about') }}">About</a> |
-        <a href="{{ url_for('students') }}">Students</a>
-    </nav>
-    <hr>
-    <div>
-        {% block content %}{% endblock %}
-    </div>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Jharkhand Tourism</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#destinations">Destinations</a></li>
+                        <li><a href="#culture">Culture</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2></h2>
+            <p>Experience the rich cultural heritage and natural wonders of India's hidden gem</p>
+            <a href="#destinations" class="btn">Explore Now</a>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="destinations">
+        <div class="container">
+            <div class="section-title">
+                <h2>Popular Destinations</h2>
+            </div>
+            <div class="destination-grid">
+                <div class="destination-card">
+                    <div class="card-img">
+                        <!-- Using your image from static folder -->
+                        <img src="{{ url_for('static', filename='images/jharkhand1_Betla-NP_FI.jpg') }}" alt="Betla National Park">
+                    </div>
+                    <div class="card-content">
+                        <h3>Betla National Park</h3>
+                        <p>Home to diverse wildlife including tigers, elephants, and various species of deer and birds.</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-img">
+                        <img src="{{ url_for('static', filename='images/dassam-fall.jpg') }}" alt="Dassam Falls">
+                    </div>
+                    <div class="card-content">
+                        <h3>Dassam Falls</h3>
+                        <p>A magnificent waterfall located near Ranchi, known for its natural beauty and serene surroundings.</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <div class="card-img">
+                        <img src="{{ url_for('static', filename='images/images.jpeg') }}" alt="Jagannath Temple">
+                    </div>
+                    <div class="card-content">
+                        <h3>Jagannath Temple</h3>
+                        <p>A beautiful temple in Ranchi, resembling the famous Jagannath Temple of Puri.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section id="culture" class="culture">
+        <div class="container">
+            <div class="section-title">
+                <h2>Rich Cultural Heritage</h2>
+            </div>
+            <div class="culture-content">
+                <div class="culture-item">
+                    <div class="culture-text">
+                        <h3>Tribal Art Forms</h3>
+                        <p>Jharkhand is home to numerous tribal communities, each with their unique art forms. Sohrai and Khovar paintings are particularly famous, depicting nature and daily life in vibrant colors.</p>
+                    </div>
+                    <div class="culture-image">
+                        <img src="{{ url_for('static', filename='images/Ganju-Art.jpg') }}" alt="Tribal Art">
+                    </div>
+                </div>
+                <div class="culture-item">
+                    <div class="culture-text">
+                        <h3>Traditional Festivals</h3>
+                        <p>The state celebrates various festivals with great enthusiasm. Sarhul, Karma, and Tusu Parab are among the most important festivals that showcase the rich cultural heritage of Jharkhand.</p>
+                    </div>
+                    <div class="culture-image">
+                        <img src="{{ url_for('static', filename='images/tribal-festival-1jpg_1743508534226.webp') }} "  alt="Festivals">
+                    </div>
+                </div>
+                <div class="culture-item">
+                    <div class="culture-text">
+                        <h3>Local Cuisine</h3>
+                        <p>Jharkhand's cuisine is as diverse as its culture. Traditional dishes like Thekua, Rugra, Bamboo Shoot Curry, and Handia (rice beer) offer a unique culinary experience.</p>
+                    </div>
+                    <div class="culture-image">
+                        <img src="{{ url_for('static', filename='images/IMG_6472.webp') }}" alt="Cuisine">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-info-item">
+                        <i>📍</i>
+                        <p>Tourism Department, Government of Jharkhand<br>Ranchi, Jharkhand - 834001</p>
+                    </div>
+                    <div class="contact-info-item">
+                        <i>📞</i>
+                        <p>+91 XXXXXXXXXX</p>
+                    </div>
+                    <div class="contact-info-item">
+                        <i>✉️</i>
+                        <p>info@jharkhandtourism.com</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Jharkhand Tourism</h2>
+                    <p>Discover the unexplored beauty of India's hidden gem.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#destinations">Destinations</a></li>
+                        <li><a href="#culture">Culture</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Jharkhand Tourism. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>

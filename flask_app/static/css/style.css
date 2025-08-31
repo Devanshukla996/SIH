@@ -1,0 +1,447 @@
+/* Global */
+body, html {
+    margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f8fa;
+    overflow-x: hidden;
+    }
+    /* Animation container */
+    #jeep-animation-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: linear-gradient(to top, #87ceeb 0%, #ffffff 80%);
+    display: flex; align-items: flex-end; justify-content: flex-start;
+    padding-bottom: 40px;
+    z-index: 9999;
+    transition: opacity 1s ease;
+    }
+    .road {
+    position: absolute;
+    bottom: 0;
+    width: 100vw; height: 120px;
+    background: linear-gradient(90deg, #564d3f 0%, #2c281c 100%);
+    box-shadow: inset 0 10px 14px #0007;
+    z-index: 0;
+    }
+    
+    /* Jeep container */
+    .jeep {
+    position: relative;
+    width: 250px;
+    height: 110px;
+    left: -280px;
+    animation: driveJeep 4s cubic-bezier(.1,1,.42,1) forwards;
+    cursor: default;
+    user-select: none;
+    z-index: 5;
+    }
+    @keyframes driveJeep {
+    0% { left: -280px; }
+    100% { left: 48vw; }
+    }
+    
+    /* Jeep Body */
+    .jeep-body {
+    position: absolute;
+    bottom: 0;
+    width: 250px;
+    height: 70px;
+    background: #306636;
+    border-radius: 35px 20px 18px 18px / 26px 22px 20px 20px;
+    box-shadow: 0 10px 16px #0c2c0dbb;
+    border: 3px solid #254822;
+    z-index: 1;
+    }
+    
+    /* Jeep Roof */
+    .jeep-roof {
+    position: absolute;
+    bottom: 58px;
+    left: 48px;
+    width: 110px;
+    height: 48px;
+    background: #a6d48d;
+    border-radius: 18px 20px 10px 10px / 22px 20px 34px 18px;
+    border: 3px solid #456a1d;
+    box-shadow: inset -2px 0px 4px #395512cc;
+    z-index: 3;
+    display: flex; align-items: center; padding-left: 20px;
+    position: relative;
+    }
+    
+    /* Front Grille */
+    .jeep-grille {
+    position: absolute;
+    width: 60px;
+    height: 50px;
+    bottom: 10px;
+    left: 178px;
+    background: #305629;
+    border-radius: 12px 8px 8px 12px / 18px 14px 14px 24px;
+    border: 2px solid #163600aa;
+    box-shadow: inset 1px 2px 3px #557d34aa;
+    z-index: 2;
+    }
+    
+    /* Steering Wheel */
+    .jeep-steering {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: 3px solid #3a2e18;
+    border-radius: 50%;
+    top: 23px;
+    left: 58px;
+    transform: rotate(-25deg);
+    z-index: 5;
+    }
+    
+    /* Driver */
+    .jeep-driver {
+    position: relative;
+    width: 32px;
+    height: 58px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    z-index: 6;
+    }
+    .driver-head {
+    width: 20px;
+    height: 20px;
+    background: #f3c889;
+    border-radius: 50%;
+    border: 1.8px solid #8b5e22;
+    box-shadow: inset 0 3px 5px #cfa373a6;
+    }
+    .driver-body {
+    width: 27px;
+    height: 38px;
+    background: #2a583b;
+    border-radius: 12px 12px 15px 15px / 22px 22px 12px 12px;
+    box-shadow: 0 3px 8px #10381f33 inset;
+    }
+    
+    /* Driver waving arm */
+    .driver-arm {
+    position: absolute;
+    top: 12px;
+    left: -14px;
+    width: 12px;
+    height: 32px;
+    background: #f3c889;
+    border-radius: 12px;
+    transform-origin: top center;
+    animation: waveArm 2.4s ease-in-out infinite;
+    border: 1.7px solid #8b5e22;
+    box-shadow: inset 0 3px 5px #cfa373a6;
+    z-index: 7;
+    }
+    @keyframes waveArm {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(45deg); }
+    }
+    
+    /* Wheels */
+    .jeep-wheel {
+    position: absolute;
+    bottom: -20px;
+    width: 52px;
+    height: 52px;
+    background: #3b3b33;
+    border-radius: 50%;
+    border: 6px solid #4c543e;
+    box-shadow: 0 5px 18px #121b08aa inset;
+    animation: wheelspin 1s linear infinite;
+    z-index: 10;
+    }
+    .jeep-wheel.front {
+    left: 50px;
+    }
+    .jeep-wheel.back {
+    left: 148px;
+    }
+    .wheel-center {
+    position: absolute;
+    top: 11px;
+    left: 11px;
+    width: 26px;
+    height: 26px;
+    background: #8d9a74;
+    border-radius: 50%;
+    }
+    @keyframes wheelspin {
+    100% { transform: rotate(360deg); }
+    }
+    
+    /* Main site */
+    #main-site {
+    display: none;
+    animation: fadeIn 1.3s;
+    margin-top: 0;
+    }
+    @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1;}
+    }
+    
+    /* Header */
+    header {
+    background-color: #2d6a44;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 3px 10px #153b27bb;
+    }
+    nav a {
+    color: white;
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.9px;
+    font-size: 1.1em;
+    }
+    nav a:hover {
+    color: #ffbf00;
+    }
+    
+    /* Hero Section */
+    .hero {
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Patratu_valley_ranchi_jharkhand.jpg/1200px-Patratu_valley_ranchi_jharkhand.jpg') no-repeat center center/cover;
+    color: white;
+    min-height: 330px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0 1px 9px #001b0fbb;
+    padding: 0 12px;
+    }
+    .hero h1 {
+    font-size: 2.6em;
+    margin-bottom: 10px;
+    padding: 12px 24px;
+    background-color: rgba(10, 51, 21, 0.6);
+    border-radius: 26px;
+    }
+    .hero p {
+    max-width: 580px;
+    font-size: 1.2em;
+    background-color: rgba(10, 51, 21, 0.44);
+    padding: 8px 20px;
+    border-radius: 18px;
+    }
+    .search-bar {
+    margin-top: 30px;
+    max-width: 450px;
+    width: 95%;
+    display: flex;
+    border-radius: 50px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+    overflow: hidden;
+    }
+    .search-bar input {
+    flex-grow: 1;
+    padding: 16px 22px;
+    border: none;
+    font-size: 1.1rem;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    outline: none;
+    }
+    .search-bar button {
+    padding: 0 36px;
+    background-color: #ff9900;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    transition: background-color 0.3s ease;
+    }
+    .search-bar button:hover {
+    background-color: #ffbb33;
+    }
+    
+    /* Destinations */
+    section {
+    padding: 40px 7vw 20px 7vw;
+    }
+    h2 {
+    color: #285928;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    text-align: center;
+    letter-spacing: 1.3px;
+    }
+    .destinations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    justify-content: center;
+    }
+    .destination-card {
+    background: white;
+    box-shadow: 0 2px 15px #07110055;
+    border-radius: 14px;
+    width: 270px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    }
+    .destination-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 22px #07110099;
+    }
+    .destination-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-bottom: 4px solid #285928;
+    }
+    .destination-card h3 {
+    margin: 14px 14px 6px;
+    color: #285928;
+    }
+    .destination-card p {
+    margin: 0 14px 14px;
+    color: #425040dd;
+    font-size: 0.95em;
+    }
+    
+    /* Booking Section */
+    .booking {
+    background: #e9f3e6;
+    text-align: center;
+    padding: 36px 12px;
+    border-radius: 14px;
+    box-shadow: 0 3px 16px #28592822;
+    margin: 35px auto;
+    max-width: 600px;
+    }
+    .booking button {
+    background: #285928;
+    color: white;
+    font-weight: 700;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.3em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+    .booking button:hover {
+    background: #386c35;
+    }
+    
+    /* Testimonials */
+    .testimonials {
+    max-width: 800px;
+    margin: 30px auto 64px auto;
+    }
+    .testimonial-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    }
+    .testimonial {
+    width: 320px;
+    background: #fff;
+    padding: 20px 22px;
+    border-radius: 11px;
+    box-shadow: 0 5px 20px #11100011;
+    font-style: italic;
+    color: #254626;
+    position: relative;
+    }
+    .testimonial span {
+    display: block;
+    margin-top: 12px;
+    font-weight: 700;
+    font-style: normal;
+    color: #2b562dcc;
+    text-align: right;
+    }
+    
+    /* Contact us */
+    .contactus {
+    max-width: 420px;
+    margin: 30px auto 42px auto;
+    padding: 26px 18px 38px 18px;
+    border-radius: 16px;
+    background: #d7e3cc;
+    box-shadow: inset 0 7px 15px #60973733;
+    }
+    .contactus h2 {
+    text-align: center;
+    color: #285928;
+    margin-bottom: 15px;
+    letter-spacing: 0.9px;
+    }
+    .contactus form {
+    display: flex;
+    flex-direction: column;
+    }
+    .contactus input, .contactus textarea {
+    margin-bottom: 14px;
+    border-radius: 8px;
+    border: 2px solid #78a359;
+    padding: 10px 12px;
+    resize: vertical;
+    font-size: 1.06em;
+    outline: none;
+    transition: border-color 0.3s ease;
+    }
+    .contactus input:focus, .contactus textarea:focus {
+    border-color: #285928;
+    }
+    .contactus button {
+    background: #2a623f;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    }
+    .contactus button:hover {
+    background: #1f462c;
+    }
+    
+    /* Footer */
+    footer {
+    background: #23411d;
+    color: white;
+    padding: 14px 0;
+    text-align: center;
+    font-size: 0.95em;
+    letter-spacing: 0.8px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 800px) {
+    .destinations {
+    flex-direction: column;
+    align-items: center;
+    }
+    .jeep-body {
+    border-radius: 25px 20px 15px 15px / 25px 25px 14px 15px;
+    }
+    .hero h1 {
+    font-size: 1.8em;
+    }
+    .hero p {
+    font-size: 1.04em;
+    max-width: 90vw;
+    }
+    }
+    

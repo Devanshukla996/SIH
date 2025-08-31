@@ -1,13 +1,16 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
+
 import pymysql
 
 app = Flask(__name__)
+
+
 
 # Configure database URI here
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Devansh%40123@localhost/mysql_server'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Import db and models from your separate models.py
+# Import db and models
 from models import db, Person, Student
 
 # Initialize SQLAlchemy with app
@@ -54,16 +57,35 @@ def create_tables_and_seed():
 
         db.session.commit()
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
-    people = Person.query.all()
-    return render_template('landing_page.html', people=people)
+    # Show login page
+    return render_template('sign_in.html')
 
-@app.route("/students")
-def students():
-    students = Student.query.all()
-    print("Students", students)
-    return render_template('students.html', students=students)
+@app.route("/login", methods=["POST"])
+def login():
+    # Read form data
+    email_or_username = request.form.get('email_or_username')
+    password = request.form.get('password')
+    user_role = request.form.get('user_role')
+    preferred_district = request.form.get('preferred_district')
+    remember_me = request.form.get('remember_me')
+
+    # TODO: Integrate real authentication here,
+    # For demo, accept any input and redirect
+    return redirect(url_for('landing'))
+
+@app.route("/landing")
+def landing():
+    # Simple landing page after login
+    return render_template('landing_page.html')
+
+    return redirect(url_for('dashboard'))
+
+@app.route("/dashboard")
+def dashboard():
+   
+    return render_template('dashboard.html', )
 
 @app.route("/about")
 def about():

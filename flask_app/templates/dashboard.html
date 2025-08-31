@@ -1,0 +1,461 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jharkhand Tourism — Report Dashboard (Polished)</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    :root {
+      --accent:#0b6b5b;
+      --muted:#64748b;
+      --bg:#f9fafb;
+      --card-bg:#ffffff;
+    }
+    body {
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      margin:0;
+      background:var(--bg);
+      color:#111827;
+      line-height:1.6;
+    }
+    header {
+      background:linear-gradient(90deg,var(--accent),#0d9488);
+      color:#fff;
+      padding:16px 0;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 6px rgba(0,0,0,0.15);
+    }
+    header h1 {
+      margin:0;
+      font-size:1.3rem;
+      font-weight:600;
+      letter-spacing:0.3px;
+    }
+    header .desc {
+      margin-top:4px;
+      font-size:0.85rem;
+      opacity:0.9;
+    }
+    .wrap {
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 16px;
+    }
+    /* KPI Cards */
+    .kpis {
+      display:flex;
+      gap:14px;
+      margin-top:18px;
+      flex-wrap:wrap;
+    }
+    .kpi {
+      flex:1;
+      background:var(--card-bg);
+      padding:16px;
+      border-radius:16px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.06);
+      min-width:200px;
+      transition:transform 0.2s, box-shadow 0.2s;
+      animation:fadeUp 0.7s ease both;
+    }
+    .kpi:hover {
+      transform:translateY(-4px);
+      box-shadow:0 8px 16px rgba(0,0,0,0.08);
+    }
+    .kpi .value {
+      font-size:1.4rem;
+      font-weight:700;
+      margin-top:8px;
+      color:var(--accent);
+    }
+    .small {
+      font-size:0.82rem;
+      color:var(--muted);
+    }
+    h2,h3 {
+      margin:0;
+      color:#065f46;
+      font-weight:600;
+    }
+    /* Sticky headings */
+    h2, h3 {
+      position:sticky;
+      top:56px;
+      background:var(--bg);
+      padding:6px 0;
+      z-index:500;
+    }
+    .section {
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:18px;
+      margin-top:20px;
+    }
+    .card {
+      background:var(--card-bg);
+      padding:18px;
+      border-radius:16px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.05);
+      margin-bottom:18px;
+      animation:fadeIn 1s ease both;
+    }
+    .charts-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+    .charts-grid .full {
+      grid-column:1/-1;
+    }
+    canvas {
+      max-width:100%!important;
+      height:auto!important;
+    }
+    #map {
+      height:420px;
+      border-radius:12px;
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      font-size:0.9rem;
+      min-width:480px;
+    }
+    th,td {
+      padding:10px;
+      border-bottom:1px solid #e5e7eb;
+      text-align:left;
+    }
+    table thead {
+      background:#ecfdf5;
+    }
+    table tbody tr:nth-child(even) {
+      background:#f9fafb;
+    }
+    table tbody tr:hover {
+      background:#f0fdfa;
+    }
+    .scroll-x {
+      overflow-x:auto;
+    }
+        footer {
+      background:linear-gradient(90deg,var(--accent),#0d9488);
+      color:#fff;
+      padding:24px 16px;
+      margin-top:30px;
+      font-size:0.9rem;
+    }
+    .footer-wrap {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:20px;
+      max-width:1200px;
+      margin:0 auto;
+    }
+    .footer-left {
+      flex:1;
+      min-width:220px;
+    }
+    /* .footer-left h3 {
+      margin:0 0 8px;
+      font-size:1.1rem;
+      font-weight:600;
+    } */
+     /* THESE PROPERTIES ARE REPLACED BY THE NEW STYLES BELOW */
+    .footer-left h3 {
+  margin: 0 auto 12px;       /* center horizontally with auto margin */
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: #fff;          /* white box */
+  color: var(--accent);      /* text color same as header accent */
+  padding: 10px 20px;        /* inner spacing */
+  border-radius: 8px;        /* rounded corners */
+  /* display: inline-block;     shrink box to fit text */
+  text-align: center;
+}
+
+    .footer-right {
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      min-width:180px;
+    }
+    .footer-right a {
+      color:#ecfdf5;
+      text-decoration:none;
+      transition:color 0.2s;
+    }
+    .footer-right a:hover {
+      color:#fff;
+      font-weight:500;
+    }
+    .footer-bottom {
+      border-top:1px solid rgba(255,255,255,0.2);
+      margin-top:20px;
+      padding-top:12px;
+      text-align:center;
+      font-size:0.8rem;
+      position:relative;
+    }
+    .footer-bottom .socials {
+      margin-top:8px;
+    }
+    .footer-bottom .socials a {
+      margin:0 6px;
+      font-size:1.1rem;
+      color:#ecfdf5;
+      transition:transform 0.2s;
+      text-decoration:none;
+    }
+    .footer-bottom .socials a:hover {
+      transform:scale(1.2);
+      color:#fff;
+    }
+
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity:0; transform:translateY(10px);}
+      to {opacity:1; transform:translateY(0);}
+    }
+    @keyframes fadeUp {
+      from {opacity:0; transform:translateY(20px);}
+      to {opacity:1; transform:translateY(0);}
+    }
+    /* ✅ Mobile Friendly */
+    @media(max-width:980px){
+      .section{grid-template-columns:1fr}
+      .charts-grid{grid-template-columns:1fr}
+      header h1{font-size:1.05rem}
+      header .desc{font-size:0.75rem}
+      .kpi{min-width:100%;flex:unset}
+      #map{height:300px}
+      table{font-size:0.8rem;min-width:100%}
+    }
+    @media(max-width:600px){
+      .wrap{padding:0 10px}
+      .kpi .value{font-size:1.2rem}
+      h2,h3{font-size:1rem}
+      .card{padding:14px}
+      header h1{font-size:0.95rem}
+      header .desc{font-size:0.7rem}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>📊 Jharkhand Tourism & Cultural Insights Dashboard</h1>
+    <div class="desc">State overview combining official figures and contextual cultural data. Sources: Jharkhand state/census, CEIC visitor data, Ministry of Tourism reports, press coverage of festivals.</div>
+  </div>
+</header>
+
+<main class="wrap">
+    <!-- KPIs -->
+    <section class="kpis">
+      <div class="kpi">
+        <div class="small">Total Visitor Arrivals (2023, incl. same-day)</div>
+        <div class="value" id="kpiVisitors">35,776,000</div>
+        <div class="small">Source: CEIC visitor arrivals (2023)</div>
+      </div>
+      <div class="kpi">
+        <div class="small">Scheduled Tribe (ST) share of population</div>
+        <div class="value" id="kpiST">26.2%</div>
+        <div class="small">Census 2011 baseline</div>
+      </div>
+      <div class="kpi">
+        <div class="small">Major tribal groups</div>
+        <div class="value">Santhal • Munda • Oraon • Ho • Kharia</div>
+        <div class="small">Official tribal census lists</div>
+      </div>
+      <div class="kpi">
+        <div class="small">Prominent Festival</div>
+        <div class="value">Sarhul (Spring)</div>
+        <div class="small">Widely celebrated tribal spring festival</div>
+      </div>
+    </section>
+
+    <!-- Section: Charts & Map -->
+    <section class="section">
+      <div>
+        <!-- Tourism Trend -->
+        <div class="card">
+          <h2>Tourism Trend (2018–2023)</h2>
+          <p class="small">Annual visitor arrivals (includes same-day). Note dip in 2020 (pandemic) and recovery by
+            2023.</p>
+          <canvas id="yearlyTrend"></canvas>
+          <p class="small"><strong>Interpretation:</strong> Jharkhand's visits recovered strongly after 2020; Deoghar &
+            Ranchi remain hotspots.</p>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="card">
+          <div class="charts-grid">
+            <div>
+              <h3>Tourist Interest by Category</h3>
+              <canvas id="categoryPie"></canvas>
+              <p class="small">Relative interest: pilgrimage, nature, heritage, wildlife, urban.</p>
+            </div>
+            <div>
+              <h3>Tribal Population Distribution</h3>
+              <canvas id="tribePie"></canvas>
+              <p class="small">Approximate shares. Santhal largest. Replace with precise census tribe counts.</p>
+            </div>
+            <div class="full">
+              <h3>Seasonality of Visits</h3>
+              <canvas id="seasonStack"></canvas>
+              <p class="small"><strong>Interpretation:</strong> Monsoon & winter peak → plan eco-tourism & pilgrimage
+                infrastructure.</p>
+            </div>
+            <div>
+              <h3>Festival Impact</h3>
+              <canvas id="festivalBar"></canvas>
+              <p class="small">Sarhul & Shravan months create major spikes.</p>
+            </div>
+            <div>
+              <h3>District Visits Ranking</h3>
+              <canvas id="districtBar"></canvas>
+              <p class="small">Ranchi, Deoghar, Jamshedpur lead. Add all 24 districts for detail.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Insights -->
+        <div class="card">
+          <h3>Key Insights & Recommendations</h3>
+          <ul class="small" style="line-height:1.6">
+            <li><strong>Infrastructure:</strong> Deoghar & Ranchi need priority upgrades.</li>
+            <li><strong>Seasonal Planning:</strong> Shravan & monsoon require temporary crowd control.</li>
+            <li><strong>Tribal Circuits:</strong> Design cultural homestay packages around Santhal, Munda, Oraon, Ho
+              tribes.</li>
+            <li><strong>Data Gaps:</strong> Replace prototype values with monthly district data & homestay counts.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right: Map & Explorer -->
+      <aside>
+        <div class="card">
+          <h3>Top 5 District</h3>
+          <div id="map"></div>
+          <p class="small">Markers show district centers. Replace with GeoJSON boundaries for full accuracy.</p>
+        </div>
+        <div class="card">
+          <h3>District Explorer</h3>
+          <div class="scroll-x">
+            <table>
+              <thead>
+                <tr>
+                  <th>District</th>
+                  <th>Tribe / Culture</th>
+                  <th>Top Places</th>
+                </tr>
+              </thead>
+              <tbody id="districtRows"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Data Sources</h3>
+          <p class="small">Visitor arrivals (CEIC 2023), Census ST %, Ministry of Tourism, press coverage of tribal
+            festivals. Some chart values are illustrative placeholders.</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Full 24 District Summary -->
+    <section>
+      <div class="card">
+        <h3>24-District Summary (Example)</h3>
+        <div class="scroll-x">
+          <table id="summary24">
+            <thead>
+              <tr>
+                <th>District</th>
+                <th>Tribe / Culture</th>
+                <th>Signature / Festival</th>
+                <th>Top Places</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+        
+  <!-- THIS IS THE FOOTER -->
+    <footer>
+    <div class="footer-wrap">
+      <div class="footer-left">
+        <h3>Jharkhand Tourism Dashboard</h3>
+        <p>Insights on culture, festivals, and tourism trends of Jharkhand. Built with data from Census, CEIC, and Ministry of Tourism.</p>
+      </div>
+      <div class="footer-right">
+        <a href="#"><span>🌐</span> Official Website</a>
+        <a href="#"><span>📧</span> Contact</a>
+        <a href="#"><span>📊</span> Data Sources</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2023 Jharkhand Tourism — Designed for cultural insights.  
+      <div class="socials">
+        <a href="#">🐦</a>
+        <a href="#">📘</a>
+        <a href="#">▶️</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    /* --- Data (same as before) --- */
+    const yearlyData = [{ year: 2018, visits: 18800000 }, { year: 2019, visits: 26000000 }, { year: 2020, visits: 9000000 }, { year: 2021, visits: 11000000 }, { year: 2022, visits: 38284400 }, { year: 2023, visits: 35776000 }];
+    const districtLabels = ['Ranchi', 'Deoghar', 'Jamshedpur', 'Dhanbad', 'Hazaribagh', 'Giridih', 'Others'];
+    const districtVisitsData = [1200000, 2000000, 1500000, 1100000, 900000, 800000, 13000000];
+    const categoryShares = { labels: ['Pilgrimage', 'Adventure / Nature', 'Heritage & Culture', 'Wildlife / Eco', 'Urban / Industrial'], data: [35, 25, 15, 15, 10] };
+    const tribeShares = { labels: ['Santhal', 'Munda', 'Oraon', 'Ho', 'Kharia', 'Others'], data: [22, 15, 14, 9, 6, 34] };
+    const seasonLabels = ['Summer', 'Monsoon', 'Winter'];
+    const seasonData = { domestic: [3000000, 9000000, 10000000], sameDay: [2000000, 7000000, 4000000] };
+    const festivalLabels = ['Sarhul', 'Karma', 'Tusu', 'Chhath', 'Sohrai'];
+    const festivalValues = [800000, 600000, 450000, 900000, 500000];
+    const districtDataCompact = [{ name: 'Ranchi', tribe: 'Munda / Oraon', sig: 'Sarhul', places: 'Dassam Falls, Hundru Falls' }, { name: 'Jamshedpur', tribe: 'Santhal / Ho', sig: 'Tusu / Local fairs', places: 'Jubilee Park, Dimna Lake' }, { name: 'Deoghar', tribe: 'Santhal / Bhumij', sig: 'Shravan pilgrimage', places: 'Baidyanath Dham, Trikut Pahar' }, { name: 'Hazaribagh', tribe: 'Oraon', sig: 'Karma', places: 'Hazaribagh Wildlife Sanctuary' }, { name: 'Dhanbad', tribe: 'Santhal / Mundari', sig: 'Coal heritage', places: 'Bhatinda Falls, Maithon Dam' }, { name: 'Giridih', tribe: 'Santhal', sig: 'Pilgrimage (Parasnath)', places: 'Parasnath Hills, Usri Falls' }];
+
+    /* --- Charts --- */
+    new Chart(document.getElementById('yearlyTrend'), { type: 'line', data: { labels: yearlyData.map(d => d.year), datasets: [{ data: yearlyData.map(d => d.visits), label: 'Visitor Arrivals', fill: true, backgroundColor: 'rgba(11,107,91,0.08)', borderColor: '#0b6b5b', tension: 0.3 }] }, options: { scales: { y: { ticks: { callback: v => (v / 1e6).toFixed(1) + 'M' } } } } });
+    new Chart(document.getElementById('categoryPie'), { type: 'pie', data: { labels: categoryShares.labels, datasets: [{ data: categoryShares.data, backgroundColor: ['#f97316', '#059669', '#6366f1', '#a78bfa', '#ef4444'] }] }, options: { plugins: { legend: { position: 'bottom' } } } });
+    new Chart(document.getElementById('tribePie'), { type: 'pie', data: { labels: tribeShares.labels, datasets: [{ data: tribeShares.data, backgroundColor: ['#8bc34a', '#00bcd4', '#ffc107', '#9c27b0', '#f44336', '#78909c'] }] }, options: { plugins: { legend: { position: 'bottom' } } } });
+    new Chart(document.getElementById('seasonStack'), { type: 'bar', data: { labels: seasonLabels, datasets: [{ label: 'Domestic overnight', data: seasonData.domestic, backgroundColor: '#60a5fa' }, { label: 'Same-day & local', data: seasonData.sameDay, backgroundColor: '#34d399' }] }, options: { scales: { x: { stacked: true }, y: { stacked: true, ticks: { callback: v => (v / 1e6).toFixed(1) + 'M' } } } } });
+    new Chart(document.getElementById('festivalBar'), { type: 'bar', data: { labels: festivalLabels, datasets: [{ data: festivalValues, backgroundColor: '#fb923c' }] }, options: { plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v => (v / 1e3).toFixed(0) + 'k' } } } } });
+    new Chart(document.getElementById('districtBar'), { type: 'bar', data: { labels: districtLabels, datasets: [{ data: districtVisitsData, backgroundColor: '#0ea5a4' }] }, options: { plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v => (v / 1e3).toFixed(0) + 'k' } } } } });
+
+    /* --- Map --- */
+    const map = L.map('map').setView([23.6, 85.3], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+    [{ id: 'Ranchi', lat: 23.3441, lon: 85.3096, places: ['Dassam Falls', 'Tagore Hill'] }, { id: 'Jamshedpur', lat: 22.8046, lon: 86.2029, places: ['Jubilee Park', 'Dimna Lake'] }, { id: 'Deoghar', lat: 24.4869, lon: 86.6888, places: ['Baidyanath Dham', 'Trikut Pahar'] }, { id: 'Hazaribagh', lat: 23.9933, lon: 85.3472, places: ['Wildlife Sanctuary'] }, { id: 'Dhanbad', lat: 23.7957, lon: 86.4304, places: ['Maithon Dam', 'Bhatinda Falls'] }].forEach(m => L.marker([m.lat, m.lon]).addTo(map).bindPopup(`<strong>${m.id}</strong><br>${m.places.join(', ')}`));
+
+    /* --- Tables --- */
+    const tbody = document.getElementById('districtRows');
+    districtDataCompact.forEach(d => { tbody.innerHTML += `<tr><td><a href='#'>${d.name}</a></td><td>${d.tribe}</td><td>${d.places}</td></tr>`; });
+    const summary = document.querySelector('#summary24 tbody');
+    districtDataCompact.forEach(d => { summary.innerHTML += `<tr><td>${d.name}</td><td>${d.tribe}</td><td>${d.sig}</td><td>${d.places}</td></tr>`; });
+
+    /* --- KPI formatting --- */
+    document.getElementById('kpiVisitors').textContent = (35776000).toLocaleString();
+    document.getElementById('kpiST').textContent = '26.2%';
+  </script>
+
+<!-- Content truncated for brevity in this string, assume continuation -->
+</body>
+</html>
