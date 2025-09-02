@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tourism in Jharkhand</title>
-    <!-- Link to your CSS file with correct path -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
-        /* Basic CSS to ensure page looks good even if external CSS doesn't load */
         * {
             margin: 0;
             padding: 0;
@@ -54,7 +51,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1rem;
         }
         
         nav a {
@@ -70,15 +67,120 @@
             background-color: rgba(7, 6, 6, 0.2);
         }
         
+        /* Profile and Explore dropdown styles */
+        .dropdown-section {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .dropdown-icon {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0rem 1rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-icon:hover {
+            background-color: rgba(7, 6, 6, 0.2);
+        }
+        
+        /* Circular profile icon */
+        .profile-icon-container {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .profile-icon-container:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .profile-icon svg {
+            stroke: white;
+            transition: stroke 0.3s ease;
+            width: 24px;
+            height: 24px;
+        }
+        
+        .profile-icon:hover svg {
+            stroke: #b0bec5;
+        }
+        
+        .menu-options {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 50px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            min-width: 180px;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .explore-menu .menu-options {
+            right: auto;
+            left: 0;
+        }
+        
+        .menu-options a {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s ease;
+        }
+        
+        .menu-options a:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-options a:hover {
+            background-color: #f2f2f2;
+            color: #00796b;
+        }
+        
+        .see-more {
+            background-color: #f8f9fa;
+            font-weight: 700;
+            color: #0d9488 !important;
+            border-top: 2px solid #eee !important;
+        }
+        
+        .see-more:hover {
+            background-color: #e9f5f4 !important;
+        }
+        
+        .more-districts {
+            display: none;
+        }
+        
         /* Hero section */
         .hero {
             background: url("{{ url_for('static', filename='images/Districts_of_Jharkhand_map.svg.png') }}") no-repeat center center/cover; 
-            height: 120vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             text-align: center;
             color: rgba(253, 253, 253, 0.999);
-            margin-top: 10px;
+            margin-top: 80px;
             position: relative;
         }
         
@@ -250,6 +352,37 @@
             display: block;
         }
         
+        /* Transport Section */
+        .transport {
+            background: #e5f7f6;
+        }
+        
+        .transport-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .transport-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(13, 148, 136, 0.08);
+            padding: 2rem 1rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .transport-card:hover {
+            transform: translateY(-8px) scale(1.03);
+        }
+        
+        .transport-icon {
+            font-size: 2.6rem;
+            margin-bottom: 1.1rem;
+            color: #0d9488;
+        }
+        
         /* Contact section */
         .contact {
             background-color: #fff;
@@ -410,7 +543,8 @@
             }
             
             nav ul {
-                gap: 1rem;
+                flex-direction: column;
+                gap: 0.5rem;
             }
             
             .hero h2 {
@@ -429,6 +563,26 @@
             .newsletter-form {
                 flex-direction: column;
             }
+            
+            .dropdown-section {
+                width: 100%;
+            }
+            
+            .menu-options {
+                width: 100%;
+                position: relative;
+                top: 0;
+            }
+            
+            .profile-icon-container {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .profile-icon svg {
+                width: 20px;
+                height: 20px;
+            }
         }
     </style>
 </head>
@@ -440,16 +594,78 @@
                 <div class="logo">
                     <h1>Jharkhand Tourism</h1>
                 </div>
+                
                 <nav>
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#destinations">Destinations</a></li>
-                        <li><a href="#culture">Culture</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#restaurants">Restaurants</a></li>
+                        
+                        <!-- Explore Dropdown -->
+                        <li class="dropdown-section">
+                            <div class="explore-menu">
+                                <div class="dropdown-icon" onclick="toggleExploreMenu()">
+                                    Explore
+                                </div>
+                                <div class="menu-options" id="exploreMenu">
+                                    <a href="/places/ranchi">Ranchi</a>
+                                    <a href="/places/dhanbad">Dhanbad</a>
+                                    <a href="/places/hazaribagh">Hazaribagh</a>
+                                    <a href="/places/east-singhbhum">East Singhbhum</a>
+                                    <a href="/places/deoghar">Deoghar</a>
+                                    <a href="/places/netarhat">Netarhat</a>
+                                    
+                                    <a href="#" class="see-more" onclick="showMoreDistricts(event)">See More ↓</a>
+                                    
+                                    <div class="more-districts">
+                                        <a href="/places/garhwa">Garhwa</a>
+                                        <a href="/places/palamu">Palamu</a>
+                                        <a href="/places/latehar">Latehar</a>
+                                        <a href="/places/chatra">Chatra</a>
+                                        <a href="/places/koderma">Koderma</a>
+                                        <a href="/places/giridih">Giridih</a>
+                                        <a href="/places/ramgarh">Ramgarh</a>
+                                        <a href="/places/bokaro">Bokaro</a>
+                                        <a href="/places/west-singhbhum">West Singhbhum</a>
+                                        <a href="/places/saraikela">Saraikela</a>
+                                        <a href="/places/jamtara">Jamtara</a>
+                                        <a href="/places/pakur">Pakur</a>
+                                        <a href="/places/sahebganj">Sahebganj</a>
+                                        <a href="/places/godda">Godda</a>
+                                        <a href="/places/dumka">Dumka</a>
+                                        <a href="/places/khunti">Khunti</a>
+                                        <a href="/places/gumla">Gumla</a>
+                                        <a href="/places/lohardaga">Lohardaga</a>
+                                        <a href="/places/simdega">Simdega</a>
+                                        <a href="/places/pashchimi-singhbhum">Pashchimi Singhbhum</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
                         <li><a href="/dashboard">Dashboard</a></li>
-
                     </ul>
                 </nav>
+                
+                <!-- Profile Dropdown with Circular Icon -->
+                <div class="dropdown-section profile-drawing-section">
+                    <div class="profile-menu">
+                        <div class="profile-icon-container" onclick="toggleProfileMenu()">
+                            <div class="profile-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="7" r="5" stroke="#fff" stroke-width="2"/>
+                                    <path d="M4 21c0-4 4-7 8-7s8 3 8 7" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="menu-options" id="profileMenu">
+                            <a href="/profile">My Profile</a>
+                            <a href="/settings">Settings</a>
+                            <a href="/help">Help Us</a>
+                            <a href="/logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -457,7 +673,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h2></h2>
+            <h2>Discover Jharkhand</h2>
             <p>Experience the rich cultural heritage and natural wonders of India's hidden gem</p>
             <a href="#destinations" class="btn">Explore Now</a>
         </div>
@@ -472,7 +688,6 @@
             <div class="destination-grid">
                 <div class="destination-card">
                     <div class="card-img">
-                        <!-- Using your image from static folder -->
                         <img src="{{ url_for('static', filename='images/jharkhand1_Betla-NP_FI.jpg') }}" alt="Betla National Park">
                     </div>
                     <div class="card-content">
@@ -502,6 +717,37 @@
         </div>
     </section>
 
+    <!-- Means of Transport Section -->
+    <section id="transport" class="transport">
+        <div class="container">
+            <div class="section-title">
+                <h2>Means of Transport</h2>
+            </div>
+            <div class="transport-grid">
+                <div class="transport-card">
+                    <div class="transport-icon">🚆</div>
+                    <h3>Railways</h3>
+                    <p>Major cities like Ranchi, Dhanbad, and Jamshedpur are well-connected by Indian Railways, making travel convenient across Jharkhand.</p>
+                </div>
+                <div class="transport-card">
+                    <div class="transport-icon">🚌</div>
+                    <h3>Bus Services</h3>
+                    <p>State-run and private buses offer connectivity between towns and up to scenic spots. Affordable for both locals and tourists.</p>
+                </div>
+                <div class="transport-card">
+                    <div class="transport-icon">✈️</div>
+                    <h3>Airports</h3>
+                    <p>Birsa Munda Airport in Ranchi has direct flights to major Indian cities, providing rapid access to the state.</p>
+                </div>
+                <div class="transport-card">
+                    <div class="transport-icon">🚗</div>
+                    <h3>Car Rentals & Taxis</h3>
+                    <p>Reliable car rental and local taxi services are available for comfortable exploration of tourist destinations at your own pace.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Culture Section -->
     <section id="culture" class="culture">
         <div class="container">
@@ -524,7 +770,7 @@
                         <p>The state celebrates various festivals with great enthusiasm. Sarhul, Karma, and Tusu Parab are among the most important festivals that showcase the rich cultural heritage of Jharkhand.</p>
                     </div>
                     <div class="culture-image">
-                        <img src="{{ url_for('static', filename='images/tribal-festival-1jpg_1743508534226.webp') }} "  alt="Festivals">
+                        <img src="{{ url_for('static', filename='images/tribal-festival-1jpg_1743508534226.webp') }}" alt="Festivals">
                     </div>
                 </div>
                 <div class="culture-item">
@@ -550,15 +796,15 @@
                 <div class="contact-info">
                     <h3>Get in Touch</h3>
                     <div class="contact-info-item">
-                        <i>📍</i>
+                        <span>📍</span>
                         <p>Tourism Department, Government of Jharkhand<br>Ranchi, Jharkhand - 834001</p>
                     </div>
                     <div class="contact-info-item">
-                        <i>📞</i>
+                        <span>📞</span>
                         <p>+91 XXXXXXXXXX</p>
                     </div>
                     <div class="contact-info-item">
-                        <i>✉️</i>
+                        <span>✉️</span>
                         <p>info@jharkhandtourism.com</p>
                     </div>
                 </div>
@@ -617,7 +863,88 @@
     </footer>
 
     <script>
-        // Simple JavaScript for smooth scrolling
+        // Function to toggle Explore menu
+        function toggleExploreMenu() {
+            var exploreMenu = document.getElementById('exploreMenu');
+            var profileMenu = document.getElementById('profileMenu');
+            
+            // Close profile menu if open
+            profileMenu.style.display = 'none';
+            
+            // Toggle explore menu
+            if (exploreMenu.style.display === 'block') {
+                exploreMenu.style.display = 'none';
+            } else {
+                exploreMenu.style.display = 'block';
+            }
+            
+            // Prevent the click from closing the menu immediately
+            event.stopPropagation();
+        }
+        
+        // Function to toggle Profile menu
+        function toggleProfileMenu() {
+            var exploreMenu = document.getElementById('exploreMenu');
+            var profileMenu = document.getElementById('profileMenu');
+            
+            // Close explore menu if open
+            exploreMenu.style.display = 'none';
+            
+            // Toggle profile menu
+            if (profileMenu.style.display === 'block') {
+                profileMenu.style.display = 'none';
+            } else {
+                profileMenu.style.display = 'block';
+            }
+            
+            // Prevent the click from closing the menu immediately
+            event.stopPropagation();
+        }
+        
+        // Function to show more districts
+        function showMoreDistricts(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            var moreDistricts = document.querySelector('.more-districts');
+            var seeMoreLink = document.querySelector('.see-more');
+            
+            if (moreDistricts.style.display === 'block') {
+                moreDistricts.style.display = 'none';
+                seeMoreLink.textContent = 'See More ↓';
+            } else {
+                moreDistricts.style.display = 'block';
+                seeMoreLink.textContent = 'See Less ↑';
+                
+                // Scroll to the bottom of the menu
+                var exploreMenu = document.getElementById('exploreMenu');
+                exploreMenu.scrollTop = exploreMenu.scrollHeight;
+            }
+        }
+        
+        // Close dropdowns when clicking elsewhere on the document
+        document.addEventListener('click', function(event) {
+            var exploreMenu = document.getElementById('exploreMenu');
+            var profileMenu = document.getElementById('profileMenu');
+            
+            if (exploreMenu.style.display === 'block' && 
+                !event.target.closest('.explore-menu')) {
+                exploreMenu.style.display = 'none';
+                
+                // Reset the "See More" section when menu is closed
+                var moreDistricts = document.querySelector('.more-districts');
+                var seeMoreLink = document.querySelector('.see-more');
+                moreDistricts.style.display = 'none';
+                seeMoreLink.textContent = 'See More ↓';
+            }
+            
+            if (profileMenu.style.display === 'block' && 
+                !event.target.closest('.profile-menu')) {
+                profileMenu.style.display = 'none';
+            }
+        });
+        
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
