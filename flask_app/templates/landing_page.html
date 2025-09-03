@@ -371,6 +371,7 @@
             padding: 2rem 1rem;
             text-align: center;
             transition: transform 0.2s;
+            position: relative;
         }
         
         .transport-card:hover {
@@ -378,9 +379,30 @@
         }
         
         .transport-icon {
-            font-size: 2.6rem;
-            margin-bottom: 1.1rem;
+            font-size: 3rem;
+            margin-bottom: 1rem;
             color: #0d9488;
+        }
+        
+        .transport-card h3 a {
+            color: #065f46;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        
+        .transport-card h3 a:hover {
+            color: #0d9488;
+            text-decoration: underline;
+        }
+        
+        .transport-card a.full-card-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-indent: -9999px;
+            z-index: 1;
         }
         
         /* Contact section */
@@ -726,24 +748,23 @@
             <div class="transport-grid">
                 <div class="transport-card">
                     <div class="transport-icon">🚆</div>
-                    <h3>Railways</h3>
+                    <h3><a href="/railway">Railways</a></h3>
                     <p>Major cities like Ranchi, Dhanbad, and Jamshedpur are well-connected by Indian Railways, making travel convenient across Jharkhand.</p>
+                    <a href="/railway" class="full-card-link">Railways</a>
                 </div>
                 <div class="transport-card">
                     <div class="transport-icon">🚌</div>
-                    <h3>Bus Services</h3>
+                    <h3><a href="/bus">Bus</a></h3>
                     <p>State-run and private buses offer connectivity between towns and up to scenic spots. Affordable for both locals and tourists.</p>
+                    <a href="/bus" class="full-card-link">Bus</a>
                 </div>
                 <div class="transport-card">
                     <div class="transport-icon">✈️</div>
-                    <h3>Airports</h3>
+                    <h3><a href="/airport">Airport</a></h3>
                     <p>Birsa Munda Airport in Ranchi has direct flights to major Indian cities, providing rapid access to the state.</p>
+                    <a href="/airport" class="full-card-link">Airport</a>
                 </div>
-                <div class="transport-card">
-                    <div class="transport-icon">🚗</div>
-                    <h3>Car Rentals & Taxis</h3>
-                    <p>Reliable car rental and local taxi services are available for comfortable exploration of tourist destinations at your own pace.</p>
-                </div>
+                
             </div>
         </div>
     </section>
