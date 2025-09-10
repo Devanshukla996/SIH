@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Booking in Jharkhand</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffffff 0%, #6dbd74 50%, #c8e6c9 100%);
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32, #1b5e20);
+            z-index: 10;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            padding: 35px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            border-radius: 2px;
+        }
+        
+        h1 {
+            color: #208624;
+            font-size: 2.4rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.15rem;
+            font-weight: 400;
+        }
+        
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            width: 100%;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        label i {
+            margin-right: 8px;
+            color: #247e27;
+        }
+        
+        select, input {
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #276e29;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+            background: #fff;
+        }
+        
+        button {
+            grid-column: span 2;
+            background: linear-gradient(to right, #4caf50, #2e7d32);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.15rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(76, 175, 80, 0.35);
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .info-box {
+            background: linear-gradient(to right, #f1f8e9, #e8f5e9);
+            border-left: 4px solid #267628;
+            padding: 18px;
+            margin-top: 25px;
+            border-radius: 8px;
+            grid-column: span 2;
+            position: relative;
+        }
+        
+        .info-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1e6d22;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-title i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .decoration {
+            position: absolute;
+            opacity: 0.03;
+            font-size: 6rem;
+            z-index: 0;
+            color: #156a18;
+        }
+        
+        .decoration-1 {
+            top: 20px;
+            right: 20px;
+        }
+        
+        .decoration-2 {
+            bottom: 20px;
+            left: 20px;
+            transform: rotate(180deg);
+        }
+        
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+            
+            button {
+                grid-column: span 1;
+            }
+            
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            select, input {
+                padding: 12px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <i class="decoration decoration-1 fas fa-bus"></i>
+        <i class="decoration decoration-2 fas fa-bus"></i>
+        
+        <header>
+            <h1>Jharkhand Bus Booking</h1>
+            <p class="subtitle">Book your bus tickets easily with RedBus</p>
+        </header>
+        
+        <form id="busForm">
+            <div class="form-group">
+                <label for="from"><i class="fas fa-map-marker-alt"></i> From District:</label>
+                <select id="from" required>
+                    <option value="">Select District</option>
+                    <option value="Bokaro">Bokaro</option>
+                    <option value="Deoghar">Deoghar</option>
+                    <option value="Dhanbad">Dhanbad</option>
+                    <option value="Dumka">Dumka</option>
+                    <option value="East Singhbhum">East Singhbhum (Jamshedpur)</option>
+                    <option value="Giridih">Giridih</option>
+                    <option value="Hazaribagh">Hazaribagh</option>
+                    <option value="Koderma">Koderma</option>
+                    <option value="Ramgarh">Ramgarh</option>
+                    <option value="Ranchi">Ranchi</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="to"><i class="fas fa-map-marker-alt"></i> To District:</label>
+                <select id="to" required>
+                    <option value="">Select District</option>
+                    <option value="Bokaro">Bokaro</option>
+                    <option value="Deoghar">Deoghar</option>
+                    <option value="Dhanbad">Dhanbad</option>
+                    <option value="Dumka">Dumka</option>
+                    <option value="East Singhbhum">East Singhbhum (Jamshedpur)</option>
+                    <option value="Giridih">Giridih</option>
+                    <option value="Hazaribagh">Hazaribagh</option>
+                    <option value="Koderma">Koderma</option>
+                    <option value="Ramgarh">Ramgarh</option>
+                    <option value="Ranchi">Ranchi</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="date"><i class="far fa-calendar-alt"></i> Travel Date:</label>
+                <input type="date" id="date" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="return-date"><i class="far fa-calendar-check"></i> Return Date (Optional):</label>
+                <input type="date" id="return-date">
+            </div>
+            
+            <button type="submit"><i class="fas fa-search"></i> Search Buses</button>
+            
+            <div class="info-box">
+                <p class="info-title"><i class="fas fa-info-circle"></i> Why book with us?</p>
+                <p>Get the best deals on bus tickets across Jharkhand. Easy booking, secure payment options, and 24/7 customer support.</p>
+            </div>
+        </form>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 Jharkhand Bus Services. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const busForm = document.getElementById('busForm');
+            const slugMap = {
+                'Bokaro': 'bokaro',
+                'Deoghar': 'deoghar',
+                'Dhanbad': 'dhanbad',
+                'Dumka': 'dumka',
+                'East Singhbhum': 'jamshedpur',
+                'Giridih': 'giridih',
+                'Hazaribagh': 'hazaribagh',
+                'Koderma': 'koderma',
+                'Ramgarh': 'ramgarh',
+                'Ranchi': 'ranchi'
+            };
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').setAttribute('min', today);
+            document.getElementById('return-date').setAttribute('min', today);
+            
+            busForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const from = document.getElementById('from').value;
+                const to = document.getElementById('to').value;
+                const dateInput = document.getElementById('date').value;
+                
+                if (from === '' || to === '') {
+                    alert('Please select both from and to districts');
+                    return;
+                }
+                
+                if (from === to) {
+                    alert('From and To destinations must be different');
+                    return;
+                }
+                
+                const today = new Date().toISOString().slice(0, 10);
+                if (dateInput < today) {
+                    alert('Date must be today or in the future');
+                    return;
+                }
+                
+                const [year, month, day] = dateInput.split('-');
+                const formattedDate = `${day}-${month}-${year}`;
+                const fromSlug = slugMap[from];
+                const toSlug = slugMap[to];
+                
+                const url = `https://www.redbus.in/bus-tickets/${fromSlug}-to-${toSlug}?fromCityName=${from.replace(' (Jamshedpur)', '')}&toCityName=${to.replace(' (Jamshedpur)', '')}&onwardDate=${formattedDate}`;
+                window.open(url, '_blank');
+            });
+            
+            // Add some interactivity to form elements
+            const formSelects = document.querySelectorAll('select');
+            formSelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    if (this.value) {
+                        this.style.borderColor = '#4caf50';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking in Jharkhand</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32, #1b5e20);
+            z-index: 10;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 650px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+        }
+        
+        header {
+            background: linear-gradient(115deg, #4caf50, #2e7d32);
+            color: white;
+            text-align: center;
+            padding: 30px 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 17px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #444;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        label i {
+            margin-right: 10px;
+            color: #4caf50;
+            font-size: 18px;
+        }
+        
+        select, input {
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25);
+            background: #fff;
+        }
+        
+        button {
+            grid-column: span 2;
+            background: linear-gradient(to right, #4caf50, #2e7d32);
+            color: white;
+            border: none;
+            padding: 17px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .info-box {
+            background: linear-gradient(to right, #e8f5e9, #f1f8e9);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+            grid-column: span 2;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .info-title {
+            font-weight: 700;
+            color: #2e7d32;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 1.05rem;
+        }
+        
+        .info-title i {
+            margin-right: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            color: white;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .airport-code {
+            font-size: 12px;
+            color: #666;
+            margin-left: 5px;
+            font-weight: 500;
+        }
+        
+        .flight-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 24px;
+            transform: rotate(45deg);
+        }
+        
+        @media (max-width: 650px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+            
+            button {
+                grid-column: span 1;
+            }
+            
+            .container {
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .form-container {
+                padding: 25px 20px;
+            }
+        }
+        
+        .plane-decoration {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 5rem;
+            z-index: 0;
+        }
+        
+        .plane-1 {
+            top: 10%;
+            left: 5%;
+            transform: rotate(-30deg);
+        }
+        
+        .plane-2 {
+            bottom: 10%;
+            right: 5%;
+            transform: rotate(30deg);
+        }
+    </style>
+</head>
+<body>
+    <i class="plane-decoration plane-1 fas fa-plane"></i>
+    <i class="plane-decoration plane-2 fas fa-plane"></i>
+    
+    <div class="container">
+        <header>
+            <i class="flight-icon fas fa-plane-departure"></i>
+            <h1>Jharkhand Flight Booking</h1>
+            <p class="subtitle">Book your flight tickets easily with MakeMyTrip</p>
+        </header>
+        
+        <div class="form-container">
+            <form id="flightForm">
+                <div class="form-group">
+                    <label for="from"><i class="fas fa-plane-departure"></i> From Airport:</label>
+                    <select id="from" required>
+                        <option value="">Select Departure</option>
+                        <option value="Deoghar">Deoghar (DGH)</option>
+                        <option value="East Singhbhum">Jamshedpur (IXW)</option>
+                        <option value="Ranchi">Ranchi (IXR)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="to"><i class="fas fa-plane-arrival"></i> To Airport:</label>
+                    <select id="to" required>
+                        <option value="">Select Destination</option>
+                        <option value="Deoghar">Deoghar (DGH)</option>
+                        <option value="East Singhbhum">Jamshedpur (IXW)</option>
+                        <option value="Ranchi">Ranchi (IXR)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date"><i class="far fa-calendar-alt"></i> Travel Date:</label>
+                    <input type="date" id="date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="passengers"><i class="fas fa-users"></i> Passengers:</label>
+                    <select id="passengers">
+                        <option value="1">1 Adult</option>
+                        <option value="2">2 Adults</option>
+                        <option value="3">3 Adults</option>
+                        <option value="4">4 Adults</option>
+                    </select>
+                </div>
+                
+                <button type="submit"><i class="fas fa-search"></i> Search Flights</button>
+                
+                <div class="info-box">
+                    <p class="info-title"><i class="fas fa-info-circle"></i> Direct Flights Available</p>
+                    <p>We offer direct flights between all major airports in Jharkhand with competitive pricing.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2023 Jharkhand Flight Booking Service | Partnered with MakeMyTrip</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const flightForm = document.getElementById('flightForm');
+            const airportMap = {
+                'Deoghar': 'DGH',
+                'East Singhbhum': 'IXW',
+                'Ranchi': 'IXR'
+            };
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').setAttribute('min', today);
+            
+            flightForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const from = document.getElementById('from').value;
+                const to = document.getElementById('to').value;
+                const dateInput = document.getElementById('date').value;
+                const passengers = document.getElementById('passengers').value;
+                
+                if (from === '' || to === '') {
+                    alert('Please select both departure and destination airports');
+                    return;
+                }
+                
+                if (from === to) {
+                    alert('Departure and destination airports must be different');
+                    return;
+                }
+                
+                const today = new Date().toISOString().slice(0, 10);
+                if (dateInput < today) {
+                    alert('Date must be today or in the future');
+                    return;
+                }
+                
+                const [year, month, day] = dateInput.split('-');
+                const formattedDate = `${day}/${month}/${year}`;
+                const fromAirport = airportMap[from];
+                const toAirport = airportMap[to];
+                
+                const url = `https://www.makemytrip.com/flight/search?itinerary=${fromAirport}-${toAirport}-${formattedDate}&tripType=o&paxType=A-${passengers}_C-0_I-0&intl=false&cabinClass=E&ccde=IN&lang=eng`;
+                window.open(url, '_blank');
+            });
+            
+            // Add some interactivity to form elements
+            const formSelects = document.querySelectorAll('select');
+            formSelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    if (this.value) {
+                        this.style.borderColor = '#4caf50';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

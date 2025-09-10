@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jharkhand Train Booking System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32, #1b5e20);
+            z-index: 10;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 25px;
+            margin-bottom: 35px;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .logo i {
+            font-size: 3rem;
+            color: #4caf50;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #4caf50;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .tagline {
+            color: #666;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+        
+        .partner-badge {
+            display: inline-block;
+            background: linear-gradient(to right, #ff6b6b, #ff9e6b);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+        }
+        
+        .booking-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 35px;
+            margin-bottom: 40px;
+        }
+        
+        .booking-form {
+            flex: 1;
+            min-width: 320px;
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .booking-form::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+        }
+        
+        .booking-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .form-title {
+            font-size: 1.7rem;
+            color: #4caf50;
+            margin-bottom: 30px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e8f5e9;
+            position: relative;
+        }
+        
+        .form-title::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            border-radius: 3px;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-group label i {
+            color: #4caf50;
+            font-size: 1.1rem;
+        }
+        
+        .input-group select, 
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #fafafa;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .input-group select:focus, 
+        .input-group input:focus {
+            border-color: #4caf50;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+            background: #fff;
+        }
+        
+        .swap-button {
+            display: block;
+            margin: 15px auto;
+            background: linear-gradient(to right, #ff9800, #f57c00);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+        
+        .swap-button:hover {
+            transform: rotate(180deg);
+            box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 17px;
+            background: linear-gradient(to right, #4caf50, #2e7d32);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .info-box {
+            flex: 1;
+            min-width: 320px;
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+        }
+        
+        .info-title {
+            font-size: 1.7rem;
+            color: #4caf50;
+            margin-bottom: 30px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e8f5e9;
+            position: relative;
+        }
+        
+        .info-title::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            border-radius: 3px;
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .features li {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: background 0.3s;
+        }
+        
+        .features li:hover {
+            background: #f9f9f9;
+        }
+        
+        .features i {
+            color: #4caf50;
+            font-size: 1.3rem;
+        }
+        
+        .popular-routes {
+            margin-top: 30px;
+        }
+        
+        .routes-title {
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            color: #4caf50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .routes-title i {
+            font-size: 1.3rem;
+        }
+        
+        .route-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .route-btn {
+            padding: 10px 18px;
+            background: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .route-btn:hover {
+            background: #c8e6c9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .route-btn i {
+            font-size: 0.9rem;
+            color: #4caf50;
+        }
+        
+        .results {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            margin-bottom: 40px;
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .results::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+        }
+        
+        .results.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .results-title {
+            font-size: 1.7rem;
+            color: #4caf50;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .train-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .train-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .train-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+        }
+        
+        .train-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .train-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4caf50;
+            margin-bottom: 12px;
+        }
+        
+        .train-number {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .train-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            align-items: center;
+        }
+        
+        .train-time {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .train-duration {
+            text-align: center;
+            color: #666;
+            padding: 5px 12px;
+            background: #f5f5f5;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .train-route {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 18px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .train-fare {
+            font-weight: 700;
+            color: #e65100;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        .train-classes {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .book-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #4caf50, #2e7d32);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .book-btn:hover {
+            background: linear-gradient(to right, #2e7d32, #1b5e20);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .train-icon {
+            position: absolute;
+            color: rgba(76, 175, 80, 0.05);
+            font-size: 6rem;
+            z-index: 0;
+            transform: rotate(30deg);
+        }
+        
+        .train-icon-1 {
+            top: 10%;
+            right: 5%;
+        }
+        
+        .train-icon-2 {
+            bottom: 10%;
+            left: 5%;
+            transform: rotate(-30deg);
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            grid-column: 1 / -1;
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4caf50;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .booking-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .train-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .route-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <i class="train-icon train-icon-1 fas fa-train"></i>
+    <i class="train-icon train-icon-2 fas fa-train"></i>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-train"></i>
+                <h1>Jharkhand Rail Connect</h1>
+            </div>
+            <p class="tagline">Book your train tickets seamlessly across Jharkhand</p>
+            <div class="partner-badge">
+                <i class="fas fa-handshake"></i> Powered by MakeMyTrip
+            </div>
+        </header>
+        
+        <div class="booking-container">
+            <div class="booking-form">
+                <h2 class="form-title">Plan Your Journey</h2>
+                <form id="trainForm">
+                    <div class="input-group">
+                        <label for="from"><i class="fas fa-map-marker-alt"></i> From Station</label>
+                        <select id="from" required>
+                            <option value="">Select departure station</option>
+                            <option value="Ranchi">Ranchi (RNC)</option>
+                            <option value="Jamshedpur">Jamshedpur (TATA)</option>
+                            <option value="Dhanbad">Dhanbad (DHN)</option>
+                            <option value="Bokaro">Bokaro Steel City (BKSC)</option>
+                            <option value="Hazaribagh">Hazaribagh (HZD)</option>
+                            <option value="Deoghar">Deoghar (DGHR)</option>
+                            <option value="Dumka">Dumka (DUMK)</option>
+                            <option value="Giridih">Giridih (GRD)</option>
+                        </select>
+                    </div>
+                    
+                    <button type="button" class="swap-button" id="swapButton">
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
+                    
+                    <div class="input-group">
+                        <label for="to"><i class="fas fa-map-marker-alt"></i> To Station</label>
+                        <select id="to" required>
+                            <option value="">Select destination station</option>
+                            <option value="Ranchi">Ranchi (RNC)</option>
+                            <option value="Jamshedpur">Jamshedpur (TATA)</option>
+                            <option value="Dhanbad">Dhanbad (DHN)</option>
+                            <option value="Bokaro">Bokaro Steel City (BKSC)</option>
+                            <option value="Hazaribagh">Hazaribagh (HZD)</option>
+                            <option value="Deoghar">Deoghar (DGHR)</option>
+                            <option value="Dumka">Dumka (DUMK)</option>
+                            <option value="Giridih">Giridih (GRD)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="date"><i class="far fa-calendar-alt"></i> Journey Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="class"><i class="fas fa-layer-group"></i> Travel Class</label>
+                        <select id="class">
+                            <option value="ALL">All Classes</option>
+                            <option value="SL">Sleeper (SL)</option>
+                            <option value="3A">AC 3-Tier (3A)</option>
+                            <option value="2A">AC 2-Tier (2A)</option>
+                            <option value="1A">First AC (1A)</option>
+                            <option value="CC">AC Chair Car (CC)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="quota"><i class="fas fa-ticket-alt"></i> Quota</label>
+                        <select id="quota">
+                            <option value="GN">General</option>
+                            <option value="LD">Ladies</option>
+                            <option value="TQ">Tatkal</option>
+                            <option value="PT">Premium Tatkal</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-search"></i> Search Trains
+                    </button>
+                </form>
+            </div>
+            
+            <div class="info-box">
+                <h2 class="info-title">Why Book With Us?</h2>
+                <ul class="features">
+                    <li><i class="fas fa-check-circle"></i> Zero booking fees</li>
+                    <li><i class="fas fa-check-circle"></i> Instant confirmation</li>
+                    <li><i class="fas fa-check-circle"></i> Live seat availability</li>
+                    <li><i class="fas fa-check-circle"></i> Secure payment options</li>
+                    <li><i class="fas fa-check-circle"></i> 24/7 customer support</li>
+                </ul>
+                
+                <div class="popular-routes">
+                    <h3 class="routes-title"><i class="fas fa-route"></i> Popular Routes</h3>
+                    <div class="route-buttons">
+                        <button class="route-btn" data-from="Ranchi" data-to="Jamshedpur"><i class="fas fa-train"></i> Ranchi → Jamshedpur</button>
+                        <button class="route-btn" data-from="Dhanbad" data-to="Ranchi"><i class="fas fa-train"></i> Dhanbad → Ranchi</button>
+                        <button class="route-btn" data-from="Jamshedpur" data-to="Dhanbad"><i class="fas fa-train"></i> Jamshedpur → Dhanbad</button>
+                        <button class="route-btn" data-from="Bokaro" data-to="Ranchi"><i class="fas fa-train"></i> Bokaro → Ranchi</button>
+                        <button class="route-btn" data-from="Deoghar" data-to="Dumka"><i class="fas fa-train"></i> Deoghar → Dumka</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="results" id="results">
+            <h2 class="results-title">Available Trains</h2>
+            <div class="train-list" id="trainList">
+                <!-- Train results will be displayed here -->
+            </div>
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>Redirecting to MakeMyTrip for booking...</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 Jharkhand Rail Connect. Partnered with MakeMyTrip.</p>
+            <p>This is a demo interface for educational purposes.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').setAttribute('min', today);
+            
+            // Set default date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowFormatted = tomorrow.toISOString().split('T')[0];
+            document.getElementById('date').value = tomorrowFormatted;
+            
+            const trainForm = document.getElementById('trainForm');
+            const swapButton = document.getElementById('swapButton');
+            const resultsDiv = document.getElementById('results');
+            const trainListDiv = document.getElementById('trainList');
+            const loadingDiv = document.getElementById('loading');
+            
+            // Station to code mapping
+            const stationCodes = {
+                'Ranchi': 'RNC',
+                'Jamshedpur': 'TATA',
+                'Dhanbad': 'DHN',
+                'Bokaro Steel City': 'BKSC',
+                'Hazaribagh': 'HZD',
+                'Deoghar': 'DGHR',
+                'Dumka': 'DUMK',
+                'Giridih': 'GRD'
+            };
+            
+            // Swap from and to stations
+            swapButton.addEventListener('click', function() {
+                const fromSelect = document.getElementById('from');
+                const toSelect = document.getElementById('to');
+                const tempValue = fromSelect.value;
+                
+                fromSelect.value = toSelect.value;
+                toSelect.value = tempValue;
+            });
+            
+            // Popular route buttons
+            document.querySelectorAll('.route-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.getElementById('from').value = this.getAttribute('data-from');
+                    document.getElementById('to').value = this.getAttribute('data-to');
+                });
+            });
+            
+            // Sample train data
+            const trainData = [
+                {
+                    name: "Ranchi Rajdhani Express",
+                    number: "12453",
+                    from: "RNC",
+                    to: "TATA",
+                    departure: "06:00",
+                    arrival: "09:30",
+                    duration: "3h 30m",
+                    classes: ["1A", "2A", "3A"],
+                    fare: 945
+                },
+                {
+                    name: "Dhanbad Express",
+                    number: "13307",
+                    from: "DHN",
+                    to: "RNC",
+                    departure: "07:30",
+                    arrival: "12:45",
+                    duration: "5h 15m",
+                    classes: ["SL", "3A", "2A"],
+                    fare: 425
+                },
+                {
+                    name: "Jharkhand Sampark Kranti",
+                    number: "12827",
+                    from: "TATA",
+                    to: "BKSC",
+                    departure: "09:15",
+                    arrival: "11:45",
+                    duration: "2h 30m",
+                    classes: ["SL", "3A", "CC"],
+                    fare: 285
+                },
+                {
+                    name: "Patna Ranchi Express",
+                    number: "18623",
+                    from: "RNC",
+                    to: "HZD",
+                    departure: "14:20",
+                    arrival: "17:05",
+                    duration: "2h 45m",
+                    classes: ["SL", "3A"],
+                    fare: 195
+                },
+                {
+                    name: "Hazaribagh Express",
+                    number: "13353",
+                    from: "HZD",
+                    to: "DGHR",
+                    departure: "11:10",
+                    arrival: "15:25",
+                    duration: "4h 15m",
+                    classes: ["SL", "3A", "2A"],
+                    fare: 335
+                },
+                {
+                    name: "Deoghar Dumka Passenger",
+                    number: "53371",
+                    from: "DGHR",
+                    to: "DUMK",
+                    departure: "13:40",
+                    arrival: "16:05",
+                    duration: "2h 25m",
+                    classes: ["SL"],
+                    fare: 85
+                }
+            ];
+            
+            // Form submission
+            trainForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const from = document.getElementById('from').value;
+                const to = document.getElementById('to').value;
+                const date = document.getElementById('date').value;
+                const travelClass = document.getElementById('class').value;
+                
+                if (!from || !to) {
+                    alert('Please select both from and to stations');
+                    return;
+                }
+                
+                if (from === to) {
+                    alert('From and To stations must be different');
+                    return;
+                }
+                
+                // Filter trains based on selection (simulated)
+                const filteredTrains = trainData.filter(train => {
+                    // This is a simplified filter for demonstration
+                    return (from.includes(train.from) || to.includes(train.to));
+                });
+                
+                // Display results
+                displayResults(filteredTrains, from, to, date);
+            });
+            
+            // Display train results
+            function displayResults(trains, from, to, date) {
+                trainListDiv.innerHTML = '';
+                
+                if (trains.length === 0) {
+                    trainListDiv.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #666;">No trains found for this route. Please try different stations.</p>';
+                    resultsDiv.classList.add('visible');
+                    return;
+                }
+                
+                trains.forEach(train => {
+                    const trainCard = document.createElement('div');
+                    trainCard.className = 'train-card';
+                    
+                    trainCard.innerHTML = `
+                        <div class="train-name">${train.name}</div>
+                        <div class="train-number">Train No: ${train.number}</div>
+                        <div class="train-details">
+                            <div class="train-time">${train.departure}</div>
+                            <div class="train-duration">${train.duration}</div>
+                            <div class="train-time">${train.arrival}</div>
+                        </div>
+                        <div class="train-route">${train.from} → ${train.to}</div>
+                        <div class="train-fare">₹ ${train.fare} onwards</div>
+                        <div class="train-classes">Available: ${train.classes.join(', ')}</div>
+                        <button class="book-btn" data-train="${train.number}"><i class="fas fa-ticket-alt"></i> Book Now</button>
+                    `;
+                    
+                    trainListDiv.appendChild(trainCard);
+                });
+                
+                // Add event listeners to book buttons
+                document.querySelectorAll('.book-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const trainNumber = this.getAttribute('data-train');
+                        const fromStation = document.getElementById('from').value;
+                        const toStation = document.getElementById('to').value;
+                        const dateValue = document.getElementById('date').value;
+                        const travelClass = document.getElementById('class').value;
+                        const quota = document.getElementById('quota').value;
+                        
+                        // Show loading animation
+                        trainListDiv.style.display = 'none';
+                        loadingDiv.style.display = 'block';
+                        
+                        // Format date for MakeMyTrip (DDMMYYYY)
+                        const [year, month, day] = dateValue.split('-');
+                        const formattedDate = `${day}${month}${year}`;
+                        
+                        // Get station names without codes in parentheses
+                        const fromStationName = fromStation.split(' (')[0];
+                        const toStationName = toStation.split(' (')[0];
+                        
+                        // Get station codes
+                        const fromCode = stationCodes[fromStationName] || fromStation;
+                        const toCode = stationCodes[toStationName] || toStation;
+                        
+                        // Create MakeMyTrip URL with all parameters
+                        // Using the standard search URL format that MakeMyTrip uses
+                        const mmtUrl = `https://www.makemytrip.com/railways/search?fromCity=${fromCode}&toCity=${toCode}&date=${formattedDate}&class=${travelClass}&quota=${quota}`;
+                        
+                        // Simulate loading for better UX
+                        setTimeout(() => {
+                            // Redirect to MakeMyTrip
+                            window.open(mmtUrl, '_blank');
+                            
+                            // Hide loading and show results again
+                            loadingDiv.style.display = 'none';
+                            trainListDiv.style.display = 'grid';
+                        }, 1500);
+                    });
+                });
+                
+                resultsDiv.classList.add('visible');
+                
+                // Scroll to results
+                resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
