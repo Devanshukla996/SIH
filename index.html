@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jharkhand Tourism Login</title>
+</head>
+<body style="margin:0; padding:0; font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(rgba(0,35,102,0.8), rgba(0,100,50,0.7)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed; background-size:cover;">
+  <div style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center;">
+    <div style="background:rgba(255,255,255,0.90); border-radius:20px; box-shadow:0 8px 40px rgba(0,80,80,0.18); padding:48px 36px 40px 36px; width:340px; text-align:center;">
+      <h2 style="color:#16846a; font-size:2.3rem; font-weight:600; letter-spacing:1px; margin-bottom:12px; font-family: 'Segoe UI', Arial;">Welcome to Jharkhand</h2>
+      <p style="margin-bottom:28px; color:#3b5272; font-size:1.1rem;">Discover the Heart of Nature</p>
+      <form action="/login" method="post">
+        <input type="text" name="username" placeholder="Username" required style="width:90%; padding:12px; margin:10px 0 18px 0; border-radius:7px; border:1px solid #e0e0e0; background:#eef8f6; font-size:1rem;">
+        
+        <select name="role" required style="width:100%; padding:12px; margin:0 0 18px 0; border-radius:7px; border:1px solid #e0e0e0; background:#eef8f6; font-size:1rem; cursor:pointer;">
+          <option value="" disabled selected>Select Role</option>
+          <option value="tourist">Tourist</option>
+          <option value="guide">Guide</option>
+        </select>
+        
+        <input type="password" name="password" placeholder="Password" required style="width:90%; padding:12px; margin:0 0 18px 0; border-radius:7px; border:1px solid #e0e0e0; background:#eef8f6; font-size:1rem;">
+        <div style="text-align:left; margin-bottom:18px;">
+          <label style="font-size:0.98rem; color:#1d4735;">
+            <input type="checkbox" name="remember" style="margin-right:6px;">Remember me
+          </label>
+        </div>
+        <button type="submit" style="width:100%; padding:12px; background:linear-gradient(90deg,#17967a,#39b389); border:none; color:#fff; font-size:1.1rem; font-weight:600; border-radius:8px; letter-spacing:1px; cursor:pointer; box-shadow: 0 4px 14px #b2d5c7b3;">Login</button>
+      </form>
+      <div style="margin-top:16px;">
+        <a href="#" style="color:#277582; text-decoration:none; font-size:0.97rem;">Forgot password?</a>
+      </div>
+      <div style="margin-top:14px; font-size:0.97rem; color:#2c5234;">New to Jharkhand Tourism? 
+        <a href="#" style="color:#17a586; text-decoration:underline;">Register</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
