@@ -1,0 +1,293 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ramgarh — Green Travel Guide</title>
+  <meta name="description" content="Ramgarh travel guide — experiences, culture, transport, gallery. Green themed Lonely Planet style template." />
+  <style>
+    :root{
+      --green-700:#2e7d32;
+      --green-500:#66bb6a;
+      --accent:#a5d6a7;
+      --bg:#f1f8f2;
+      --card:#ffffff;
+      --muted:#556b2f;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:#1b1b1b}
+    
+     /* Close button styling */
+    .page-close {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: #c62828;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+    .page-close:hover {
+      background: #a31414;
+    }
+
+    .nav{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,var(--green-700),var(--green-500));color:#fff;padding:12px 6%;display:flex;align-items:center;gap:16px}
+    .brand{font-weight:700;font-size:1.1rem}
+    .nav-links{margin-left:auto;display:flex;gap:14px}
+    .nav-links a{color:rgba(255,255,255,0.95);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
+    .nav-links a:hover, .nav-links a.active{background:rgba(255,255,255,0.12)}
+
+    .hero{height:62vh;background-image:linear-gradient(120deg,rgba(46,125,50,0.45),rgba(102,187,106,0.15)),url('https://upload.wikimedia.org/wikipedia/commons/7/7a/Patratu_Valley_at_night.jpg');background-size:cover;background-position:center;display:flex;align-items:center}
+    .hero-inner{width:100%;padding:4rem 8%;color:#fff}
+    .hero h1{margin:0;font-size:3rem;letter-spacing:0.4px}
+    .hero p{margin:10px 0 0;font-size:1.05rem;opacity:0.95}
+    .cta{display:inline-block;margin-top:18px;padding:10px 16px;border-radius:999px;background:var(--card);color:var(--green-700);font-weight:700;text-decoration:none;box-shadow:0 6px 18px rgba(46,125,50,0.12)}
+
+    main{max-width:1200px;margin:-40px auto 60px;padding:0 4%}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 20px rgba(34,60,41,0.06);}
+    .row{display:flex;gap:20px}
+
+    .facts{display:flex;gap:18px;margin-top:-30px}
+    .fact{flex:1;padding:16px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(245,255,245,0.95));border-left:6px solid var(--green-500)}
+    .fact h3{margin:0;color:var(--muted)}
+    .fact p{margin:8px 0 0;font-weight:600}
+
+    .carousel-wrap{margin-top:28px;position:relative}
+    .carousel{display:flex;gap:16px;overflow:hidden;padding-bottom:8px}
+    .track{display:flex;transition:transform 450ms cubic-bezier(.22,.9,.3,1);}
+    .place{min-width:300px;max-width:320px;border-radius:12px;background:var(--card);overflow:hidden;box-shadow:0 6px 20px rgba(46,125,50,0.08);cursor:pointer;transform-origin:center}
+    .place img{width:100%;height:200px;object-fit:cover;display:block}
+    .place .info{padding:12px}
+    .place h4{margin:0 0 8px;font-size:1.05rem;color:var(--green-700)}
+    .place ul{margin:0;padding-left:18px;color:#444;font-size:0.95rem}
+
+    .arrow{position:absolute;top:45%;transform:translateY(-50%);background:rgba(255,255,255,0.92);border:none;width:44px;height:44px;border-radius:999px;display:grid;place-items:center;box-shadow:0 6px 18px rgba(33,33,33,0.12);cursor:pointer}
+    .arrow.left{left:-10px}
+    .arrow.right{right:-10px}
+
+    .culture{margin-top:28px;display:flex;gap:14px;overflow:auto;padding:10px 0}
+    .culture::-webkit-scrollbar{display:none}
+    .chip{flex:0 0 auto;background:linear-gradient(180deg,#fff,#f7fff8);padding:14px;border-radius:10px;min-width:200px;text-align:center;border:1px solid rgba(46,125,50,0.06);box-shadow:0 6px 16px rgba(46,125,50,0.04);cursor:pointer}
+    .chip h4{margin:0;color:var(--green-700)}
+    .chip p{margin:8px 0 0;font-size:0.95rem;color:#3b3b3b}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    .info-card{padding:16px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfff7);border-left:6px solid var(--green-500)}
+
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px;transition:transform 220ms}
+    .gallery img:hover{transform:scale(1.04)}
+
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;padding:20px;z-index:120}
+    .modal-card{background:var(--card);max-width:900px;width:100%;border-radius:10px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+    .modal-card img{width:100%;height:100%;object-fit:cover}
+    .modal-text{padding:20px}
+    .modal-text h3{margin-top:0;color:var(--green-700)}
+    .close-btn{position:absolute;top:18px;right:24px;background:#fff;border-radius:50%;width:40px;height:40px;border:none;display:grid;place-items:center;cursor:pointer}
+    
+    @media (max-width:980px){
+      .row{flex-direction:column}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .modal-card{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .nav-links{display:none}
+      .hero h1{font-size:2rem}
+      .facts{flex-direction:column}
+      .grid{grid-template-columns:1fr}
+      .place{min-width:78%;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- Close button -->
+<button class="page-close" onclick="window.location.href='/landing'"aria-label="Close Page">✕</button>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Ramgarh</h1>
+    <p>Hills • Waterfalls • Nature escapes — the serene heart of Jharkhand</p>
+    <a class="cta" href="">Explore highlights</a>
+  </div>
+</section>
+
+<main>
+  <!-- Overview -->
+  <section id="overview" class="card">
+    <div class="facts">
+      <div class="fact"><h3>Best time</h3><p>Oct – Mar</p></div>
+      <div class="fact"><h3>How to get there</h3><p>Rail: Ramgarh (nearest major: Ranchi & Bokaro). Road: NH-33 & local buses</p></div>
+      <div class="fact"><h3>Highlights</h3><p>Rajrappa Temple • Patratu Valley • Ramgarh Hills</p></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:12px;align-items:center;">
+      <div style="flex:1">
+        <p style="margin:0;color:#445f3b;font-weight:600">Quick intro</p>
+        <p style="margin:6px 0 0;color:#444">Ramgarh district is known for lush green hills, waterfalls, and historical temples. A calm retreat for nature lovers and weekend travellers from nearby cities like Ranchi and Bokaro.</p>
+      </div>
+      <div style="width:220px">
+        <img style="width:100%;border-radius:10px" src="https://content3.jdmagicbox.com/comp/ramgarh-jharkhand/t4/9999p6553.6553.220318203853.l5t4/catalogue/ramgarh-valley-fall-barkakana-ramgarh-jharkhand-tourist-attraction-2ia5pxsm4b.jpg" alt="Ramgarh Hills ">
+      </div>
+    </div>
+  </section>
+
+  <!-- Experiences carousel -->
+  <section id="experiences" class="card carousel-wrap">
+    <h2 style="margin:0 0 12px;color:var(--green-700)">Top Experiences</h2>
+    <button class="arrow left" aria-label="prev">❮</button>
+    <div class="carousel" aria-hidden>
+      <div class="track" id="track">
+
+        <div class="place" data-title="Rajrappa Temple" data-desc="Famous temple at the confluence of rivers Damodar and Bhairavi, known for religious significance and scenic beauty." data-img="https://upload.wikimedia.org/wikipedia/commons/2/2e/Rajrappa_Temple.jpg">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Chhinnamastika_Temple_Rajrappa.jpg/1200px-Chhinnamastika_Temple_Rajrappa.jpg" alt="Rajrappa Temple">
+          <div class="info"><h4>Rajrappa Temple</h4><ul><li>Religious site</li><li>River confluence</li><li>Scenic views</li></ul></div>
+        </div>
+
+        <div class="place" data-title="Patratu Valley" data-desc="A winding road surrounded by hills, forests, and streams — perfect for road trips and photography." data-img="https://source.unsplash.com/900x600/?patratu,valley">
+          <img src="https://hblimg.mmtcdn.com/content/hubble/img/ranchi/mmt/activities/m_activities_ranchi_patratu_valley_l_382_442.jpg" alt="Patratu Valley">
+          <div class="info"><h4>Patratu Valley</h4><ul><li>Road trips</li><li>Photography</li><li>Scenic drives</li></ul></div>
+        </div>
+
+        <div class="place" data-title="Ramgarh Hills" data-desc="Lush green hills offering trekking trails, viewpoints, and natural waterfalls." data-img="https://source.unsplash.com/900x600/?ramgarh,hills">
+          <img src="https://content3.jdmagicbox.com/comp/ramgarh-jharkhand/t4/9999p6553.6553.220318203853.l5t4/catalogue/ramgarh-valley-fall-barkakana-ramgarh-jharkhand-tourist-attraction-ytbjm4wx13.jpg" alt="Ramgarh Hills">
+          <div class="info"><h4>Ramgarh Hills</h4><ul><li>Trekking</li><li>Waterfalls</li><li>Nature walks</li></ul></div>
+        </div>
+
+        <div class="place" data-title="Naikari Dam" data-desc="Lesser known dam surrounded by forest. Picnic & Eco-tourism forest." data-img="https://source.unsplash.com/900x600/?ramgarh,hills">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Naikari_Dam%2C_Patratu.jpg/330px-Naikari_Dam%2C_Patratu.jpg" alt="Naikari Dam">
+          <div class="info"><h4>Naikari Dam</h4><ul><li>Birdwatching</li><li>Short treks</li><li>relaxation</li></ul></div>
+        </div>
+
+      </div>
+    </div>
+    <button class="arrow right" aria-label="next">❯</button>
+  </section>
+
+  <!-- Culture -->
+  <section id="culture" class="card">
+    <h2 style="color:var(--green-700);margin-top:0">Culture & Insights</h2>
+    <div class="culture">
+      <div class="chip" data-title="Festivals" data-desc="Chhath, Sarhul and local tribal festivals celebrated with enthusiasm in villages and towns." data-img="https://i2.wp.com/d3e1m60ptf1oym.cloudfront.net/6c444f99-f9eb-4dda-a50d-3ff590c60b2b/Brett-Cole-India-05949_xgaplus.jpg?w=640">
+        <h4>Festivals</h4>
+        <p>Chhath • Sarhul • Tribal fairs</p>
+      </div>
+      <div class="chip" data-title="Cuisine" data-desc="Local Jharkhandi dishes, sweets and tribal cuisine reflecting earthy flavours." data-img="https://content.jdmagicbox.com/comp/def_content/litti-chokha-outlets/a753c3c123-litti-chokha-outlets-3-jzlxy-250.jpg">
+        <h4>Cuisine</h4>
+        <p>Litti • Chokha • Sweets</p>
+      </div>
+      <div class="chip" data-title="Nature & Lifestyle" data-desc="Relaxed lifestyle amidst hills and greenery, attracting weekend travellers from nearby cities." data-img="https://content.jdmagicbox.com/v2/comp/ramgarh-jharkhand/s3/9999p6553.6553.241024211044.x6s3/catalogue/mountain-view-point-jhumra-pahar-ramgarh-jharkhand-tourist-attraction-2yAqcLMQNs.jpg">
+        <h4>Lifestyle</h4>
+        <p>Hills & nature escapes</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Practical Info -->
+  <section id="info" class="card">
+    <h2 style="color:var(--green-700);margin-top:0">Practical Information</h2>
+    <div class="grid">
+      <div class="info-card">
+        <h4 style="margin:0;color:var(--green-700)">Transport</h4>
+        <p style="margin:8px 0 0">Nearest rail: Ramgarh (local), Ranchi (~50 km). Road: NH-33 and local buses. Taxis and autorickshaws available.</p>
+      </div>
+      <div class="info-card">
+        <h4 style="margin:0;color:var(--green-700)">Where to stay</h4>
+        <p style="margin:8px 0 0">Guesthouses and small hotels in Ramgarh town; eco-lodges near Patratu Valley and hills for nature lovers.</p>
+      </div>
+      <div class="info-card">
+        <h4 style="margin:0;color:var(--green-700)">Safety & tips</h4>
+        <p style="margin:8px 0 0">Best visited in winter; trek with a local guide in hills; avoid monsoon treks; respect local customs at temples.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map -->
+  <section class="card" style="margin-top:20px">
+    <h2 style="color:var(--green-700);margin-top:0">On the map</h2>
+    <div style="height:320px;border-radius:10px;overflow:hidden;border:1px solid rgba(46,125,50,0.08);">
+      <iframe
+        src="https://www.google.com/maps?q=Ramgarh,+Jharkhand&output=embed"
+        width="100%"
+        height="320"
+        style="border:0;border-radius:10px;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery" class="card">
+    <h2 style="color:var(--green-700);margin-top:0">Photo gallery</h2>
+    <div class="gallery">
+      <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/b7/cb/64/photo1jpg.jpg?w=900&h=500&s=1" alt="Rajrappa Temple">
+      <img src="https://static.toiimg.com/photo/msid-98003900,width-96,height-65.cms" alt="Patratu Valley">
+      <img src="https://images.jdmagicbox.com/comp/ramgarh-jharkhand/u2/9999p6553.6553.220316020902.g3u2/catalogue/palani-waterfall-reservoir-palani-ramgarh-jharkhand-tourist-attraction-0nlrtkyt2q-250.jpg" alt="Ramgarh Hills">
+      <img src="https://www.jagranimages.com/images/newimg/31072021/31_07_2021-ramgarhdam_21881629.jpg" alt="Naikari Dam">
+      <img src="https://assets.telegraphindia.com/telegraph/2024/Nov/1732087325_cms-2-29.jpg" alt="Ramgarh Cantonment & War Cementry">
+      <img src="https://images.indianexpress.com/2021/04/P1-anchorstatue1-2col.jpg" alt="Gandhauniya Hill">
+    </div>
+  </section>
+
+</main>
+
+<div class="modal" id="modal">
+  <button class="close-btn" aria-label="close">✕</button>
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <img id="modalImg" src="" alt="">
+    <div class="modal-text">
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click', (e)=>{
+    e.preventDefault(); document.querySelectorAll('.nav-links a').forEach(x=>x.classList.remove('active'));
+    a.classList.add('active'); const id = a.getAttribute('href'); document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+  }));
+
+  const track = document.getElementById('track');
+  const left = document.querySelector('.arrow.left');
+  const right = document.querySelector('.arrow.right');
+  let pos = 0; const step = 320; const max = track.children.length*320 - step*3;
+
+  right.addEventListener('click', ()=>{ pos = Math.min(pos+step, max); track.style.transform = `translateX(-${pos}px)`});
+    left.addEventListener('click', ()=>{ pos = Math.max(pos-step, 0); track.style.transform = `translateX(-${pos}px)`});
+
+    // Clickable places & chips -> modal
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const closeBtn = document.querySelector('.close-btn');
+
+    function openModal(title, desc, img){ modalTitle.textContent = title; modalDesc.textContent = desc; modalImg.src = img; modal.style.display = 'flex'; document.body.style.overflow='hidden'; }
+    function closeModal(){ modal.style.display='none'; document.body.style.overflow='auto'; }
+
+    document.querySelectorAll('.place').forEach(p=>p.addEventListener('click', ()=> openModal(p.dataset.title,p.dataset.desc,p.dataset.img)));
+    document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click', ()=> openModal(c.dataset.title,c.dataset.desc,c.dataset.img)));
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+
+    // touch swipe support for carousel
+    let startX=0, currentTranslate=0, isDown=false;
+    track.addEventListener('pointerdown', (e)=>{ isDown=true; startX = e.clientX; track.style.transition='none'; });
+    track.addEventListener('pointermove', (e)=>{ if(!isDown) return; const diff = e.clientX - startX; track.style.transform = `translateX(${ -pos + diff }px)`; });
+    track.addEventListener('pointerup', (e)=>{ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; const diff = e.clientX - startX; if(diff < -60) { pos = Math.min(pos+step, max);} else if(diff > 60) { pos = Math.max(pos-step,0);} track.style.transform = `translateX(-${pos}px)`; });
+    track.addEventListener('pointerleave', ()=>{ if(isDown){ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; track.style.transform = `translateX(-${pos}px)`; } });
+
+  </script>
+</body>
+</html>
+

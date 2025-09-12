@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tripsera | My Cart</title>
+  <style>
+    :root{
+      --green:#1c9c61;
+      --green-dark:#147a4c;
+      --green-light:#e8f6ef;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --white:#ffffff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      background: linear-gradient(180deg, var(--green-light), #fff);
+      color:var(--text);
+    }
+    .container{
+      max-width:1100px;
+      margin:24px auto 40px;
+      padding:0 16px;
+    }
+    .header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      font-size:20px;
+      color:var(--green-dark);
+    }
+    .brand .logo{
+      width:36px;height:36px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, #34d399, var(--green));
+      display:inline-block;
+      box-shadow:0 6px 16px rgba(28,156,97,0.25), inset 0 2px 6px rgba(255,255,255,0.5);
+    }
+    .btn{
+      appearance:none;border:0;border-radius:10px;
+      padding:12px 16px;font-weight:600;cursor:pointer;
+      transition:transform .05s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+      white-space:nowrap;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn-outline{
+      background:var(--white); color:var(--green-dark); border:1px solid var(--green);
+      box-shadow:0 2px 8px rgba(28,156,97,0.1);
+    }
+    .btn-outline:hover{background:var(--green-light)}
+    .btn-primary{
+      background:var(--green); color:#fff;
+      box-shadow:0 8px 20px rgba(28,156,97,0.35);
+    }
+    .btn-primary:hover{background:var(--green-dark)}
+    .cart{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(28,156,97,0.08);
+    }
+    .cart-head{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:16px 18px;border-bottom:1px solid var(--border);background:#f8fafc;
+    }
+    .cart-title{
+      display:flex;align-items:center;gap:12px;font-weight:700;color:var(--text);
+    }
+    .cart-title .tag{
+      font-size:12px;color:var(--muted);background:#eef2f7;border-radius:999px;padding:4px 10px;
+    }
+    .cart-grid{
+      display:grid;grid-template-columns:1fr 340px;gap:18px;padding:18px;
+    }
+    .items{
+      display:flex;flex-direction:column;gap:12px;
+    }
+    .item{
+      display:grid;grid-template-columns:88px 1fr 110px 120px 24px;gap:12px;
+      align-items:center;border:1px solid var(--border);border-radius:14px;background:#fff;
+      padding:10px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.03);
+    }
+    .item-img{
+      width:88px;height:88px;border-radius:12px;object-fit:cover;border:1px solid var(--border);
+      background:#f2f5f7;
+    }
+    .item-info .name{font-weight:700;margin:2px 0 6px}
+    .item-info .meta{font-size:12px;color:var(--muted)}
+    .price{font-weight:700;color:var(--text)}
+    .qty{
+      display:inline-flex;align-items:center;border:1px solid var(--border);border-radius:12px;
+      overflow:hidden;background:#fff;width:max-content;
+    }
+    .qty button{
+      width:36px;height:36px;background:var(--green-light);border:0;color:var(--green-dark);font-weight:800;cursor:pointer;
+    }
+    .qty input{
+      width:48px;text-align:center;border:0;height:36px;font-weight:700;color:var(--text);outline:none;
+    }
+    .remove{
+      background:transparent;border:0;color:#ef4444;font-weight:900;font-size:18px;cursor:pointer;
+    }
+    .summary{
+      border:1px solid var(--border);border-radius:14px;padding:14px;background:#fff;
+      height:max-content;position:sticky;top:12px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.05);
+    }
+    .summary h3{margin:0 0 10px;font-size:16px}
+    .row{
+      display:flex;align-items:center;justify-content:space-between;margin:8px 0;color:var(--text);
+    }
+    .row.muted{color:var(--muted)}
+    .divider{height:1px;background:var(--border);margin:10px 0}
+    .coupon{
+      display:flex;gap:8px;margin-top:6px;
+    }
+    .coupon input{
+      flex:1;border:1px solid var(--border);border-radius:10px;padding:10px 12px;outline:none;
+    }
+    .footer-actions{
+      display:flex;gap:10px;flex-wrap:wrap;padding:12px 18px;background:#f8fafc;border-top:1px solid var(--border);
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;background:var(--green-light);color:var(--green-dark);
+      padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;
+    }
+    .empty{
+      text-align:center;color:var(--muted);padding:40px 10px;border:1px dashed var(--border);border-radius:14px;background:#fafcff;
+    }
+    @media (max-width: 960px){
+      .cart-grid{grid-template-columns:1fr}
+      .summary{position:relative;top:0}
+    }
+    @media (max-width: 640px){
+      .item{grid-template-columns:72px 1fr;grid-template-rows:auto auto auto;align-items:start}
+      .price{grid-column:2}
+      .qty{grid-column:2}
+      .remove{grid-column:2;justify-self:end}
+      .item-img{width:72px;height:72px}
+      .footer-actions{justify-content:space-between}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"></span>
+        Tripsera • My Cart
+      </div>
+      <div class="pill" id="cartCountPill">2 items</div>
+    </div>
+
+    <div class="cart">
+      <div class="cart-head">
+        <div class="cart-title">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:var(--green-light);color:var(--green-dark);font-weight:900;">🛒</span>
+          <span>Cart Overview</span>
+          <span class="tag" id="subtotalTag">Subtotal: ₹1,750</span>
+        </div>
+        <button class="btn btn-outline" onclick="window.history.back()">← Continue Shopping</button>
+      </div>
+
+      <div class="cart-grid">
+        <div class="items" id="itemsContainer">
+          <!-- Item 1: Bamboo Tokri basket -->
+          <div class="item" data-id="tokri" data-price="150">
+            <img class="item-img" alt="Bamboo Tokri Basket" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFxqvgdX5J-PoZSXrS2WTi7l2UbacFhMyBXHn2rBTlTtVRtCiW4khWnCoAgTs59ItrMiI&usqp=CAU" />
+            <div class="item-info">
+              <div class="name">Bamboo Tokri Basket</div>
+              <div class="meta">Eco-friendly handwoven bamboo basket</div>
+            </div>
+            <div class="price">₹<span class="line-price">150</span></div>
+            <div class="qty">
+              <button type="button" class="dec" aria-label="Decrease">−</button>
+              <input type="text" value="1" inputmode="numeric" />
+              <button type="button" class="inc" aria-label="Increase">+</button>
+            </div>
+            <button class="remove" title="Remove">×</button>
+          </div>
+
+          <!-- Item 2: Bamboo Wind Chimes -->
+          <div class="item" data-id="chimes" data-price="1600">
+            <img class="item-img" alt="Bamboo Wind Chimes" src="https://m.media-amazon.com/images/I/61eYWxfcxPL._UF894,1000_QL80_.jpg" />
+            <div class="item-info">
+              <div class="name">Bamboo Wind Chimes</div>
+              <div class="meta">Handcrafted soothing bamboo wind chimes</div>
+            </div>
+            <div class="price">₹<span class="line-price">1600</span></div>
+            <div class="qty">
+              <button type="button" class="dec" aria-label="Decrease">−</button>
+              <input type="text" value="1" inputmode="numeric" />
+              <button type="button" class="inc" aria-label="Increase">+</button>
+            </div>
+            <button class="remove" title="Remove">×</button>
+          </div>
+
+          <div class="empty" id="emptyState" style="display:none">Cart is empty. Add items to continue.</div>
+        </div>
+
+        <aside class="summary" id="summary">
+          <h3>Order Summary</h3>
+          <div class="row muted"><span>Items</span><span id="itemsCount">2</span></div>
+          <div class="row"><span>Subtotal</span><span>₹<span id="subtotal">1750</span></span></div>
+          <div class="row muted"><span>Shipping</span><span>Free</span></div>
+          <div class="row muted"><span>GST (included)</span><span>—</span></div>
+          <div class="divider"></div>
+          <div class="row" style="font-weight:800"><span>Total</span><span>₹<span id="grandTotal">1750</span></span></div>
+
+          <div class="coupon">
+            <input id="couponCode" placeholder="Have a coupon? TRIPSERA10" />
+            <button class="btn btn-outline" id="applyCoupon">Apply</button>
+          </div>
+
+          <div style="height:10px"></div>
+          <button class="btn btn-primary" style="width:100%" id="checkoutBtn">Proceed to Checkout</button>
+        </aside>
+      </div>
+
+      <div class="footer-actions">
+        <button class="btn btn-outline" onclick="location.href='/'">← Continue Shopping</button>
+        <div style="flex:1"></div>
+        <button class="btn btn-primary" id="footerCheckout">Checkout →</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const money = n => Number(n).toLocaleString('en-IN');
+      const container = document.getElementById('itemsContainer');
+      const emptyState = document.getElementById('emptyState');
+      const subtotalEl = document.getElementById('subtotal');
+      const grandEl = document.getElementById('grandTotal');
+      const itemsCountEl = document.getElementById('itemsCount');
+      const subtotalTag = document.getElementById('subtotalTag');
+      const cartCountPill = document.getElementById('cartCountPill');
+      const applyBtn = document.getElementById('applyCoupon');
+      const couponInput = document.getElementById('couponCode');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const footerCheckout = document.getElementById('footerCheckout');
+
+      let coupon = null; // {code:'TRIPSERA10', offPct: 10}
+
+      function clampQty(v){
+        const n = parseInt(String(v).replace(/\\D/g,''),10);
+        if (isNaN(n) || n < 1) return 1;
+        return Math.min(n, 99);
+      }
+
+      function recalc(){
+        let items = [...container.querySelectorAll('.item')];
+        let count = 0;
+        let subtotal = 0;
+        items.forEach(item=>{
+          const qty = clampQty(item.querySelector('.qty input').value);
+          const price = Number(item.getAttribute('data-price'));
+          const line = qty * price;
+          item.querySelector('.qty input').value = qty;
+          item.querySelector('.line-price').textContent = money(line);
+          subtotal += line;
+          count += qty;
+        });
+
+        // Apply coupon if any
+        let total = subtotal;
+        if (coupon && coupon.offPct){
+          total = Math.round(total * (100 - coupon.offPct)/100);
+        }
+
+        subtotalEl.textContent = money(subtotal);
+        grandEl.textContent = money(total);
+        itemsCountEl.textContent = items.length;
+        subtotalTag.textContent = 'Subtotal: ₹' + money(subtotal);
+        cartCountPill.textContent = items.length + (items.length === 1 ? ' item' : ' items');
+
+        const isEmpty = items.length === 0;
+        emptyState.style.display = isEmpty ? '' : 'none';
+      }
+
+      function attachItemHandlers(item){
+        const dec = item.querySelector('.dec');
+        const inc = item.querySelector('.inc');
+        const input = item.querySelector('.qty input');
+        const remove = item.querySelector('.remove');
+
+        dec.addEventListener('click', ()=>{ input.value = clampQty(input.value) - 1; input.dispatchEvent(new Event('input')); });
+        inc.addEventListener('click', ()=>{ input.value = clampQty(input.value) + 1; input.dispatchEvent(new Event('input')); });
+        input.addEventListener('input', recalc);
+        remove.addEventListener('click', ()=>{ item.remove(); recalc(); });
+      }
+
+      // Initialize handlers
+      [...container.querySelectorAll('.item')].forEach(attachItemHandlers);
+
+      // Coupon
+      applyBtn.addEventListener('click', ()=>{
+        const code = (couponInput.value || '').trim().toUpperCase();
+        if (!code){ coupon = null; recalc(); return; }
+        if (code === 'TRIPSERA10'){
+          coupon = { code, offPct: 10 };
+          applyBtn.textContent = 'Applied ✓';
+          applyBtn.classList.remove('btn-outline');
+          applyBtn.classList.add('btn-primary');
+        } else {
+          coupon = null;
+          applyBtn.textContent = 'Apply';
+          applyBtn.classList.remove('btn-primary');
+          applyBtn.classList.add('btn-outline');
+          alert('Invalid coupon code');
+        }
+        recalc();
+      });
+
+      // Checkout
+      function goCheckout(){
+        const payload = [...container.querySelectorAll('.item')].map(item=>({
+          id: item.getAttribute('data-id'),
+          name: item.querySelector('.name').textContent.trim(),
+          price: Number(item.getAttribute('data-price')),
+          qty: clampQty(item.querySelector('.qty input').value),
+        }));
+        // Replace with site routing
+        alert('Proceeding to checkout with: ' + JSON.stringify(payload));
+      }
+      checkoutBtn.addEventListener('click', goCheckout);
+      footerCheckout.addEventListener('click', goCheckout);
+
+      recalc();
+    })();
+  </script>
+</body>
+</html>

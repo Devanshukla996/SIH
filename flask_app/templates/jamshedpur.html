@@ -1,0 +1,314 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jamshedpur — Green Travel Guide</title>
+  <meta name="description" content="Jamshedpur travel guide — experiences, culture, transport, gallery. Green themed Lonely Planet style template." />
+  <style>
+    :root{
+      --green-700:#2e7d32;
+      --green-500:#66bb6a;
+      --accent:#a5d6a7;
+      --bg:#f1f8f2;
+      --card:#ffffff;
+      --muted:#556b2f;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:#1b1b1b}
+
+     /* Close button styling */
+    .page-close {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: #c62828;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+    .page-close:hover {
+      background: #a31414;
+    }
+
+    /* Sticky Navbar */
+    .nav{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,var(--green-700),var(--green-500));color:#fff;padding:12px 6%;display:flex;align-items:center;gap:16px}
+    .brand{font-weight:700;font-size:1.1rem}
+    .nav-links{margin-left:auto;display:flex;gap:14px}
+    .nav-links a{color:rgba(255,255,255,0.95);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
+    .nav-links a:hover, .nav-links a.active{background:rgba(255,255,255,0.12)}
+
+    /* Hero */
+    .hero{height:62vh;background-image:linear-gradient(120deg,rgba(46,125,50,0.45),rgba(102,187,106,0.15)),url('https://s7ap1.scene7.com/is/image/incredibleindia/jubilee%20Park-jamshedpur-jharkhand-hero?qlt=82&ts=1742159569924');background-size:cover;background-position:center;display:flex;align-items:center}
+    .hero-inner{width:100%;padding:4rem 8%;color:#fff}
+    .hero h1{margin:0;font-size:3rem;letter-spacing:0.4px}
+    .hero p{margin:10px 0 0;font-size:1.05rem;opacity:0.95}
+    .cta{display:inline-block;margin-top:18px;padding:10px 16px;border-radius:999px;background:var(--card);color:var(--green-700);font-weight:700;text-decoration:none;box-shadow:0 6px 18px rgba(46,125,50,0.12)}
+
+    /* Layout sections */
+    main{max-width:1200px;margin:-40px auto 60px;padding:0 4%}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 20px rgba(34,60,41,0.06);}
+    .row{display:flex;gap:20px}
+
+    /* Overview */
+    .facts{display:flex;gap:18px;margin-top:-30px}
+    .fact{flex:1;padding:16px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(245,255,245,0.95));border-left:6px solid var(--green-500)}
+    .fact h3{margin:0;color:var(--muted)}
+    .fact p{margin:8px 0 0;font-weight:600}
+
+    /* Carousel */
+    .carousel-wrap{margin-top:28px;position:relative}
+    .carousel{display:flex;gap:16px;overflow:hidden;padding-bottom:8px}
+    .track{display:flex;transition:transform 450ms cubic-bezier(.22,.9,.3,1);}
+    .place{min-width:300px;max-width:320px;border-radius:12px;background:var(--card);overflow:hidden;box-shadow:0 6px 20px rgba(46,125,50,0.08);cursor:pointer;transform-origin:center}
+    .place img{width:100%;height:200px;object-fit:cover;display:block}
+    .place .info{padding:12px}
+    .place h4{margin:0 0 8px;font-size:1.05rem;color:var(--green-700)}
+    .place ul{margin:0;padding-left:18px;color:#444;font-size:0.95rem}
+
+    .arrow{position:absolute;top:45%;transform:translateY(-50%);background:rgba(255,255,255,0.92);border:none;width:44px;height:44px;border-radius:999px;display:grid;place-items:center;box-shadow:0 6px 18px rgba(33,33,33,0.12);cursor:pointer}
+    .arrow.left{left:-10px}
+    .arrow.right{right:-10px}
+
+    /* Culture panel */
+    .culture{margin-top:28px;display:flex;gap:14px;overflow:auto;padding:10px 0}
+    .culture::-webkit-scrollbar{display:none}
+    .chip{flex:0 0 auto;background:linear-gradient(180deg,#fff,#f7fff8);padding:14px;border-radius:10px;min-width:200px;text-align:center;border:1px solid rgba(46,125,50,0.06);box-shadow:0 6px 16px rgba(46,125,50,0.04);cursor:pointer}
+    .chip h4{margin:0;color:var(--green-700)}
+    .chip p{margin:8px 0 0;font-size:0.95rem;color:#3b3b3b}
+
+    /* Practical info */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    .info-card{padding:16px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfff7);border-left:6px solid var(--green-500)}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px;transition:transform 220ms}
+    .gallery img:hover{transform:scale(1.04)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;padding:20px;z-index:120}
+    .modal-card{background:var(--card);max-width:900px;width:100%;border-radius:10px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+    .modal-card img{width:100%;height:100%;object-fit:cover}
+    .modal-text{padding:20px}
+    .modal-text h3{margin-top:0;color:var(--green-700)}
+    .close-btn{position:absolute;top:18px;right:24px;background:#fff;border-radius:50%;width:40px;height:40px;border:none;display:grid;place-items:center;cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .row{flex-direction:column}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .modal-card{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .nav-links{display:none}
+      .hero h1{font-size:2rem}
+      .facts{flex-direction:column}
+      .grid{grid-template-columns:1fr}
+      .place{min-width:78%;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Close button -->
+  <button class="page-close" onclick="window.location.href='/landing'"aria-label="Close Page">✕</button>
+  
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Jamshedpur</h1>
+      <p>Steel City • Lakes • Parks — the industrial & green heart of Jharkhand</p>
+      <a class="cta" href="#experiences">Explore highlights</a>
+    </div>
+  </section>
+
+  <main>
+    <!-- Overview -->
+    <section id="overview" class="card">
+      <div class="facts">
+        <div class="fact"><h3>Best time</h3><p>Nov – Feb</p></div>
+        <div class="fact"><h3>How to get there</h3><p>Rail: Tatanagar (TATA) | Air: Ranchi (~130 km)</p></div>
+        <div class="fact"><h3>Highlights</h3><p>Jubilee Park • Dimna Lake • Dalma Sanctuary</p></div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:12px;align-items:center;">
+        <div style="flex:1">
+          <p style="margin:0;color:#445f3b;font-weight:600">Quick intro</p>
+          <p style="margin:6px 0 0;color:#444">Planned by the Tata group, Jamshedpur mixes industry with surprising greenery — large parks, a peaceful lake and easy access to Dalma hills and wildlife. Great for family outings and short nature escapes.</p>
+        </div>
+        <div style="width:220px">
+          <img style="width:100%;border-radius:10px" src="https://s7ap1.scene7.com/is/image/incredibleindia/jrd-tata-sports-complex-jamshedpur-jharkhand-1-blog-ent-exp-cit-pop?qlt=82&ts=1742158069697" alt="Jubilee Park">
+        </div>
+      </div>
+    </section>
+
+    <!-- Experiences carousel (4-5 items) -->
+    <section id="experiences" class="card carousel-wrap">
+      <h2 style="margin:0 0 12px;color:var(--green-700)">Top Experiences</h2>
+      <button class="arrow left" aria-label="prev">❮</button>
+      <div class="carousel" aria-hidden>
+        <div class="track" id="track">
+
+          <div class="place" data-title="Jubilee Park" data-desc="A vast, beautifully landscaped park with fountains, seasonal flowerbeds and a toy train — ideal for families." data-img="https://upload.wikimedia.org/wikipedia/commons/8/83/Jubilee_Park%2C_Jamshedpur.jpg">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/e2/a5/9a/jubilee-park.jpg?w=1200&h=-1&s=1" alt="Jubilee Park">
+            <div class="info"><h4>Jubilee Park</h4><ul><li>Landscaped gardens</li><li>Play areas</li><li>Toy train</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Dimna Lake" data-desc="Scenic reservoir at the foothills of Dalma — boating, picnics and sunsets." data-img="https://source.unsplash.com/900x600/?lake,india">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/e9/e6/7e/20190810-134734-01-largejpg.jpg?w=1200&h=-1&s=1" alt="Dimna Lake">
+            <div class="info"><h4>Dimna Lake</h4><ul><li>Boating</li><li>Sunset views</li><li>Picnic spots</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Dalma Wildlife Sanctuary" data-desc="Hills famed for elephants, trekking trails and viewpoints. Best visited with a local guide." data-img="https://source.unsplash.com/900x600/?elephant,forest">
+            <img src="https://www.dalmawildlife.in/img/slider5.jpg" alt="Dalma Sanctuary">
+            <div class="info"><h4>Dalma Sanctuary</h4><ul><li>Elephant sightings</li><li>Trekking</li><li>Scenic drives</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Tata Steel Zoological Park" data-desc="Well-maintained zoo and safari rides with a variety of native and exotic species." data-img="https://source.unsplash.com/900x600/?zoo,wildlife">
+            <img src="https://s7ap1.scene7.com/is/image/incredibleindia/tata-steel-zoological-park-jamshedpur-jharkhand-1-attr-hero?qlt=82&ts=1742172012850" alt="Tata Zoological Park">
+            <div class="info"><h4>Tata Zoological Park</h4><ul><li>Family-friendly</li><li>Educational exhibits</li><li>Safari rides</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Bhuvaneshwari Temple" data-desc="Hilltop temple offering panoramic views of the city and serene surroundings." data-img="https://source.unsplash.com/900x600/?temple,hill">
+            <img src="https://s7ap1.scene7.com/is/image/incredibleindia/bhuvaneshwari-temple-jamshedpur-jharkhand-1-attr-hero?qlt=82&ts=1742156483441" alt="Bhuvaneshwari Temple">
+            <div class="info"><h4>Bhuvaneshwari Temple</h4><ul><li>Hilltop views</li><li>Spiritual visits</li><li>Sunrise scenes</li></ul></div>
+          </div>
+
+        </div>
+      </div>
+      <button class="arrow right" aria-label="next">❯</button>
+    </section>
+
+    <!-- Culture chips -->
+    <section id="culture" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Culture & Insights</h2>
+      <div class="culture">
+        <div class="chip" data-title="Festivals" data-desc="Jamshedpur Carnival, Sarhul and Chhath are celebrated with city-wide events and cultural programmes." data-img="https://i0.wp.com/avenuemail.in/wp-content/uploads/2025/04/Sarhul-1.jpg?fit=1620%2C1064&ssl=1">
+          <h4>Festivals</h4>
+          <p>Jamshedpur Carnival • Sarhul • Chhath</p>
+        </div>
+        <div class="chip" data-title="Cuisine" data-desc="Street food like gupchup, litti and local sweets — a mix of tribal and cosmopolitan flavours." data-img="https://cdn.justgotochef.com/uploads/1614618977-57674F3A-2095-4515-BA72-7542C8AB5E7B.jpeg?w=815">
+          <h4>Cuisine</h4>
+          <p>Gupchup • Litti • Sweets</p>
+        </div>
+        <div class="chip" data-title="Industry & Legacy" data-desc="Home to Tata Steel — a planned industrial city with parks, institutions and an enduring corporate legacy." data-img="https://s7ap1.scene7.com/is/image/incredibleindia/tata-steel-zoological-park-jamshedpur-jharkhand-2-attr-hero?qlt=82&ts=1742164890034">
+          <h4>Industry</h4>
+          <p>Tata Steel heritage</p>
+        </div>
+        <div class="chip" data-title="Lifestyle" data-desc="A green, well-planned city with sports grounds, schools and a multicultural population — comfortable for families." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Patratu_dam_on_cloudy_day.jpg/250px-Patratu_dam_on_cloudy_day.jpg">
+          <h4>Lifestyle</h4>
+          <p>Family-friendly & green</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practical Info -->
+    <section id="info" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Practical Information</h2>
+      <div class="grid">
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Transport</h4>
+          <p style="margin:8px 0 0">Rail: Tatanagar Junction (JSME). Road: NH-33 & local buses. Nearest airport: Ranchi (~130 km). Local taxis and autorickshaws available.</p>
+        </div>
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Where to stay</h4>
+          <p style="margin:8px 0 0">Hotels in Bistupur, Sakchi and near Tatanagar; lakeside resorts close to Dimna Lake for weekend getaways.</p>
+        </div>
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Safety & tips</h4>
+          <p style="margin:8px 0 0">Best visited in winter; check zoo timings (closed Mondays); follow local guidelines for Dalma treks and avoid solo forest walks after dusk.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section class="card" style="margin-top:20px">
+      <h2 style="color:var(--green-700);margin-top:0">On the map</h2>
+      <div style="height:320px;border-radius:10px;overflow:hidden;border:1px solid rgba(46,125,50,0.08);">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14699.209323392933!2d86.2029!3d22.8046!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f5e314c5b5d2f1%3A0xf34b7c1a6c7e5b1!2sJamshedpur%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1693892567890!5m2!1sen!2sin"
+          width="100%"
+          height="320"
+          style="border:0;border-radius:10px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Photo gallery</h2>
+      <div class="gallery">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/e2/a5/9a/jubilee-park.jpg?w=1200&h=-1&s=1" alt="Jubilee Park">
+        <img src="https://s7ap1.scene7.com/is/image/incredibleindia/dimna-lake-jamshedpur-jharkhand-2-attr-hero?qlt=82&ts=1742181590059" alt="Dimna Lake">
+        <img src="https://cdn.tripuntold.com/media/photos/location/2018/11/16/1c2f94f7-e837-40b6-8e61-1eed4080979a.jpg" alt="Dalma Sanctuary">
+        <img src="https://assets.telegraphindia.com/telegraph/2020/Sep/1601212890_jam2.jpg" alt="Zoological Park">
+        <img src="https://welcometojamshedpur.in/wp-content/uploads/2021/02/Bhubaneshwari-Temple-1024x669.jpg" alt="Bhuvaneshwari Temple">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKDcgzD1A52IVWKH54J7nIkokG4F96p6q3zQ&s" alt="City View">
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal for place & chips -->
+  <div class="modal" id="modal">
+    <button class="close-btn" aria-label="close">✕</button>
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <img id="modalImg" src="" alt="">
+      <div class="modal-text">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click', (e)=>{
+      e.preventDefault(); document.querySelectorAll('.nav-links a').forEach(x=>x.classList.remove('active'));
+      a.classList.add('active'); const id = a.getAttribute('href'); document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+    }));
+
+    // Carousel controls
+    const track = document.getElementById('track');
+    const left = document.querySelector('.arrow.left');
+    const right = document.querySelector('.arrow.right');
+    let pos = 0; const step = 320; const max = track.children.length*320 - step*3; // show 3 items
+
+    right.addEventListener('click', ()=>{ pos = Math.min(pos+step, max); track.style.transform = `translateX(-${pos}px)`});
+    left.addEventListener('click', ()=>{ pos = Math.max(pos-step, 0); track.style.transform = `translateX(-${pos}px)`});
+
+    // Clickable places & chips -> modal
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const closeBtn = document.querySelector('.close-btn');
+
+    function openModal(title, desc, img){ modalTitle.textContent = title; modalDesc.textContent = desc; modalImg.src = img; modal.style.display = 'flex'; document.body.style.overflow='hidden'; }
+    function closeModal(){ modal.style.display='none'; document.body.style.overflow='auto'; }
+
+    document.querySelectorAll('.place').forEach(p=>p.addEventListener('click', ()=> openModal(p.dataset.title,p.dataset.desc,p.dataset.img)));
+    document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click', ()=> openModal(c.dataset.title,c.dataset.desc,c.dataset.img)));
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+
+    // touch swipe support for carousel
+    let startX=0, isDown=false;
+    track.addEventListener('pointerdown', (e)=>{ isDown=true; startX = e.clientX; track.style.transition='none'; });
+    track.addEventListener('pointermove', (e)=>{ if(!isDown) return; const diff = e.clientX - startX; track.style.transform = `translateX(${ -pos + diff }px)`; });
+    track.addEventListener('pointerup', (e)=>{ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; const diff = e.clientX - startX; if(diff < -60) { pos = Math.min(pos+step, max);} else if(diff > 60) { pos = Math.max(pos-step,0);} track.style.transform = `translateX(-${pos}px)`; });
+    track.addEventListener('pointerleave', ()=>{ if(isDown){ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; track.style.transform = `translateX(-${pos}px)`; } });
+
+  </script>
+</body>
+</html>

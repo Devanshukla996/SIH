@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Location Tracker</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        header {
+            background: #4285F4;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #startTracking {
+            background: #34A853;
+            color: white;
+        }
+        #startTracking:hover {
+            background: #2d9249;
+        }
+        #stopTracking {
+            background: #EA4335;
+            color: white;
+        }
+        #stopTracking:hover {
+            background: #d33a2d;
+        }
+        #getLocation {
+            background: #FBBC05;
+            color: white;
+        }
+        #getLocation:hover {
+            background: #e5a905;
+        }
+        #status {
+            text-align: center;
+            padding: 10px;
+            background: #f1f3f4;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .map-container {
+            position: relative;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        .info-panel {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .info-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+        }
+        .info-title {
+            font-weight: 600;
+            color: #5f6368;
+            margin-bottom: 5px;
+        }
+        .coordinates {
+            font-family: monospace;
+            font-size: 16px;
+        }
+        .note {
+            background: #e8f0fe;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4285F4;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #5f6368;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .info-panel {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Real-time Location Tracker</h1>
+            <p>Track your location using Google Maps API</p>
+        </header>
+
+        <div class="content">
+            <div class="controls">
+                <button id="getLocation">Get Current Location</button>
+                <button id="startTracking">Start Tracking</button>
+                <button id="stopTracking">Stop Tracking</button>
+            </div>
+
+            <div id="status">Status: Loading Google Maps...</div>
+
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+
+            <div class="info-panel">
+                <div class="info-box">
+                    <div class="info-title">Coordinates</div>
+                    <div id="coordinates" class="coordinates">Not available</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Accuracy</div>
+                    <div id="accuracy">Not available</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Last Update</div>
+                    <div id="timestamp">Not available</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Note:</strong> This application requires HTTPS and location permissions to work properly.
+                The map will show your current location and track movement in real-time when tracking is enabled.
+            </div>
+        </div>
+
+        <footer>
+            <p>Real-time Location Tracker © 2023 | Powered by Google Maps API</p>
+        </footer>
+    </div>
+
+    <script>
+        let map;
+        let marker;
+        let watchId = null;
+        let polyline;
+        let pathCoordinates = [];
+
+        // Global function to initialize the map, called by the Google Maps API script
+        function initMap() {
+            document.getElementById('status').textContent = 'Status: Map loaded. Click "Get Current Location" to start';
+            
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 0, lng: 0 },
+                zoom: 2,
+                styles: [
+                    {
+                        "featureType": "administrative",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{"color": "#444444"}]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "stylers": [{"color": "#f2f2f2"}]
+                    },
+                    {
+                        "featureType": "poi",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "labels.icon",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "transit",
+                        "stylers": [{"visibility": "off"}]
+                    }
+                ]
+            });
+
+            polyline = new google.maps.Polyline({
+                path: pathCoordinates,
+                geodesic: true,
+                strokeColor: '#4285F4',
+                strokeOpacity: 1.0,
+                strokeWeight: 4,
+                map: map
+            });
+        }
+
+        // Get current location
+        function getLocation() {
+            if (navigator.geolocation) {
+                document.getElementById('status').textContent = 'Status: Getting location...';
+                
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        const accuracy = position.coords.accuracy;
+                        
+                        updateMap(lat, lng);
+                        updateInfoPanel(lat, lng, accuracy, position.timestamp);
+                        sendToServer(lat, lng);
+                        
+                        document.getElementById('status').textContent = 'Status: Location acquired';
+                    },
+                    (error) => {
+                        handleLocationError(error);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            } else {
+                document.getElementById('status').textContent = 'Status: Geolocation is not supported by this browser.';
+            }
+        }
+
+        // Start real-time tracking
+        function startTracking() {
+            if (watchId) {
+                document.getElementById('status').textContent = 'Status: Already tracking';
+                return;
+            }
+
+            document.getElementById('status').textContent = 'Status: Starting tracking...';
+
+            watchId = navigator.geolocation.watchPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const accuracy = position.coords.accuracy;
+                    
+                    updateMap(lat, lng);
+                    updateInfoPanel(lat, lng, accuracy, position.timestamp);
+                    sendToServer(lat, lng);
+                    
+                    document.getElementById('status').textContent = 'Status: Tracking active';
+                },
+                (error) => {
+                    handleLocationError(error);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0
+                }
+            );
+        }
+
+        // Stop tracking
+        function stopTracking() {
+            if (watchId) {
+                navigator.geolocation.clearWatch(watchId);
+                watchId = null;
+                document.getElementById('status').textContent = 'Status: Tracking stopped';
+            } else {
+                document.getElementById('status').textContent = 'Status: Not currently tracking';
+            }
+        }
+
+        // Update map with current location
+        function updateMap(lat, lng) {
+            const location = new google.maps.LatLng(lat, lng);
+            
+            if (!marker) {
+                marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    title: 'Your location',
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 10,
+                        fillColor: '#4285F4',
+                        fillOpacity: 1,
+                        strokeColor: '#FFFFFF',
+                        strokeWeight: 2
+                    }
+                });
+            } else {
+                marker.setPosition(location);
+            }
+            
+            map.panTo(location);
+            map.setZoom(15);
+            
+            // Add to polyline path
+            pathCoordinates.push(location);
+            polyline.setPath(pathCoordinates);
+        }
+
+        // Update information panel
+        function updateInfoPanel(lat, lng, accuracy, timestamp) {
+            document.getElementById('coordinates').textContent = 
+                `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+            document.getElementById('accuracy').textContent = 
+                `${accuracy.toFixed(2)} meters`;
+            document.getElementById('timestamp').textContent = 
+                new Date(timestamp).toLocaleTimeString();
+        }
+
+        // Send location to server (simulated)
+        function sendToServer(lat, lng) {
+            // This is a simulation - in a real app, you would send to your Flask backend
+            console.log('Sending to server:', { latitude: lat, longitude: lng });
+        }
+
+        // Handle location errors
+        function handleLocationError(error) {
+            let errorMessage;
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage = "User denied the request for geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    errorMessage = "The request to get location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    errorMessage = "An unknown error occurred.";
+                    break;
+            }
+            document.getElementById('status').textContent = 'Status: Error - ' + errorMessage;
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('getLocation').addEventListener('click', getLocation);
+            document.getElementById('startTracking').addEventListener('click', startTracking);
+            document.getElementById('stopTracking').addEventListener('click', stopTracking);
+        });
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOqrR-kuVAY_OnjsRv6ijxNAswHGKMuMA&callback=initMap"></script>
+</body>
+</html>

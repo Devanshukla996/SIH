@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tripsera | Bestsellers</title>
+  <style>
+    :root{
+      --green:#1c9c61;
+      --green-dark:#147a4c;
+      --green-light:#e8f6ef;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --white:#ffffff;
+      --shadow:0 10px 30px rgba(28,156,97,0.08);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      background: linear-gradient(180deg, var(--green-light), #fff);
+      color:var(--text);
+    }
+    .container{max-width:1200px;margin:24px auto 48px;padding:0 16px}
+    .header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;color:var(--green-dark)}
+    .logo{width:36px;height:36px;border-radius:10px;background: radial-gradient(circle at 30% 30%, #34d399, var(--green));box-shadow:0 6px 16px rgba(28,156,97,0.25), inset 0 2px 6px rgba(255,255,255,0.5)}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{appearance:none;border:1px solid var(--green);border-radius:10px;padding:10px 14px;font-weight:700;color:var(--green-dark);background:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(28,156,97,0.1)}
+    .btn:hover{background:var(--green-light)}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:16px}
+    @media (max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:820px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:560px){.grid{grid-template-columns:1fr}}
+    .card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .15s ease, box-shadow .2s ease}
+    .card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(28,156,97,0.14)}
+    .thumb{width:100%;aspect-ratio:4/3;object-fit:cover;background:#f2f5f7;border-bottom:1px solid var(--border)}
+    .content{padding:12px 12px 14px;display:flex;flex-direction:column;gap:8px}
+    .name{font-weight:800}
+    .desc{color:var(--muted);font-size:13px;line-height:1.35}
+    .meta{display:flex;align-items:center;justify-content:space-between}
+    .price{font-weight:900}
+    .badge{background:var(--green-light);color:var(--green-dark);border-radius:999px;padding:4px 10px;font-weight:800;font-size:12px}
+    .cta{display:flex;gap:8px;margin-top:8px}
+    .btn-primary{appearance:none;border:0;border-radius:10px;padding:10px 14px;font-weight:800;background:var(--green);color:#fff;box-shadow:0 8px 20px rgba(28,156,97,0.35);cursor:pointer}
+    .btn-primary:hover{background:var(--green-dark)}
+    .btn-outline{appearance:none;border:1px solid var(--green);border-radius:10px;padding:10px 14px;font-weight:800;background:#fff;color:var(--green-dark);cursor:pointer}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:var(--green-light);color:var(--green-dark);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"></span>
+        Tripsera • Bestsellers
+      </div>
+      <div class="actions">
+        <span class="pill">Curated crafts</span>
+        <button class="btn" onclick="location.href='cart.html'">View Cart</button>
+      </div>
+    </div>
+
+    <div class="grid" id="grid">
+      <!-- Bamboo Tokri Basket -->
+      <div class="card" data-id="tokri" data-price="150">
+        <img class="thumb" alt="Bamboo Tokri Basket" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFxqvgdX5J-PoZSXrS2WTi7l2UbacFhMyBXHn2rBTlTtVRtCiW4khWnCoAgTs59ItrMiI&usqp=CAU" />
+        <div class="content">
+          <div class="name">Bamboo Tokri Basket</div>
+          <div class="desc">Handwoven eco-friendly basket for daily use and decor.</div>
+          <div class="meta">
+            <span class="price">₹150</span>
+            <span class="badge">Bestseller</span>
+          </div>
+          <div class="cta">
+            <button class="btn-primary add">Add to Cart</button>
+            <button class="btn-outline" onclick="location.href='product-tokri.html'">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bamboo Wind Chimes -->
+      <div class="card" data-id="chimes" data-price="1600">
+        <img class="thumb" alt="Bamboo Wind Chimes" src="https://m.media-amazon.com/images/I/61eYWxfcxPL._UF894,1000_QL80_.jpg" />
+        <div class="content">
+          <div class="name">Bamboo Wind Chimes</div>
+          <div class="desc">Handcrafted chimes with soothing natural tones.</div>
+          <div class="meta">
+            <span class="price">₹1600</span>
+            <span class="badge">Popular</span>
+          </div>
+          <div class="cta">
+            <button class="btn-primary add">Add to Cart</button>
+            <button class="btn-outline" onclick="location.href='product-chimes.html'">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sohrai Wall Painting -->
+      <div class="card" data-id="sohrai" data-price="1500">
+        <img class="thumb" alt="Sohrai Wall Painting" src="https://thefolkworkshop.com/cdn/shop/files/WhatsAppImage2023-05-27at18.56.35_2048x.jpg?v=1686990067" />
+        <div class="content">
+          <div class="name">Sohrai Wall Painting</div>
+          <div class="desc">Inspired by Hazaribagh’s tribal mural art with animal and floral motifs.</div>
+          <div class="meta">
+            <span class="price">₹1500</span>
+            <span class="badge">Craft Heritage</span>
+          </div>
+          <div class="cta">
+            <button class="btn-primary add">Add to Cart</button>
+            <button class="btn-outline" onclick="location.href='product-sohrai.html'">Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inline JS to add to cart and persist -->
+  <script>
+    (function(){
+      const grid = document.getElementById('grid');
+      // Simple cart persistence via localStorage
+      function getCart(){ try{return JSON.parse(localStorage.getItem('tripsera_cart')||'[]')}catch(e){return []} }
+      function setCart(c){ localStorage.setItem('tripsera_cart', JSON.stringify(c)) }
+      function addToCart(id, name, price, qty=1){
+        const cart = getCart();
+        const idx = cart.findIndex(i=>i.id===id);
+        if (idx>-1){ cart[idx].qty += qty; } else { cart.push({id,name,price,qty}); }
+        setCart(cart);
+        alert('Added to cart: ' + name);
+      }
+      grid.addEventListener('click', (e)=>{
+        const btn = e.target.closest('.add'); if(!btn) return;
+        const card = e.target.closest('.card');
+        addToCart(
+          card.getAttribute('data-id'),
+          card.querySelector('.name').textContent.trim(),
+          Number(card.getAttribute('data-price')),
+          1
+        );
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chhath Puja: The Sacred Festival of Jharkhand</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5fff7;
+      color: #2c3e2c;
+    }
+
+    /* Header */
+    header {
+      background: url("https://www.theindianpanorama.news/wp-content/uploads/2022/10/Chhath.jpg") center/cover no-repeat;
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(30, 86, 49, 0.6); 
+      z-index: 0;
+    }
+
+    header h1, header p {
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      font-size: 42px;
+      margin: 0;
+      animation: fadeInDown 1.2s ease;
+    }
+    header p {
+      font-size: 18px;
+      margin-top: 15px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    section h2 {
+      color: #1e5631;
+      margin-bottom: 15px;
+      border-left: 6px solid #3c9d5e;
+      padding-left: 10px;
+    }
+    section p {
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #2c6e49;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin: 40px 0;
+      padding-left: 30px;
+      border-left: 3px solid #3c9d5e;
+    }
+    .timeline-item {
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .timeline-item:before {
+      content: "🌞";
+      position: absolute;
+      left: -25px;
+      font-size: 22px;
+      background: #fff;
+      padding: 2px;
+    }
+    .timeline-item h4 {
+      margin: 0 0 5px;
+      color: #1e5631;
+    }
+
+    /* Gallery */
+    .gallery {
+      position: relative;
+      max-width: 900px;
+      margin: 30px auto;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+    .gallery img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      display: none;
+    }
+    .gallery img.active {
+      display: block;
+      animation: fadeIn 1.2s ease;
+    }
+    .gallery button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(30,86,49,0.7);
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    .gallery button:hover {
+      background: rgba(60,157,94,0.9);
+    }
+    .gallery .prev { left: 10px; }
+    .gallery .next { right: 10px; }
+
+    .highlight {
+      background: #e8f5e9;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      border-left: 6px solid #3c9d5e;
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #1e5631;
+      color: white;
+      margin-top: 40px;
+    }
+
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes fadeInDown { from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);} }
+    @keyframes fadeInUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 28px; }
+      .gallery img { height: 250px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header>
+    <h1>🌞 Chhath Puja: The Sacred Festival of Jharkhand 🌿</h1>
+    <p>A spiritual journey of purity, discipline, and devotion to the Sun God, celebrated with grandeur in Jharkhand along its holy rivers.</p>
+  </header>
+
+  <!-- Overview -->
+  <section>
+    <h2>What is Chhath Puja?</h2>
+    <p>Chhath Puja is a four-day Hindu festival dedicated to the Sun God (Surya) and his consort, Chhathi Maiya. Falling six days after Diwali, it is one of the most rigorous and spiritually uplifting festivals, performed at rivers, ponds, and water bodies.</p>
+    <div class="cards">
+      <div class="card"><h3>📅 When</h3><p>October–November (Kartik Shukla Shashthi), 6 days after Diwali.</p></div>
+      <div class="card"><h3>🌞 Why</h3><p>To thank the Sun God for sustaining life and to seek blessings for family welfare.</p></div>
+      <div class="card"><h3>👥 Who</h3><p>Observed by devotees across Jharkhand, Bihar, and Uttar Pradesh with deep community participation.</p></div>
+    </div>
+  </section>
+
+  <!-- Rituals Timeline -->
+  <section>
+    <h2>The Four-Day Ritual Journey</h2>
+    <div class="timeline">
+      <div class="timeline-item"><h4>Day 1: Nahay Khay</h4><p>Holy bath, home purification, and a single simple meal mark the beginning of the festival.</p></div>
+      <div class="timeline-item"><h4>Day 2: Lohanda/Kharna</h4><p>A day-long waterless fast, broken in the evening with prasad of kheer, chapati, fruits, and jaggery.</p></div>
+      <div class="timeline-item"><h4>Day 3: Sandhya Arghya</h4><p>Main ritual offering to the setting sun, performed at riverbanks with baskets of fruits, Thekua, and diyas.</p></div>
+      <div class="timeline-item"><h4>Day 4: Usha Arghya</h4><p>The grand finale at dawn – devotees offer prayers to the rising sun, completing the 36-hour fast.</p></div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section>
+    <h2>Festival Glimpses</h2>
+    <div class="gallery">
+      <img src="https://feeds.abplive.com/onecms/images/uploaded-images/2023/11/16/fcc1b1a2c1eb551b1ee154915de605011700128542856557_original.png" class="active" alt="Chhath Devotees at River">
+      <img src="https://images.nativeplanet.com/img/2023/11/devotees-performing-chhath-puja-rituals-on-the-ghats-of-jharkhand_1700214978131-600x338-20231117153214.jpg" alt="Devotees Offering Arghya">
+      <img src="https://etvbharatimages.akamaized.net/etvbharat/prod-images/10-11-2024/1200-675-22867112-184-22867112-1731222343527.jpg" alt="Women Performing Puja">
+      <img src="https://assets.thehansindia.com/h-upload/2024/10/22/1491179-pu.webp" alt="Chhath Puja Diyas in Water">
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- Foods -->
+  <section>
+    <h2>Traditional Foods and Offerings</h2>
+    <ul>
+      <li>🍪 <b>Thekua</b> – signature sweet made of wheat flour, jaggery, and ghee</li>
+      <li>🥛 <b>Kheer</b> – rice pudding with jaggery and milk</li>
+      <li>🥥 Coconut and jaggery laddus</li>
+      <li>🍌 Seasonal fruits like bananas, sugarcane, and water chestnuts</li>
+    </ul>
+  </section>
+
+  <!-- Cultural Importance -->
+  <section>
+    <h2>Unique Aspects in Jharkhand</h2>
+    <p>Chhath Puja in Jharkhand blends Hindu traditions with tribal influences. Major celebrations happen along the Subarnarekha, Damodar, and Kharkai rivers. Folk songs, traditional instruments, and community unity make it a vibrant spiritual experience.</p>
+  </section>
+
+  <!-- Modern Relevance -->
+  <section>
+    <h2>Modern Relevance</h2>
+    <p>Despite urbanization and climate change challenges, Chhath Puja continues to thrive with eco-friendly practices, community participation, and diaspora celebrations worldwide.</p>
+    <div class="highlight">🌍 Chhath Puja reminds us of discipline, gratitude, and living in harmony with nature and community.</div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>🌞 Chhath Puja of Jharkhand | A Festival of Purity, Devotion & Gratitude 🌿</p>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll(".gallery img");
+    let index = 0;
+
+    function showSlide(n) {
+      slides.forEach((slide, i) => slide.classList.remove("active"));
+      slides[n].classList.add("active");
+    }
+
+    document.querySelector(".next").addEventListener("click", () => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    });
+
+    document.querySelector(".prev").addEventListener("click", () => {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    });
+
+    setInterval(() => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }, 4000);
+  </script>
+</body>
+</html>

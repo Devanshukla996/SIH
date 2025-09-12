@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarhul Festival of Jharkhand</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5fff7;
+      color: #2c3e2c;
+    }
+
+    /* Header */
+    header {
+      background: url("https://upload.wikimedia.org/wikipedia/commons/e/e1/Holy_Prayer.jpg") center/cover no-repeat;
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Overlay for readability */
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(30, 86, 49, 0.6); /* green transparent overlay */
+      z-index: 0;
+    }
+
+    header h1, header p {
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      font-size: 42px;
+      margin: 0;
+      animation: fadeInDown 1.2s ease;
+    }
+    header p {
+      font-size: 18px;
+      margin-top: 15px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    /* Section */
+    section {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    section h2 {
+      color: #1e5631;
+      margin-bottom: 15px;
+      border-left: 6px solid #3c9d5e;
+      padding-left: 10px;
+    }
+    section p {
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #2c6e49;
+    }
+
+    /* Highlight */
+    .highlight {
+      background: #e8f5e9;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      border-left: 6px solid #3c9d5e;
+      font-style: italic;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin: 40px 0;
+      padding-left: 30px;
+      border-left: 3px solid #3c9d5e;
+    }
+    .timeline-item {
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .timeline-item:before {
+      content: "🌿";
+      position: absolute;
+      left: -25px;
+      font-size: 22px;
+      background: #fff;
+      padding: 2px;
+    }
+    .timeline-item h4 {
+      margin: 0 0 5px;
+      color: #1e5631;
+    }
+
+    /* Gallery */
+    .gallery {
+      position: relative;
+      max-width: 900px;
+      margin: 30px auto;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+    .gallery img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      display: none;
+    }
+    .gallery img.active {
+      display: block;
+      animation: fadeIn 1.2s ease;
+    }
+    .gallery button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(30,86,49,0.7);
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    .gallery button:hover {
+      background: rgba(60,157,94,0.9);
+    }
+    .gallery .prev { left: 10px; }
+    .gallery .next { right: 10px; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #1e5631;
+      color: white;
+      margin-top: 40px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes fadeInDown { from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);} }
+    @keyframes fadeInUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 { font-size: 28px; }
+      .gallery img { height: 250px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header>
+    <h1>🌸 Sarhul Festival of Jharkhand 🌿</h1>
+    <p>A celebration of nature, community, and traditions – Sarhul marks the worship of Sal trees and the arrival of spring, bringing entire villages together in Jharkhand.</p>
+  </header>
+
+  <!-- Overview -->
+  <section>
+    <h2>What is Sarhul?</h2>
+    <p>Sarhul literally means "worship of the Sal tree." Celebrated mainly by the Oraon, Munda, and Ho tribes, it marks the new year according to the tribal calendar during spring when Sal trees bloom.</p>
+
+    <div class="cards">
+      <div class="card"><h3>📅 When</h3><p>March–April, during spring bloom of Sal trees.</p></div>
+      <div class="card"><h3>🌳 Why</h3><p>Worship Mother Earth, thank nature spirits, and pray for harvest.</p></div>
+      <div class="card"><h3>👥 Who</h3><p>Mainly celebrated by Oraon, Munda, and Ho tribal communities.</p></div>
+    </div>
+  </section>
+
+  <!-- Rituals Timeline -->
+  <section>
+    <h2>Rituals & Traditions</h2>
+    <div class="timeline">
+      <div class="timeline-item"><h4>🌿 Tree Worship</h4><p>Sal trees are decorated with flowers, rice, and vermillion. The village priest (Pahan) leads prayers.</p></div>
+      <div class="timeline-item"><h4>💃 Sacred Dancing</h4><p>Men and women dance in circles holding hands, singing folk songs.</p></div>
+      <div class="timeline-item"><h4>🍲 Community Feast</h4><p>Villagers share traditional dishes and rice beer together.</p></div>
+      <div class="timeline-item"><h4>🎶 Cultural Programs</h4><p>Storytelling, folk music, and tribal games bring joy to the celebration.</p></div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section>
+    <h2>Festival Glimpses</h2>
+    <div class="gallery">
+      <img src="https://media.assettype.com/outlooktraveller%2Fimport%2Foutlooktraveller%2Fpublic%2Fuploads%2Farticles%2Fexplore%2FSarhul.jpg?w=1200&ar=40%3A21&auto=format%2Ccompress&ogImage=true&mode=crop&enlarge=true&overlay=false&overlay_position=bottom&overlay_width=100" class="active" alt="Sarhul Dance">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Holy_Prayer.jpg" alt="Sal Tree Worship">
+      <img src="https://images.news18.com/ibnlive/uploads/2022/04/sarhul-16490081494x3.jpg" alt="Community Feast">
+      <img src="https://theindiantribal.com/wp-content/uploads/2022/04/sarna-sthal-puja.jpg" alt="Traditional Dance">
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- Foods -->
+  <section>
+    <h2>Traditional Foods</h2>
+    <ul>
+      <li>🍶 <b>Handia</b> – rice beer</li>
+      <li>🥮 <b>Pitha</b> – sweet rice cakes</li>
+      <li>🍄 <b>Rugra</b> – wild mushroom curry</li>
+      <li>🎋 Bamboo shoot dishes</li>
+      <li>🥗 Wild vegetables</li>
+    </ul>
+  </section>
+
+  <!-- Modern Context -->
+  <section>
+    <h2>Modern Relevance</h2>
+    <p>Though still widely celebrated, Sarhul faces challenges due to urbanization, migration, and climate change. Efforts are being made through government support, eco-tourism, and cultural documentation.</p>
+    <div class="highlight">🌍 Sarhul reminds us of sustainable living and harmony with nature — lessons we need more than ever today.</div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>🌸 Sarhul Festival of Jharkhand | Celebrating Nature & Culture 🌿</p>
+  </footer>
+
+  <!-- JS for Gallery -->
+  <script>
+    const slides = document.querySelectorAll(".gallery img");
+    let index = 0;
+
+    function showSlide(n) {
+      slides.forEach((slide, i) => slide.classList.remove("active"));
+      slides[n].classList.add("active");
+    }
+
+    document.querySelector(".next").addEventListener("click", () => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    });
+
+    document.querySelector(".prev").addEventListener("click", () => {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    });
+
+    setInterval(() => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }, 4000);
+  </script>
+</body>
+</html>

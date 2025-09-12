@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jharkhand Ecotourism</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f9f6;
+      color: #2c3e2c;
+    }
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    header nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+    }
+    .hero {
+      background: url('https://d3sftlgbtusmnv.cloudfront.net/blog/wp-content/uploads/2024/09/Betla-National-Park-Cover-Photo-840x425.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* ✅ Fixed Search Bar */
+    .search-bar {
+      display: flex;
+      flex-wrap: wrap;
+      background: white;
+      padding: 8px;
+      border-radius: 50px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      justify-content: center;
+      max-width: 600px;   /* keeps it compact */
+      margin: 0 auto;
+    }
+    .search-bar select, 
+    .search-bar input {
+      border: none;
+      padding: 10px 12px;
+      outline: none;
+      border-radius: 50px;
+      margin: 5px;
+      font-size: 15px;
+      flex: 1 1 150px;
+      min-width: 120px;
+    }
+    .search-bar button {
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 15px;
+      margin: 5px;
+      transition: background 0.3s;
+    }
+    .search-bar button:hover {
+      background: #1e5631;
+    }
+
+    @media (max-width: 768px) {
+      .search-bar {
+        flex-direction: column;
+        border-radius: 20px;
+        max-width: 350px;  /* ✅ prevent full screen width */
+      }
+      .search-bar select, 
+      .search-bar input, 
+      .search-bar button {
+        width: 100%;
+        border-radius: 10px;
+        font-size: 14px;
+      }
+    }
+
+    .section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .section h2 {
+      font-size: 32px;
+      margin-bottom: 40px;
+      color: #1e5631;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 50% / 30%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 15px;
+    }
+    .card h3 {
+      margin-bottom: 10px;
+      color: #2c6e49;
+    }
+    .card p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 15px;
+    }
+    .card a {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #2e7d32;
+      color: white;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    .card a:hover {
+      background: #1e5631;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" style="color:white; font-weight:bold; font-size:20px;">Jharkhand Ecotourism</div>
+    <nav></nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Discover Jharkhand's Wilderness</h1>
+      <p>Explore authentic eco experiences in the land of forests and waterfalls</p>
+      <div class="search-bar">
+        <select>
+          <option>Activity</option>
+          <option>Safari</option>
+          <option>Trekking</option>
+          <option>Water Sports</option>
+        </select>
+        <input type="text" placeholder="Search...">
+        <button>Search</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>5 Real Ecotourism Activities in Jharkhand (2024–25)</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjU9MJHB2MmGMfwldTrd9b7e3TgkDm8J7tbgrGxt48rjVhxPiBilLQxMFL8yJS9r2YY4M_0YvVTzKCuG5RIRtkdJWzkSvny-484pZEpItctlR7gbTBBBsaHK7fwC1tztv0Zkx4zxe_QStKt/s679/images+%252811%2529.jpeg" alt="Wildlife Safari">
+        <h3>Wildlife Safari at Betla</h3>
+        <p>Experience jeep, elephant, and boat safaris in Jharkhand's only national park.</p>
+        <a href="#">Book Now</a>
+      </div>
+      <div class="card">
+        <img src="https://curlytales.com/wp-content/uploads/2023/10/jharkhand.jpg" alt="Waterfalls">
+        <h3>Waterfall Tourism</h3>
+        <p>Visit Hundru, Dassam, and Jonha Falls for natural pools and breathtaking views.</p>
+        <a href="#">Book Now</a>
+      </div>
+      <div class="card">
+        <img src="https://img1.wsimg.com/isteam/ip/0aad08d5-e3a7-437a-b1ba-989d6d140828/IMG_20211219_110931.jpg" alt="Trekking">
+        <h3>Forest Trekking</h3>
+        <p>Guided treks and nature walks in Betla’s lush forests and valleys.</p>
+        <a href="#">Book Now</a>
+      </div>
+      <div class="card">
+        <img src="https://curlytales.com/wp-content/uploads/2024/03/Amadubi-5.png" alt="Heritage Tour">
+        <h3>Eco-Heritage Tours</h3>
+        <p>Explore Chero King’s fort, ancient ruins, and tribal settlements in natural settings.</p>
+        <a href="#">Book Now</a>
+      </div>
+      <div class="card">
+        <img src="https://seawatersports.com/images/activies/slide/rafting-in-jharkhand-package.jpg" alt="Adventure">
+        <h3>Adventure Water Sports</h3>
+        <p>Swim in natural pools, explore rock formations, and enjoy riverside picnics.</p>
+        <a href="#">Book Now</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

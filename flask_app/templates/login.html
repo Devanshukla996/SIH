@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jharkhand Tourism Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      background: url('https://pbs.twimg.com/media/FzUL2u5XoAAELY7.jpg:large') 
+        no-repeat center center/cover;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .overlay {
+      display: flex;
+      width: 100%;
+      max-width: 1100px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    /* Left Info Section */
+    .info-section {
+      flex: 1;
+      color: #fff;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+    }
+
+    .info-section h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+
+    .info-section p {
+      font-size: 18px;
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    /* Login Card */
+    .login-section {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 0 20px 20px 0;
+    }
+
+    .login-section h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    .login-section input,
+    .login-section select,
+    .login-section textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .login-section textarea {
+      resize: none;
+      height: 60px;
+    }
+
+    .login-section button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .login-section button:hover {
+      background-color: #0056b3;
+    }
+
+    .signup {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .signup a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    /* 📱 Responsive Design */
+    @media (max-width: 768px) {
+      .overlay {
+        flex-direction: column;
+      }
+
+      .info-section {
+        padding: 30px 20px;
+        text-align: center;
+        align-items: center;
+      }
+
+      .info-section h1 {
+        font-size: 28px;
+      }
+
+      .info-section p {
+        font-size: 15px;
+        max-width: 100%;
+      }
+
+      .login-section {
+        border-radius: 0 0 20px 20px;
+        padding: 30px 20px;
+      }
+
+      .login-section input,
+      .login-section select,
+      .login-section textarea {
+        font-size: 13px;
+        padding: 10px;
+      }
+
+      .login-section button {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .info-section h1 {
+        font-size: 24px;
+      }
+      .info-section p {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="overlay">
+      <!-- Left Side Info -->
+      <div class="info-section">
+        <h1>Welcome to Tripsera ✨</h1>
+        <p>Discover majestic waterfalls, lush forests, and vibrant tribal culture.  
+           Begin your journey into the heart of Jharkhand today.</p>
+      </div>
+
+      <!-- Right Side Login -->
+      <div class="login-section">
+        <h2>Login</h2>
+        <input type="text" placeholder="Full Name">
+        <input type="text" placeholder="Contact Number">
+        <input type="email" placeholder="Email ID">
+        <input type="password" placeholder="Password">
+        <textarea placeholder="Address"></textarea>
+        <select>
+          <option disabled selected>Login As</option>
+          <option>Tourist</option>
+          <option>Guide</option>
+          <option>Admin</option>
+        </select>
+        <button>LOGIN</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

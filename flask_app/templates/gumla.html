@@ -1,0 +1,315 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gumla — Green Travel Guide</title>
+  <meta name="description" content="Gumla travel guide — experiences, culture, transport, gallery. Green themed Lonely Planet style template." />
+  <style>
+    :root{
+      --green-700:#2e7d32;
+      --green-500:#66bb6a;
+      --accent:#a5d6a7;
+      --bg:#f1f8f2;
+      --card:#ffffff;
+      --muted:#556b2f;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:#1b1b1b}
+
+    /* Close button styling */
+    .page-close {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: #c62828;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+    .page-close:hover {
+      background: #a31414;
+    }
+
+
+    /* Sticky Navbar */
+    .nav{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,var(--green-700),var(--green-500));color:#fff;padding:12px 6%;display:flex;align-items:center;gap:16px}
+    .brand{font-weight:700;font-size:1.1rem}
+    .nav-links{margin-left:auto;display:flex;gap:14px}
+    .nav-links a{color:rgba(255,255,255,0.95);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
+    .nav-links a:hover, .nav-links a.active{background:rgba(255,255,255,0.12)}
+
+    /* Hero */
+    .hero{height:62vh;background-image:linear-gradient(120deg,rgba(46,125,50,0.45),rgba(102,187,106,0.15)),url('https://dy3rma73kowlp.cloudfront.net/uploads/2024/02/12gum_1_12122023_11_c111ran105943219.jpg');background-size:cover;background-position:center;display:flex;align-items:center}
+    .hero-inner{width:100%;padding:4rem 8%;color:#fff}
+    .hero h1{margin:0;font-size:3rem;letter-spacing:0.4px}
+    .hero p{margin:10px 0 0;font-size:1.05rem;opacity:0.95}
+    .cta{display:inline-block;margin-top:18px;padding:10px 16px;border-radius:999px;background:var(--card);color:var(--green-700);font-weight:700;text-decoration:none;box-shadow:0 6px 18px rgba(46,125,50,0.12)}
+
+    /* Layout sections */
+    main{max-width:1200px;margin:-40px auto 60px;padding:0 4%}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 20px rgba(34,60,41,0.06);}
+    .row{display:flex;gap:20px}
+
+    /* Overview */
+    .facts{display:flex;gap:18px;margin-top:-30px}
+    .fact{flex:1;padding:16px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(245,255,245,0.95));border-left:6px solid var(--green-500)}
+    .fact h3{margin:0;color:var(--muted)}
+    .fact p{margin:8px 0 0;font-weight:600}
+
+    /* Carousel */
+    .carousel-wrap{margin-top:28px;position:relative}
+    .carousel{display:flex;gap:16px;overflow:hidden;padding-bottom:8px}
+    .track{display:flex;transition:transform 450ms cubic-bezier(.22,.9,.3,1);}
+    .place{min-width:300px;max-width:320px;border-radius:12px;background:var(--card);overflow:hidden;box-shadow:0 6px 20px rgba(46,125,50,0.08);cursor:pointer;transform-origin:center}
+    .place img{width:100%;height:200px;object-fit:cover;display:block}
+    .place .info{padding:12px}
+    .place h4{margin:0 0 8px;font-size:1.05rem;color:var(--green-700)}
+    .place ul{margin:0;padding-left:18px;color:#444;font-size:0.95rem}
+
+    .arrow{position:absolute;top:45%;transform:translateY(-50%);background:rgba(255,255,255,0.92);border:none;width:44px;height:44px;border-radius:999px;display:grid;place-items:center;box-shadow:0 6px 18px rgba(33,33,33,0.12);cursor:pointer}
+    .arrow.left{left:-10px}
+    .arrow.right{right:-10px}
+
+    /* Culture panel */
+    .culture{margin-top:28px;display:flex;gap:14px;overflow:auto;padding:10px 0}
+    .culture::-webkit-scrollbar{display:none}
+    .chip{flex:0 0 auto;background:linear-gradient(180deg,#fff,#f7fff8);padding:14px;border-radius:10px;min-width:200px;text-align:center;border:1px solid rgba(46,125,50,0.06);box-shadow:0 6px 16px rgba(46,125,50,0.04);cursor:pointer}
+    .chip h4{margin:0;color:var(--green-700)}
+    .chip p{margin:8px 0 0;font-size:0.95rem;color:#3b3b3b}
+
+    /* Practical info */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    .info-card{padding:16px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfff7);border-left:6px solid var(--green-500)}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px;transition:transform 220ms}
+    .gallery img:hover{transform:scale(1.04)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;padding:20px;z-index:120}
+    .modal-card{background:var(--card);max-width:900px;width:100%;border-radius:10px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+    .modal-card img{width:100%;height:100%;object-fit:cover}
+    .modal-text{padding:20px}
+    .modal-text h3{margin-top:0;color:var(--green-700)}
+    .close-btn{position:absolute;top:18px;right:24px;background:#fff;border-radius:50%;width:40px;height:40px;border:none;display:grid;place-items:center;cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .row{flex-direction:column}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .modal-card{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .nav-links{display:none}
+      .hero h1{font-size:2rem}
+      .facts{flex-direction:column}
+      .grid{grid-template-columns:1fr}
+      .place{min-width:78%;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- Close button -->
+<button class="page-close" onclick="window.location.href='/landing'"aria-label="Close Page">✕</button>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Gumla</h1>
+      <p>Hills • Waterfalls • Tribal Traditions — the scenic west of Jharkhand</p>
+      <a class="cta" href="#experiences">Explore highlights</a>
+    </div>
+  </section>
+
+  <main>
+    <!-- Overview -->
+    <section id="overview" class="card">
+      <div class="facts">
+        <div class="fact"><h3>Best time</h3><p>Oct – Feb</p></div>
+        <div class="fact"><h3>How to get there</h3><p>Rail: Gumla station / Ranchi nearby | Air: Ranchi (~140 km)</p></div>
+        <div class="fact"><h3>Highlights</h3><p>Nagfeni Hill • Hapamuni Falls • Tanginath</p></div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:12px;align-items:center;">
+        <div style="flex:1">
+          <p style="margin:0;color:#445f3b;font-weight:600">Quick intro</p>
+          <p style="margin:6px 0 0;color:#444">Gumla is a quiet, hilly district rich in waterfalls, tribal culture and rocky outcrops. It's an offbeat destination for hikers, photographers and those seeking cultural immersion.</p>
+        </div>
+        <div style="width:220px">
+          <img style="width:100%;border-radius:10px" src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/60/47/32/baghmunda-waterfall.jpg?w=500&h=500&s=1" alt="Gumla landscape">
+        </div>
+      </div>
+    </section>
+
+    <!-- Experiences carousel (4-5 items) -->
+    <section id="experiences" class="card carousel-wrap">
+      <h2 style="margin:0 0 12px;color:var(--green-700)">Top Experiences</h2>
+      <button class="arrow left" aria-label="prev">❮</button>
+      <div class="carousel" aria-hidden>
+        <div class="track" id="track">
+
+          <div class="place" data-title="Nagfeni Hill" data-desc="Famous for its ancient Shiva temple perched on a rocky hill — panoramic views and local legends." data-img="https://source.unsplash.com/900x600/?hill,temple">
+            <img src="https://seawatersports.com/images/places/nagpheni.png" alt="Nagfeni Hill">
+            <div class="info"><h4>Nagfeni Hill</h4><ul><li>Hilltop temple</li><li>Legends & views</li><li>Short trek</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Hapamuni Falls" data-desc="A scenic cascade surrounded by forest — best after monsoon and perfect for nature photography." data-img="https://source.unsplash.com/900x600/?waterfall,forest">
+            <img src="https://seawatersports.com/images/places/mirchaiya-waterfall.png" alt="Hapamuni Falls">
+            <div class="info"><h4>Hapamuni Falls</h4><ul><li>Photogenic cascade</li><li>Forest trails</li><li>Picnic area</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Tanginath" data-desc="Ancient temple site with rock formations and panoramic hill views — culturally significant and peaceful." data-img="https://source.unsplash.com/900x600/?ancient,temple">
+            <img src="https://pbs.twimg.com/media/F-4U5SMaQAAF6I7?format=jpg&name=large" alt="Tanginath">
+            <div class="info"><h4>Tanginath</h4><ul><li>Historic shrines</li><li>Scenic outlooks</li><li>Quiet ambience</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Palkot (nearby)" data-desc="Rocky plateau with historic sites, old temples, and sweeping views — great for a half-day trip." data-img="https://source.unsplash.com/900x600/?plateau,rocks">
+            <img src="https://www.jagranimages.com/images/newimg/17122021/17_12_2021-17gml_9_17122021_351-c-1_22303564_232559.jpg" alt="Palkot">
+            <div class="info"><h4>Palkot</h4><ul><li>Plateau views</li><li>Heritage ruins</li><li>Half-day trip</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Tribal Villages" data-desc="Visit local villages to experience tribal crafts, dances and everyday life — best with a local guide or host." data-img="https://source.unsplash.com/900x600/?tribal,village">
+            <img src="https://media.licdn.com/dms/image/v2/C4D12AQFxNBGqCoHZIA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1520126353616?e=2147483647&v=beta&t=NngUiSUKcxNgGrycWpYmFZHw_0Lwg_uMwrt1trbbcV4" alt="Tribal Village">
+            <div class="info"><h4>Tribal Villages</h4><ul><li>Cultural visits</li><li>Handicrafts</li><li>Community stays</li></ul></div>
+          </div>
+
+        </div>
+      </div>
+      <button class="arrow right" aria-label="next">❯</button>
+    </section>
+
+    <!-- Culture chips -->
+    <section id="culture" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Culture & Insights</h2>
+      <div class="culture">
+        <div class="chip" data-title="Festivals" data-desc="Sohrai, Sarhul and Karma are celebrated with songs, dances and offerings to nature." data-img="https://caleidoscope.in/wp-content/uploads/2021/11/Jharkhand-Folk-Dances-Karam-Dance-.jpg">
+          <h4>Festivals</h4>
+          <p>Sohrai • Sarhul • Karma</p>
+        </div>
+        <div class="chip" data-title="Cuisine" data-desc="Enjoy local dishes like litti–chokha, pitha and seasonal forest produce such as mahua and mushrooms." data-img="https://www.aranyapurefood.com/cdn/shop/collections/IMG-20221124-WA0089.jpg?v=1670500303&width=750">
+          <h4>Cuisine</h4>
+          <p>Litti • Pitha • Mahua</p>
+        </div>
+        <div class="chip" data-title="Handicrafts" data-desc="Bamboo crafts, terracotta and tribal painting styles — look for locally made souvenirs." data-img="https://indianetzone.wordpress.com/wp-content/uploads/2024/08/bamboo.jpg?w=500">
+          <h4>Handicrafts</h4>
+          <p>Bamboo & terracotta</p>
+        </div>
+        <div class="chip" data-title="Traditions" data-desc="Oral storytelling, folk dances and indigenous agricultural rituals are still practiced widely." data-img="https://blogmedia.testbook.com/blog/wp-content/uploads/2023/07/domkach-097de3ab.jpg">
+          <h4>Traditions</h4>
+          <p>Folk songs & dances</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practical Info -->
+    <section id="info" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Practical Information</h2>
+      <div class="grid">
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Transport</h4>
+          <p style="margin:8px 0 0">Nearest rail: Gumla station. Road connections to Ranchi and Simdega; local buses and taxis for nearby sites.</p>
+        </div>
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Where to stay</h4>
+          <p style="margin:8px 0 0">Basic hotels in Gumla town; homestays in villages and small guesthouses near scenic spots.</p>
+        </div>
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Safety & tips</h4>
+          <p style="margin:8px 0 0">Carry water and sturdy shoes for trails, avoid slippery rocks near falls, hire local guides for remote areas and respect tribal customs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section class="card" style="margin-top:20px">
+      <h2 style="color:var(--green-700);margin-top:0">On the map</h2>
+      <div style="height:320px;border-radius:10px;overflow:hidden;border:1px solid rgba(46,125,50,0.08);">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14843.123456789012!2d84.5280!3d23.0426!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f0b8c2e6a1a1a1%3A0xabcdef1234567890!2sGumla%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1693899999999!5m2!1sen!2sin"
+          width="100%"
+          height="320"
+          style="border:0;border-radius:10px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Photo gallery</h2>
+      <div class="gallery">
+        <img src="https://content.jdmagicbox.com/v2/comp/gumla/s8/9999p6524.6524.220211203040.a3s8/catalogue/dhardariya-waterfall-bishunpur-gumla-tourist-attraction-oib7iclpo8.jpg" alt="Nagfeni Hill">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjkeKNPp7O0j9L3AbIxCxKLAn8c0vFfbas4askDoJTTew9NQcTFRdJSBQrwXeuZqkeoxk&usqp=CAU" alt="Hapamuni Falls">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKEb5k3vHnH4aHMN5sQyxWEaN4z9j4k4GQeg&s" alt="Tanginath">
+        <img src="https://pbs.twimg.com/media/GBtgUljaIAAi-1A.jpg" alt="Palkot">
+        <img src="https://cloud-1de12d.b-cdn.net/media/iW=5000&iH=any/4e7bd8b5067e93163233cbac521dbf84/2-Karmali.jpg" alt="Tribal Art">
+        <img src="https://dy3rma73kowlp.cloudfront.net/uploads/2024/01/masuriya-village-deoghar.jpg" alt="Village Life">
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal for place & chips -->
+  <div class="modal" id="modal">
+    <button class="close-btn" aria-label="close">✕</button>
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <img id="modalImg" src="" alt="">
+      <div class="modal-text">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click', (e)=>{
+      e.preventDefault(); document.querySelectorAll('.nav-links a').forEach(x=>x.classList.remove('active'));
+      a.classList.add('active'); const id = a.getAttribute('href'); document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+    }));
+
+    // Carousel controls
+    const track = document.getElementById('track');
+    const left = document.querySelector('.arrow.left');
+    const right = document.querySelector('.arrow.right');
+    let pos = 0; const step = 320; const max = track.children.length*320 - step*3; // show 3 items
+
+    right.addEventListener('click', ()=>{ pos = Math.min(pos+step, max); track.style.transform = `translateX(-${pos}px)`});
+    left.addEventListener('click', ()=>{ pos = Math.max(pos-step, 0); track.style.transform = `translateX(-${pos}px)`});
+
+    // Clickable places & chips -> modal
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const closeBtn = document.querySelector('.close-btn');
+
+    function openModal(title, desc, img){ modalTitle.textContent = title; modalDesc.textContent = desc; modalImg.src = img; modal.style.display = 'flex'; document.body.style.overflow='hidden'; }
+    function closeModal(){ modal.style.display='none'; document.body.style.overflow='auto'; }
+
+    document.querySelectorAll('.place').forEach(p=>p.addEventListener('click', ()=> openModal(p.dataset.title,p.dataset.desc,p.dataset.img)));
+    document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click', ()=> openModal(c.dataset.title,c.dataset.desc,c.dataset.img)));
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+
+    // touch swipe support for carousel
+    let startX=0, isDown=false;
+    track.addEventListener('pointerdown', (e)=>{ isDown=true; startX = e.clientX; track.style.transition='none'; });
+    track.addEventListener('pointermove', (e)=>{ if(!isDown) return; const diff = e.clientX - startX; track.style.transform = `translateX(${ -pos + diff }px)`; });
+    track.addEventListener('pointerup', (e)=>{ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; const diff = e.clientX - startX; if(diff < -60) { pos = Math.min(pos+step, max);} else if(diff > 60) { pos = Math.max(pos-step,0);} track.style.transform = `translateX(-${pos}px)`; });
+    track.addEventListener('pointerleave', ()=>{ if(isDown){ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; track.style.transform = `translateX(-${pos}px)`; } });
+
+  </script>
+</body>
+</html>
