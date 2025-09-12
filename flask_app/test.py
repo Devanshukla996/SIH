@@ -14,9 +14,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Import db and models
+# from models import db, Person, Student
 
 # Initialize SQLAlchemy with app
-
+# db.init_app(app)
 
 # Create database if it doesn't exist
 host = 'localhost'
@@ -24,19 +25,19 @@ user = 'root'
 password = 'Devansh@123'
 database_name = 'mysql_server'
 
-connection = pymysql.connect(host=host, user=user, password=password)
-connection.autocommit(True)
-try:
-    with connection.cursor() as cursor:
-        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database_name}")
-        print(f"Database '{database_name}' ensured to exist.")
-finally:
-    connection.close()
+# connection = pymysql.connect(host=host, user=user, password=password)
+# connection.autocommit(True)
+# try:
+#     with connection.cursor() as cursor:
+#         cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database_name}")
+#         print(f"Database '{database_name}' ensured to exist.")
+# finally:
+#     connection.close()
 
-@app.before_request
-def create_tables_and_seed():
-    with app.app_context():
-        db.create_all()
+# @app.before_request
+# def create_tables_and_seed():
+#     with app.app_context():
+#         db.create_all()
   
 
 @app.route("/", methods=["GET"])
