@@ -1,4 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
+import os
+from dotenv import load_dotenv
+load_dotenv()  
 
 import pymysql
 
@@ -7,7 +10,7 @@ app = Flask(__name__)
 
 
 # Configure database URI here
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Devansh%40123@localhost/mysql_server'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Import db and models
@@ -210,6 +213,9 @@ def chhath_puja():
 def tusu_parab():
     return render_template("tusu1.html")
 
+@app.route("/dashboard")
+def Dashboard():
+    return render_template("dashboard.html")
 
 
 if __name__ == "__main__":

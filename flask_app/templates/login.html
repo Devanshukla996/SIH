@@ -182,18 +182,20 @@
       <!-- Right Side Login -->
       <div class="login-section">
         <h2>Login</h2>
-        <input type="text" placeholder="Full Name">
-        <input type="text" placeholder="Contact Number">
-        <input type="email" placeholder="Email ID">
-        <input type="password" placeholder="Password">
-        <textarea placeholder="Address"></textarea>
-        <select>
-          <option disabled selected>Login As</option>
-          <option>Tourist</option>
-          <option>Guide</option>
-          <option>Admin</option>
-        </select>
-        <button>LOGIN</button>
+        <form method="POST" action="{{ url_for('login') }}">
+          <input type="text" name="full_name" placeholder="Full Name" required>
+          <input type="text" name="contact_number" placeholder="Contact Number" required>
+          <input type="email" name="email" placeholder="Email ID" required>
+          <input type="password" name="password" placeholder="Password" required>
+          <textarea name="address" placeholder="Address"></textarea>
+          <select name="role" required>
+            <option disabled selected value="">Login As</option>
+            <option value="tourist">Tourist</option>
+            <option value="guide">Guide</option>
+            <option value="admin">Admin</option>
+          </select>
+          <button type="submit">LOGIN</button>
+        </form>
       </div>
     </div>
   </div>
