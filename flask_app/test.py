@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, redirect, url_for
 import os
 from dotenv import load_dotenv
@@ -195,7 +196,7 @@ def Bestseller():
 
 @app.route("/sohrai_festival")
 def sohrai_festival():
-    return render_template("sohrai.html")
+    return render_template(" sorhai_festival.html")
 
 @app.route("/karma_festival")
 def karma_festival():
@@ -220,4 +221,3 @@ def Dashboard():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
