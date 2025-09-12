@@ -1,0 +1,316 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ranchi — Green Travel Guide</title>
+  <meta name="description" content="Ranchi travel guide — experiences, culture, transport, gallery. Green themed Lonely Planet style template." />
+  <style>
+    :root{
+      --green-700:#2e7d32;
+      --green-500:#66bb6a;
+      --accent:#a5d6a7;
+      --bg:#f1f8f2;
+      --card:#ffffff;
+      --muted:#556b2f;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:#1b1b1b}
+
+    /* Close button styling */
+    .page-close {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: #c62828;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+    .page-close:hover {
+      background: #a31414;
+    }
+
+    /* Sticky Navbar */
+    .nav{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,var(--green-700),var(--green-500));color:#fff;padding:12px 6%;display:flex;align-items:center;gap:16px}
+    .brand{font-weight:700;font-size:1.1rem}
+    .nav-links{margin-left:auto;display:flex;gap:14px}
+    .nav-links a{color:rgba(255,255,255,0.95);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
+    .nav-links a:hover, .nav-links a.active{background:rgba(255,255,255,0.12)}
+
+    /* Hero */
+    .hero{height:62vh;background-image:linear-gradient(120deg,rgba(46,125,50,0.45),rgba(102,187,106,0.15)),url('https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2024/01/08/2f3f282a9bfcef08e3e93630853f7173_1000x1000.jpg');background-size:cover;background-position:center;display:flex;align-items:center}
+    .hero-inner{width:100%;padding:4rem 8%;color:#fff}
+    .hero h1{margin:0;font-size:3rem;letter-spacing:0.4px}
+    .hero p{margin:10px 0 0;font-size:1.05rem;opacity:0.95}
+    .cta{display:inline-block;margin-top:18px;padding:10px 16px;border-radius:999px;background:var(--card);color:var(--green-700);font-weight:700;text-decoration:none;box-shadow:0 6px 18px rgba(46,125,50,0.12)}
+
+    /* Layout sections */
+    main{max-width:1200px;margin:-40px auto 60px;padding:0 4%}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 20px rgba(34,60,41,0.06);}
+    .row{display:flex;gap:20px}
+
+    /* Overview */
+    .facts{display:flex;gap:18px;margin-top:-30px}
+    .fact{flex:1;padding:16px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(245,255,245,0.95));border-left:6px solid var(--green-500)}
+    .fact h3{margin:0;color:var(--muted)}
+    .fact p{margin:8px 0 0;font-weight:600}
+
+    /* Carousel */
+    .carousel-wrap{margin-top:28px;position:relative}
+    .carousel{display:flex;gap:16px;overflow:hidden;padding-bottom:8px}
+    .track{display:flex;transition:transform 450ms cubic-bezier(.22,.9,.3,1);}
+    .place{min-width:300px;max-width:320px;border-radius:12px;background:var(--card);overflow:hidden;box-shadow:0 6px 20px rgba(46,125,50,0.08);cursor:pointer;transform-origin:center}
+    .place img{width:100%;height:200px;object-fit:cover;display:block}
+    .place .info{padding:12px}
+    .place h4{margin:0 0 8px;font-size:1.05rem;color:var(--green-700)}
+    .place ul{margin:0;padding-left:18px;color:#444;font-size:0.95rem}
+
+    .arrow{position:absolute;top:45%;transform:translateY(-50%);background:rgba(255,255,255,0.92);border:none;width:44px;height:44px;border-radius:999px;display:grid;place-items:center;box-shadow:0 6px 18px rgba(33,33,33,0.12);cursor:pointer}
+    .arrow.left{left:-10px}
+    .arrow.right{right:-10px}
+
+    /* Culture panel */
+    .culture{margin-top:28px;display:flex;gap:14px;overflow:auto;padding:10px 0}
+    .culture::-webkit-scrollbar{display:none}
+    .chip{flex:0 0 auto;background:linear-gradient(180deg,#fff,#f7fff8);padding:14px;border-radius:10px;min-width:200px;text-align:center;border:1px solid rgba(46,125,50,0.06);box-shadow:0 6px 16px rgba(46,125,50,0.04);cursor:pointer}
+    .chip h4{margin:0;color:var(--green-700)}
+    .chip p{margin:8px 0 0;font-size:0.95rem;color:#3b3b3b}
+
+    /* Practical info */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    .info-card{padding:16px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfff7);border-left:6px solid var(--green-500)}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px;transition:transform 220ms}
+    .gallery img:hover{transform:scale(1.04)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;padding:20px;z-index:120}
+    .modal-card{background:var(--card);max-width:900px;width:100%;border-radius:10px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+    .modal-card img{width:100%;height:100%;object-fit:cover}
+    .modal-text{padding:20px}
+    .modal-text h3{margin-top:0;color:var(--green-700)}
+    .close-btn{position:absolute;top:18px;right:24px;background:#fff;border-radius:50%;width:40px;height:40px;border:none;display:grid;place-items:center;cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .row{flex-direction:column}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .modal-card{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .nav-links{display:none}
+      .hero h1{font-size:2rem}
+      .facts{flex-direction:column}
+      .grid{grid-template-columns:1fr}
+      .place{min-width:78%;}
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- Close button -->
+<button class="page-close" onclick="window.location.href='/landing'"aria-label="Close Page">✕</button>
+
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Ranchi</h1>
+      <p>Waterfalls • Lakes • Hills — capital charm of Jharkhand</p>
+      <a class="cta" href="#experiences">Explore highlights</a>
+    </div>
+  </section>
+
+  <main>
+    <!-- Overview -->
+    <section id="overview" class="card">
+      <div class="facts">
+        <div class="fact"><h3>Best time</h3><p>Oct – Mar</p></div>
+        <div class="fact"><h3>How to get there</h3><p>Rail: Ranchi Junction | Air: Birsa Munda Intl. Airport (IXR)</p></div>
+        <div class="fact"><h3>Highlights</h3><p>Hundru Falls • Dassam Falls • Tagore Hill • Rock Garden</p></div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:12px;align-items:center;">
+        <div style="flex:1">
+          <p style="margin:0;color:#445f3b;font-weight:600">Quick intro</p>
+          <p style="margin:6px 0 0;color:#444">Ranchi blends natural escapes with city buzz — dramatic waterfalls, breezy dams, leafy campuses and a lively food scene. Perfect for quick weekend getaways and family trips.</p>
+        </div>
+        <div style="width:220px">
+          <img style="width:100%;border-radius:10px" src="https://www.konkan.me/wp-content/uploads/2024/05/1-Places-to-visit-in-Ranchi.jpg" alt="Ranchi">
+        </div>
+      </div>
+    </section>
+
+    <!-- Experiences carousel (5 items) -->
+    <section id="experiences" class="card carousel-wrap">
+      <h2 style="margin:0 0 12px;color:var(--green-700)">Top Experiences</h2>
+      <button class="arrow left" aria-label="prev">❮</button>
+      <div class="carousel" aria-hidden>
+        <div class="track" id="track">
+
+          <div class="place" data-title="Hundru Falls" data-desc="One of the region’s tallest falls; best volume post-monsoon. Steps lead down to pools — caution in rains." data-img="https://source.unsplash.com/900x600/?hundru,waterfall">
+            <img src="https://www.captureatrip.com/_next/image?url=https%3A%2F%2Fd1zvcmhypeawxj.cloudfront.net%2Fmisc%2Fblogs%2Fhundru-waterfall-ranchi-24542b28b8-yrgv83-webp-2b6dd7c67e-1752179124487.webp&w=3840&q=50" alt="Hundru Falls">
+            <div class="info"><h4>Hundru Falls</h4><ul><li>Monsoon spectacle</li><li>Natural pools</li><li>Viewpoints</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Dassam Falls (Taimara)" data-desc="A picturesque ten-stream cascade on the Kachni River; sunrise and winter picnics are popular." data-img="https://source.unsplash.com/900x600/?dassam,waterfall">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Dassam_falls.jpg" alt="Dassam Falls">
+            <div class="info"><h4>Dassam Falls</h4><ul><li>Ten-stream cascade</li><li>Great viewpoints</li><li>Near Taimara</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Tagore Hill" data-desc="Rocky hilltop tied to Rabindranath Tagore’s family; sweeping views over Ranchi city." data-img="https://source.unsplash.com/900x600/?tagore,hill">
+            <img src="https://www.holidayhomeranchi.com/images/city/tagorehill.jpg" alt="Tagore Hill">
+            <div class="info"><h4>Tagore Hill</h4><ul><li>Sunset spot</li><li>Historic link</li><li>City panoramas</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Rock Garden & Kanke Dam" data-desc="Quirky rock sculptures facing the serene Kanke Dam; breezy evenings and lake views." data-img="https://source.unsplash.com/900x600/?rock,garden">
+            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/3d/c0/e5/rock-garden.jpg?w=900&h=500&s=1" alt="Rock Garden & Kanke Dam">
+            <div class="info"><h4>Rock Garden & Kanke Dam</h4><ul><li>Lakeside walks</li><li>Photo spots</li><li>Boating nearby</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Pahari Mandir (Ranchi Hill)" data-desc="Hilltop Shiva temple with a long stair climb and expansive city views — especially vibrant during Mahashivratri." data-img="https://source.unsplash.com/900x600/?temple,hill">
+            <img src="https://sandrp.in/wp-content/uploads/2025/01/sd.png?w=666" alt="Pahari Mandir">
+            <div class="info"><h4>Pahari Mandir</h4><ul><li>Hill temple</li><li>Cityscapes</li><li>Festive vibe</li></ul></div>
+          </div>
+
+        </div>
+      </div>
+      <button class="arrow right" aria-label="next">❯</button>
+    </section>
+
+    <!-- Culture chips -->
+    <section id="culture" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Culture & Insights</h2>
+      <div class="culture">
+        <div class="chip" data-title="Festivals" data-desc="Sarhul welcomes spring with sal flowers; Sohrai celebrates cattle & harvest; Karma is marked by nocturnal dances and drums." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Holy_Prayer.jpg/1100px-Holy_Prayer.jpg">
+          <h4>Festivals</h4>
+          <p>Sarhul • Sohrai • Karma</p>
+        </div>
+        <div class="chip" data-title="Cuisine" data-desc="Street favorites include dhuska–chini, litti–chokha and steaming momos; try mahua-based delicacies and handia (rice beer) where culturally appropriate." data-img="https://english.cdn.zeenews.com/sites/default/files/2024/06/29/1427791-bihari-cuisine17d9e4b53a1mediu.jpg?im=Resize=(1200,900)">
+          <h4>Cuisine</h4>
+          <p>Dhuska • Litti • Momos</p>
+        </div>
+        <div class="chip" data-title="Handicrafts" data-desc="Sohrai & Khovar painting styles, bamboo craft and terracotta work — shop from artisan collectives and state emporiums." data-img="https://img.rooftopapp.com/cms/image_112_f48a559b83.png">
+          <h4>Handicrafts</h4>
+          <p>Sohrai & Khovar art</p>
+        </div>
+        <div class="chip" data-title="Lifestyle" data-desc="A cosmopolitan university town with Nagpuri folk music, sports culture, and leafy parks." data-img="https://www.livemint.com/lm-img/img/2025/03/06/1600x900/JCSS_-_Aarohi_Mehra_-_06_1741249805137_1741249816414.jpg">
+          <h4>Lifestyle</h4>
+          <p>Nagpuri music & dance</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practical Info -->
+    <section id="info" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Practical Information</h2>
+      <div class="grid">
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Transport</h4>
+          <p style="margin:8px 0 0">Airport: Birsa Munda (IXR). Rail: Ranchi Jn., Hatia. Roads: NH-43/NH-20. Local taxis, autos and app cabs available.</p>
+        </div>
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Where to stay</h4>
+          <p style="margin:8px 0 0">Hotels around Main Road, Hinoo & Kanke; lakeside stays near Kanke/Patratu valley (day trip) for nature views.</p>
+        </div>
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Safety & tips</h4>
+          <p style="margin:8px 0 0">Waterfalls have strong undercurrents in monsoon — heed safety boards; carry cash for rural spots; start early for Tagore Hill sunrises.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section class="card" style="margin-top:20px">
+      <h2 style="color:var(--green-700);margin-top:0">On the map</h2>
+      <div style="height:320px;border-radius:10px;overflow:hidden;border:1px solid rgba(46,125,50,0.08);">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.469270086351!2d85.30956281503457!3d23.344099984779316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f4e1c1b839eae5%3A0x30f4fcb3a9b7d2f1!2sRanchi%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1632399882345!5m2!1sen!2sin" 
+          width="100%" 
+          height="320" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Photo gallery</h2>
+      <div class="gallery">
+        <img src="https://captureatrip-cms-storage.s3.ap-south-1.amazonaws.com/Rejuvenating_Bath_at_the_Natural_Pool_in_Hundru_Waterfall_1985307590.webp" alt="Hundru Falls">
+        <img src="https://kdpalace.com/wp-content/uploads/2021/04/Dasam-Falls-4-1.jpg" alt="Dassam Falls">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZyQLiPMSzzQJL6gxkAxsg2zApQtGG9ujBY_qN_NC89Ll-coOiRBttdBMouNrYYViEPKI&usqp=CAU" alt="Tagore Hill">
+        <img src="https://www.connectingtraveller.com/images/localtip/1660602428images%20(21).jpeg" alt="Rock Garden Ranchi">
+        <img src="https://cdn.tripuntold.com/media/photos/location/2018/11/27/ecc8dada-44c0-4f78-a386-74d863c44f7c.jpg" alt="Ranchi Lake">
+        <img src="https://htoindia.com/wp-content/uploads/2018/01/bihu-dance-assam_c30nbk.jpg" alt="Tribal Dance">
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal for place & chips -->
+  <div class="modal" id="modal">
+    <button class="close-btn" aria-label="close">✕</button>
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <img id="modalImg" src="" alt="">
+      <div class="modal-text">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click', (e)=>{
+      e.preventDefault(); document.querySelectorAll('.nav-links a').forEach(x=>x.classList.remove('active'));
+      a.classList.add('active'); const id = a.getAttribute('href'); document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+    }));
+
+    // Carousel controls
+    const track = document.getElementById('track');
+    const left = document.querySelector('.arrow.left');
+    const right = document.querySelector('.arrow.right');
+    let pos = 0; const step = 320; const max = track.children.length*320 - step*3; // show 3 items
+
+    right.addEventListener('click', ()=>{ pos = Math.min(pos+step, max); track.style.transform = `translateX(-${pos}px)`});
+    left.addEventListener('click', ()=>{ pos = Math.max(pos-step, 0); track.style.transform = `translateX(-${pos}px)`});
+
+    // Clickable places & chips -> modal
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const closeBtn = document.querySelector('.close-btn');
+
+    function openModal(title, desc, img){ modalTitle.textContent = title; modalDesc.textContent = desc; modalImg.src = img; modal.style.display = 'flex'; document.body.style.overflow='hidden'; }
+    function closeModal(){ modal.style.display='none'; document.body.style.overflow='auto'; }
+
+    document.querySelectorAll('.place').forEach(p=>p.addEventListener('click', ()=> openModal(p.dataset.title,p.dataset.desc,p.dataset.img)));
+    document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click', ()=> openModal(c.dataset.title,c.dataset.desc,c.dataset.img)));
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+
+    // touch swipe support for carousel
+    let startX=0, isDown=false;
+    track.addEventListener('pointerdown', (e)=>{ isDown=true; startX = e.clientX; track.style.transition='none'; });
+    track.addEventListener('pointermove', (e)=>{ if(!isDown) return; const diff = e.clientX - startX; track.style.transform = `translateX(${ -pos + diff }px)`; });
+    track.addEventListener('pointerup', (e)=>{ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; const diff = e.clientX - startX; if(diff < -60) { pos = Math.min(pos+step, max);} else if(diff > 60) { pos = Math.max(pos-step,0);} track.style.transform = `translateX(-${pos}px)`; });
+    track.addEventListener('pointerleave', ()=>{ if(isDown){ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; track.style.transform = `translateX(-${pos}px)`; } });
+
+  </script>
+</body>
+</html>

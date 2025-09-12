@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tripsera.Market</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f8fff8;
+      color: #333;
+    }
+
+    /* Navbar */
+    nav {
+      background: #166534; /* dark green */
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      cursor: pointer;
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      color: #166534;
+      min-width: 180px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 6px;
+      overflow: hidden;
+      z-index: 1000;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: #166534;
+      text-decoration: none;
+      font-weight: normal;
+    }
+    .dropdown-menu a:hover {
+      background: #bbf7d0;
+    }
+    nav ul li:hover .dropdown-menu {
+      display: block;
+    }
+
+    .explore-btn {
+  display: inline-block;
+  text-align: center;
+  margin-top: 1rem;
+  width: 100%;
+  background: #22c55e;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.explore-btn:hover {
+  background: #15803d;
+}
+
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background: url('https://i.pinimg.com/736x/58/37/91/583791a3af40f5170b3fd6b00a0ae5d1.jpg') center/cover no-repeat;
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero h1, .hero p, .hero button {
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      margin-bottom: 1.5rem;
+    }
+    .hero button {
+      background: #22c55e; /* green */
+      border: none;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .hero button:hover {
+      background: #15803d; /* darker green */
+    }
+
+    /* Search */
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
+      position: sticky;
+      top: 70px; /* stays visible under navbar */
+      background: #f8fff8;
+      z-index: 999;
+    }
+    .search-bar input {
+      width: 90%;
+      max-width: 500px;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    /* Section Headings */
+    #categories h2, #bestsellers h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #166534;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Grid Layout */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1rem;
+      flex: 1;
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #166534;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+    .card ul {
+      font-size: 0.9rem;
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+    .card button {
+      margin-top: 1rem;
+      width: 100%;
+      background: #22c55e; /* green */
+      border: none;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .card button:hover {
+      background: #15803d;
+    }
+
+    /* Footer */
+    footer {
+      background: #166534;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    footer p {
+      margin: 0.5rem 0;
+    }
+    footer a {
+      color: #bbf7d0; /* light green */
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">🌿 Tripsera.Market</div>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li class="dropdown">
+        <a href="#categories">Categories ▾</a>
+        <div class="dropdown-menu">
+          <a href="/handicrafts">Tribal Handicrafts</a>
+          <a href="#events">Events</a>
+          <a href="#homestays">Homestays</a>
+          <a href="#ecotourism">Ecotourism</a>
+        </div>
+      </li>
+      <li><a href="/cart">My Cart</a></li>
+      <li><a href="/bestseller">Bestsellers</a></li>
+      <li><a href="/help_me">Help</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <h1>Discover Culture, Stay Local</h1>
+    <p>Explore tribal handicrafts, cultural events, homestays, and eco-tourism experiences.</p>
+  </section>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="Search experiences or products...">
+  </div>
+
+  <!-- Categories -->
+  <section id="categories">
+    <h2>🌿 Our Categories</h2>
+    <div class="categories"></div>
+  </section>
+
+  <!-- Top Products -->
+  <section id="bestsellers">
+    <h2>🔥 Our Top Products</h2>
+    <div class="categories"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>📧 Email: <a href="tripsera8@gmail.com">info@tribalmarket.com</a></p>
+    <p>📞 Contact: +91 XXXXXXXXXX</p>
+    <p>&copy; 2025 Tribal Marketplace. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const categories = [
+      {
+        id: "handicrafts",
+        name: "Tribal Handicrafts",
+        description: "Authentic handmade crafts by local artisans.",
+        image: "https://indianetzone.wordpress.com/wp-content/uploads/2024/08/bamboo.jpg?w=500",
+        items: ["Bamboo Wind Chimes", "Bamboo Baskets", "Khovar Fertility Art"]
+      },
+      {
+        id: "events",
+        name: "Events",
+        description: "Cultural festivals, workshops, and gatherings.",
+        image: "https://currentaffairs.adda247.com/wp-content/uploads/multisite/sites/5/2022/04/07080859/Sarhul-Festival-04-1.jpg",
+        items: ["Sohrai Festival", "Karma Festival", "Sarhul Festival"]
+      },
+      {
+        id: "ecotourism",
+        name: "Ecotourism",
+        description: "Eco-friendly tours in nature and tribal landscapes.",
+        image: "https://img1.wsimg.com/isteam/ip/0aad08d5-e3a7-437a-b1ba-989d6d140828/IMG_20211219_110931.jpg",
+        items: ["Waterfall Tourism", "Forest Trekking", "Wildlife Safari"]
+      }
+    ];
+
+    const products = [
+      {
+        name: "Bamboo Wind Chimes",
+        description: "Hand-carved by local artisans.",
+        image: "https://shop.globalbees.com/cdn/shop/files/seebbptrgosurebcmjh2_1200x.jpg?v=1742796679",
+        price: "₹1600"
+      },
+      {
+        name: "Bamboo Basket",
+        description: "Eco-friendly and durable.",
+        image: "https://pbs.twimg.com/media/F6S-qwvXwAAlfrW.jpg",
+        price: "₹150"
+      },
+      {
+        name: "Khovar Fertility Art",
+        description: "Made with natural dyes.",
+        image: "https://static.wixstatic.com/media/9dd462_e3996d83b7c74e73b2aff91cb635a990~mv2.jpg/v1/fill/w_480,h_318,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/9dd462_e3996d83b7c74e73b2aff91cb635a990~mv2.jpg",
+        price: "₹1200"
+      }
+    ];
+
+    const categoryList = document.querySelector("#categories .categories");
+    const productList = document.querySelector("#bestsellers .categories");
+    const searchInput = document.getElementById("search");
+
+    function renderCategories(filter = "") {
+      categoryList.innerHTML = "";
+      let found = false;
+      categories.forEach(cat => {
+        const filteredItems = cat.items.filter(item =>
+          item.toLowerCase().includes(filter.toLowerCase())
+        );
+        if (
+          cat.name.toLowerCase().includes(filter.toLowerCase()) ||
+          cat.description.toLowerCase().includes(filter.toLowerCase()) ||
+          filteredItems.length > 0 ||
+          filter === ""
+        ) {
+          found = true;
+          const card = document.createElement("div");
+          card.className = "card";
+          card.id = cat.id;
+          card.innerHTML = `
+            <img src="${cat.image}" alt="${cat.name}">
+            <div class="card-content">
+              <h2>${cat.name}</h2>
+              <p>${cat.description}</p>
+              <ul>
+                ${filteredItems.length > 0 ? filteredItems.map(i => `<li>${i}</li>`).join("") : cat.items.map(i => `<li>${i}</li>`).join("")}
+              </ul>
+<button onclick="exploreCategory('${cat.id}')">Explore</button>
+
+
+            </div>
+          `;
+          categoryList.appendChild(card);
+        }
+      });
+      if (!found) {
+        categoryList.innerHTML = `<p style="text-align:center; color:#555;">No categories found.</p>`;
+      }
+    }
+
+    function renderProducts(filter = "") {
+      productList.innerHTML = "";
+      let found = false;
+      products.forEach(prod => {
+        if (
+          prod.name.toLowerCase().includes(filter.toLowerCase()) ||
+          prod.description.toLowerCase().includes(filter.toLowerCase()) ||
+          filter === ""
+        ) {
+          found = true;
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${prod.image}" alt="${prod.name}">
+            <div class="card-content">
+              <h2>${prod.name}</h2>
+              <p>${prod.description}</p>
+              <p><strong>${prod.price}</strong></p>
+              <button>Add to Cart</button>
+            </div>
+          `;
+          productList.appendChild(card);
+        }
+      });
+      if (!found) {
+        productList.innerHTML = `<p style="text-align:center; color:#555;">No products found.</p>`;
+      }
+    }
+
+    searchInput.addEventListener("input", (e) => {
+      const query = e.target.value;
+      renderCategories(query);
+      renderProducts(query);
+    });
+
+    function exploreCategory(id) {
+  if (id === "handicrafts") {
+    window.location.href = "/handicrafts";  // Flask route
+  } else if (id === "ecotourism") {
+    window.location.href = "/ecotourism";   // Flask route
+  } else if (id === "events") {
+    window.location.href = "/events";   // Flask route
+  }else {
+    alert("Explore page not set yet for " + id);
+  }
+}
+
+
+    // Initial load
+    renderCategories();
+    renderProducts();
+  </script>
+  
+
+</body>
+</html>

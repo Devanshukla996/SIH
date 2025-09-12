@@ -872,11 +872,12 @@
         /* Back to top button */
         .back-to-top {
             position: fixed;
-            bottom: 30px;
+            top: 470px;
             right: 30px;
+            
             width: 50px;
             height: 50px;
-            background: #0d9488;
+            background: #188f79;
             color: white;
             border-radius: 50%;
             display: flex;
@@ -1005,8 +1006,8 @@
                 <nav>
                     <ul>
                         <li><a href="#home">Home</a></li>
-                        <li><a href="#destinations">Destinations</a></li>
-                        <li><a href="#restaurants">Restaurants</a></li>
+                        <li><a href="/shopping">Shopping</a></li>
+                        <li><a href="/location">Location</a></li>
                         
                         <!-- Explore Dropdown -->
                         <li class="dropdown-section">
@@ -1015,12 +1016,18 @@
                                     Explore
                                 </div>
                                 <div class="menu-options" id="exploreMenu">
-                                    <a href="/places/ranchi">Ranchi</a>
-                                    <a href="/places/dhanbad">Dhanbad</a>
-                                    <a href="/places/hazaribagh">Hazaribagh</a>
-                                    <a href="/places/east-singhbhum">East Singhbhum</a>
-                                    <a href="/places/deoghar">Deoghar</a>
-                                    <a href="/places/netarhat">Netarhat</a>
+                                    <a href="/koderma">Koderma</a>
+                                    <a href="/ranchi">Ranchi</a>
+                                    <a href="/jamshedpur">Jamshedpur</a>
+                                    <a href="/gumla">Gumla</a>
+                                    <a href="/deoghar">Deoghar</a>
+                                    <a href="bokaro">Bokaro</a>
+                                    <a href="/ramgarh">Ramgarh</a>
+                                    <a href="/latehar">Latehar</a>
+
+
+
+
                                     
                                     <a href="#" class="see-more" onclick="showMoreDistricts(event)">See More ↓</a>
                                     
@@ -1029,10 +1036,10 @@
                                         <a href="/places/palamu">Palamu</a>
                                         <a href="/places/latehar">Latehar</a>
                                         <a href="/places/chatra">Chatra</a>
-                                        <a href="/places/koderma">Koderma</a>
+
                                         <a href="/places/giridih">Giridih</a>
-                                        <a href="/places/ramgarh">Ramgarh</a>
-                                        <a href="/places/bokaro">Bokaro</a>
+
+
                                         <a href="/places/west-singhbhum">West Singhbhum</a>
                                         <a href="/places/saraikela">Saraikela</a>
                                         <a href="/places/jamtara">Jamtara</a>
@@ -1041,7 +1048,7 @@
                                         <a href="/places/godda">Godda</a>
                                         <a href="/places/dumka">Dumka</a>
                                         <a href="/places/khunti">Khunti</a>
-                                        <a href="/places/gumla">Gumla</a>
+
                                         <a href="/places/lohardaga">Lohardaga</a>
                                         <a href="/places/simdega">Simdega</a>
                                         <a href="/places/pashchimi-singhbhum">Pashchimi Singhbhum</a>
@@ -1066,7 +1073,9 @@
                             </div>
                         </div>
                         <div class="menu-options" id="profileMenu">
-                            <a href="/profile">My Profile</a>
+                            <a href="/login">login</a>
+                            <a href="/profile">Profile</a>
+
                             <a href="/settings">Settings</a>
                             <a href="/help">Help Us</a>
                             <a href="/logout">Logout</a>
@@ -1326,42 +1335,27 @@
 
     <script>
         // Function to toggle Explore menu
-        function toggleExploreMenu() {
-            var exploreMenu = document.getElementById('exploreMenu');
-            var profileMenu = document.getElementById('profileMenu');
-            
-            // Close profile menu if open
-            profileMenu.style.display = 'none';
-            
-            // Toggle explore menu
-            if (exploreMenu.style.display === 'block') {
-                exploreMenu.style.display = 'none';
-            } else {
-                exploreMenu.style.display = 'block';
-            }
-            
-            // Prevent the click from closing the menu immediately
-            event.stopPropagation();
-        }
+      
         
         // Function to toggle Profile menu
-        function toggleProfileMenu() {
-            var exploreMenu = document.getElementById('exploreMenu');
-            var profileMenu = document.getElementById('profileMenu');
-            
-            // Close explore menu if open
-            exploreMenu.style.display = 'none';
-            
-            // Toggle profile menu
-            if (profileMenu.style.display === 'block') {
-                profileMenu.style.display = 'none';
-            } else {
-                profileMenu.style.display = 'block';
-            }
-            
-            // Prevent the click from closing the menu immediately
-            event.stopPropagation();
-        }
+       function toggleExploreMenu(event) {
+    var exploreMenu = document.getElementById('exploreMenu');
+    var profileMenu = document.getElementById('profileMenu');
+    profileMenu.style.display = 'none';
+    // Always close both menus first
+    exploreMenu.style.display = (exploreMenu.style.display === 'block') ? 'none' : 'block';
+    event.stopPropagation();
+}
+
+function toggleProfileMenu(event) {
+    var exploreMenu = document.getElementById('exploreMenu');
+    var profileMenu = document.getElementById('profileMenu');
+    exploreMenu.style.display = 'none';
+    // Always close both menus first
+    profileMenu.style.display = (profileMenu.style.display === 'block') ? 'none' : 'block';
+    event.stopPropagation();
+}
+
         
         // Function to show more districts
         function showMoreDistricts(event) {
@@ -1545,6 +1539,8 @@
                     backToTopBtn.classList.remove('visible');
                 }
             }
+
+            
             
             // Initial check
             checkScroll();
@@ -1562,6 +1558,11 @@
             });
         });
     </script>
+    
+    
 </body>
 
+
+
 </html>
+

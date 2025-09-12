@@ -1,0 +1,314 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Latehar — Green Travel Guide</title>
+  <meta name="description" content="Latehar travel guide — experiences, culture, transport, gallery. Green themed Lonely Planet style template." />
+  <style>
+    :root{
+      --green-700:#2e7d32;
+      --green-500:#66bb6a;
+      --accent:#a5d6a7;
+      --bg:#f1f8f2;
+      --card:#ffffff;
+      --muted:#556b2f;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:#1b1b1b}
+
+     /* Close button styling */
+    .page-close {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: #c62828;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+    .page-close:hover {
+      background: #a31414;
+    }
+
+    /* Sticky Navbar */
+    .nav{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,var(--green-700),var(--green-500));color:#fff;padding:12px 6%;display:flex;align-items:center;gap:16px}
+    .brand{font-weight:700;font-size:1.1rem}
+    .nav-links{margin-left:auto;display:flex;gap:14px}
+    .nav-links a{color:rgba(255,255,255,0.95);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
+    .nav-links a:hover, .nav-links a.active{background:rgba(255,255,255,0.12)}
+
+    /* Hero */
+    .hero{height:62vh;background-image:linear-gradient(120deg,rgba(46,125,50,0.45),rgba(102,187,106,0.15)),url('https://i.pinimg.com/736x/a1/13/67/a11367818e26a6ba5799d37077d2c18a.jpg');background-size:cover;background-position:center;display:flex;align-items:center}
+    .hero-inner{width:100%;padding:4rem 8%;color:#fff}
+    .hero h1{margin:0;font-size:3rem;letter-spacing:0.4px}
+    .hero p{margin:10px 0 0;font-size:1.05rem;opacity:0.95}
+    .cta{display:inline-block;margin-top:18px;padding:10px 16px;border-radius:999px;background:var(--card);color:var(--green-700);font-weight:700;text-decoration:none;box-shadow:0 6px 18px rgba(46,125,50,0.12)}
+
+    /* Layout sections */
+    main{max-width:1200px;margin:-40px auto 60px;padding:0 4%}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 20px rgba(34,60,41,0.06);}
+    .row{display:flex;gap:20px}
+
+    /* Overview */
+    .facts{display:flex;gap:18px;margin-top:-30px}
+    .fact{flex:1;padding:16px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(245,255,245,0.95));border-left:6px solid var(--green-500)}
+    .fact h3{margin:0;color:var(--muted)}
+    .fact p{margin:8px 0 0;font-weight:600}
+
+    /* Carousel */
+    .carousel-wrap{margin-top:28px;position:relative}
+    .carousel{display:flex;gap:16px;overflow:hidden;padding-bottom:8px}
+    .track{display:flex;transition:transform 450ms cubic-bezier(.22,.9,.3,1);}
+    .place{min-width:300px;max-width:320px;border-radius:12px;background:var(--card);overflow:hidden;box-shadow:0 6px 20px rgba(46,125,50,0.08);cursor:pointer;transform-origin:center}
+    .place img{width:100%;height:200px;object-fit:cover;display:block}
+    .place .info{padding:12px}
+    .place h4{margin:0 0 8px;font-size:1.05rem;color:var(--green-700)}
+    .place ul{margin:0;padding-left:18px;color:#444;font-size:0.95rem}
+
+    .arrow{position:absolute;top:45%;transform:translateY(-50%);background:rgba(255,255,255,0.92);border:none;width:44px;height:44px;border-radius:999px;display:grid;place-items:center;box-shadow:0 6px 18px rgba(33,33,33,0.12);cursor:pointer}
+    .arrow.left{left:-10px}
+    .arrow.right{right:-10px}
+
+    /* Culture panel */
+    .culture{margin-top:28px;display:flex;gap:14px;overflow:auto;padding:10px 0}
+    .culture::-webkit-scrollbar{display:none}
+    .chip{flex:0 0 auto;background:linear-gradient(180deg,#fff,#f7fff8);padding:14px;border-radius:10px;min-width:200px;text-align:center;border:1px solid rgba(46,125,50,0.06);box-shadow:0 6px 16px rgba(46,125,50,0.04);cursor:pointer}
+    .chip h4{margin:0;color:var(--green-700)}
+    .chip p{margin:8px 0 0;font-size:0.95rem;color:#3b3b3b}
+
+    /* Practical info */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    .info-card{padding:16px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfff7);border-left:6px solid var(--green-500)}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px;transition:transform 220ms}
+    .gallery img:hover{transform:scale(1.04)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;padding:20px;z-index:120}
+    .modal-card{background:var(--card);max-width:900px;width:100%;border-radius:10px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+    .modal-card img{width:100%;height:100%;object-fit:cover}
+    .modal-text{padding:20px}
+    .modal-text h3{margin-top:0;color:var(--green-700)}
+    .close-btn{position:absolute;top:18px;right:24px;background:#fff;border-radius:50%;width:40px;height:40px;border:none;display:grid;place-items:center;cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .row{flex-direction:column}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .modal-card{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .nav-links{display:none}
+      .hero h1{font-size:2rem}
+      .facts{flex-direction:column}
+      .grid{grid-template-columns:1fr}
+      .place{min-width:78%;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Close button -->
+  <button class="page-close" onclick="window.location.href='/landing'"aria-label="Close Page">✕</button>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Latehar</h1>
+      <p>Betla Forests • Plateau Sunsets • Waterfalls — wild heart of Jharkhand</p>
+      <a class="cta" href="#experiences">Explore highlights</a>
+    </div>
+  </section>
+
+  <main>
+    <!-- Overview -->
+    <section id="overview" class="card">
+      <div class="facts">
+        <div class="fact"><h3>Best time</h3><p>Oct – Mar</p></div>
+        <div class="fact"><h3>How to get there</h3><p>Rail: Latehar / Barwadih / Daltonganj | Air: Ranchi (~150 km)</p></div>
+        <div class="fact"><h3>Highlights</h3><p>Betla National Park • Netarhat • Lodh Falls</p></div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:12px;align-items:center;">
+        <div style="flex:1">
+          <p style="margin:0;color:#445f3b;font-weight:600">Quick intro</p>
+          <p style="margin:6px 0 0;color:#444">Latehar is a lush, hilly district home to Betla National Park (Palamu Tiger Reserve), dramatic waterfalls and the famous Netarhat plateau. Perfect for wildlife safaris, treks and misty sunrises.</p>
+        </div>
+        <div style="width:220px">
+          <img style="width:100%;border-radius:10px" src="https://www.palamautigerreserve.in/images/gallery/photo7.jpg" alt="Betla National Park">
+        </div>
+      </div>
+    </section>
+
+    <!-- Experiences carousel (4–5 items) -->
+    <section id="experiences" class="card carousel-wrap">
+      <h2 style="margin:0 0 12px;color:var(--green-700)">Top Experiences</h2>
+      <button class="arrow left" aria-label="prev">❮</button>
+      <div class="carousel" aria-hidden>
+        <div class="track" id="track">
+
+          <div class="place" data-title="Betla National Park" data-desc="One of India’s earliest tiger reserves — grasslands, forests and ruins. Go for elephant safaris and watchtowers at dawn." data-img="https://upload.wikimedia.org/wikipedia/commons/3/34/Betla_National_Park.jpg">
+            <img src="https://www.hindfirst.in/sortd-service/imaginary/v22-01/webp/medium/high?url=b3R0aW5kaWEtYXBwLXByb2Qtc29ydGQvbWVkaWE4M2FiNmFkMC04MDAwLTExZjAtODQ5Yi1kMTFjM2YzYjI1ZTcucG5n" alt="Betla National Park">
+            <div class="info"><h4>Betla National Park</h4><ul><li>Wildlife safaris</li><li>Watchtowers</li><li>Forest ruins</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Netarhat (Queen of Chotanagpur)" data-desc="A serene hill-station famed for golden sunsets and pine-lined roads; don’t miss Magnolia Point." data-img="https://upload.wikimedia.org/wikipedia/commons/7/7b/Netarhat_Sunset_Point.jpg">
+            <img src="https://latehartourism.com/wp-content/uploads/2021/09/IMG_20190804_125021-scaled.jpg" alt="Netarhat">
+            <div class="info"><h4>Netarhat</h4><ul><li>Sunset & sunrise</li><li>Magnolia Point</li><li>Cool climate</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Lodh (Burha) Falls" data-desc="Jharkhand’s highest waterfall (~143 m). Best flow post-monsoon; take care on slippery steps." data-img="https://upload.wikimedia.org/wikipedia/commons/2/27/Lodh_Falls.jpg">
+            <img src="https://content3.jdmagicbox.com/v2/comp/latehar/b3/9999p6565.6565.141215162713.y2b3/catalogue/lodh-waterfalls-latehar-ho-latehar-tourist-attraction-oYjuKefLNa.jpg" alt="Lodh Falls">
+            <div class="info"><h4>Lodh Falls</h4><ul><li>Highest in Jharkhand</li><li>Thundering cascades</li><li>Post-monsoon prime</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Upper Ghaghri Falls" data-desc="Forest-fringed picnic spot near Netarhat with a pretty fall and short trails." data-img="https://upload.wikimedia.org/wikipedia/commons/6/63/Upper_Ghaghri_Waterfalls%2C_Netarhat.jpg">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhd3yFzCDQaYO4N41f-OFFxrV0RcYi0qqBLHmZiaVkALOR0ymGIPNGK0zTOeYIpHf0A27DJ8Lx4MkeGxAT7un7L1TSPNwVtoJnY15p4AFfDHfm4Rrg4TF4gpjg2t6l6oE-gzclTCuscOoE/s1600/n+h+70.JPG" alt="Upper Ghaghri Falls">
+            <div class="info"><h4>Upper Ghaghri Falls</h4><ul><li>Short forest walk</li><li>Picnic area</li><li>Near Netarhat</li></ul></div>
+          </div>
+
+          <div class="place" data-title="Mahuadanr Wolf Sanctuary" data-desc="Unique grassland-valley ecosystem known for Indian wolves; visit with local guides." data-img="https://source.unsplash.com/900x600/?grassland,india">
+            <img src="https://latehartourism.com/wp-content/uploads/elementor/thumbs/20170918_115721-nx8b1157s2qj4ra2ftjnmsb8z56fccagb6jlp8tocc.jpg" alt="Mahuadanr Valley">
+            <div class="info"><h4>Mahuadanr Valley</h4><ul><li>Wolf habitat</li><li>Grassland views</li><li>Guided visits</li></ul></div>
+          </div>
+
+        </div>
+      </div>
+      <button class="arrow right" aria-label="next">❯</button>
+    </section>
+
+    <!-- Culture chips -->
+    <section id="culture" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Culture & Insights</h2>
+      <div class="culture">
+        <div class="chip" data-title="Festivals" data-desc="Sarhul, Sohrai and Karma are celebrated by tribal communities with drums, dance and nature worship." data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/SARHUL_IN_RANCHI.jpg/640px-SARHUL_IN_RANCHI.jpg">
+          <h4>Festivals</h4>
+          <p>Sarhul • Sohrai • Karma</p>
+        </div>
+        <div class="chip" data-title="Cuisine" data-desc="Try litti–chokha, dhuska, pitha, and seasonal forest foods like mahua, rugra (mushroom) and bamboo shoots." data-img="https://dy3rma73kowlp.cloudfront.net/uploads/2024/01/Dhuska-Recipe.jpg">
+          <h4>Cuisine</h4>
+          <p>Litti, dhuska & mahua</p>
+        </div>
+        <div class="chip" data-title="Handicrafts" data-desc="Sohrai & Khovar wall-art, bamboo craft and terracotta by local artisans — great souvenirs." data-img="https://indroyc.com/wp-content/uploads/2017/09/khovar4.jpg">
+          <h4>Handicrafts</h4>
+          <p>Sohrai & bamboo work</p>
+        </div>
+        <div class="chip" data-title="Traditions" data-desc="Oraon, Munda and Asur communities keep rich oral traditions and folk dances like Jhumar and Paika." data-img="https://thehinduimages.com/admin/images/pimages/p993c601.jpg">
+          <h4>Traditions</h4>
+          <p>Folk dance & lore</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Practical Info -->
+    <section id="info" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Practical Information</h2>
+      <div class="grid">
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Transport</h4>
+          <p style="margin:8px 0 0">Nearest airport: Ranchi (~150 km). Rail: Latehar, Barwadih & Daltonganj (for Betla/Netarhat). Road: NH-39; taxis and buses available.</p>
+        </div>
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Where to stay</h4>
+          <p style="margin:8px 0 0">Forest bungalows and lodges near Betla; tourist rest houses at Netarhat; basic hotels in Latehar/Daltonganj.</p>
+        </div>
+        <div class="info-card">
+          <h4 style="margin:0;color:var(--green-700)">Safety & tips</h4>
+          <p style="margin:8px 0 0">Book safaris in advance, carry warm layers at Netarhat winters, follow forest rules, and hire local guides for remote areas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map placeholder -->
+    <section class="card" style="margin-top:20px">
+      <h2 style="color:var(--green-700);margin-top:0">On the map</h2>
+      <div style="height:320px;border-radius:10px;overflow:hidden;border:1px solid rgba(46,125,50,0.08);">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d365702.2082366723!2d84.13!3d23.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398b1f9d8b7f4aa3%3A0x2b2c4f8ce6c6e0d1!2sLatehar%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1693751012346!5m2!1sen!2sin" 
+          width="100%" 
+          height="320" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Photo gallery</h2>
+      <div class="gallery">
+        <img src="https://latehartourism.com/wp-content/uploads/2018/10/maim-59-1024x680.jpg" alt="Betla National Park">
+        <img src="https://s7ap1.scene7.com/is/image/incredibleindia/lodh-waterfalls-ranchi-jharkhand-3-attr-hero?qlt=82&ts=1727010856985" alt="Lodh Falls">
+        <img src="https://pbs.twimg.com/media/ELKx81gUwAA1txL.jpg" alt="Netarhat Sunset">
+        <img src="https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2024/01/08/15a35cf065230b0c83beaae24087f9cf_1000x1000.jpg" alt="Upper Ghaghri Falls">
+        <img src="https://www.tigersafari.net/wp-content/uploads/2020/05/sal.jpg" alt="Sal Forests">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw-54QpfZ67khbvp64xyw6cZxZj0CfwwXxUg&s" alt="Wildlife">
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal for place & chips -->
+  <div class="modal" id="modal">
+    <button class="close-btn" aria-label="close">✕</button>
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <img id="modalImg" src="" alt="">
+      <div class="modal-text">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click', (e)=>{
+      e.preventDefault(); document.querySelectorAll('.nav-links a').forEach(x=>x.classList.remove('active'));
+      a.classList.add('active'); const id = a.getAttribute('href'); document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+    }));
+
+    // Carousel controls
+    const track = document.getElementById('track');
+    const left = document.querySelector('.arrow.left');
+    const right = document.querySelector('.arrow.right');
+    let pos = 0; const step = 320; const max = track.children.length*320 - step*3; // show 3 items
+
+    right.addEventListener('click', ()=>{ pos = Math.min(pos+step, max); track.style.transform = `translateX(-${pos}px)`});
+    left.addEventListener('click', ()=>{ pos = Math.max(pos-step, 0); track.style.transform = `translateX(-${pos}px)`});
+
+    // Clickable places & chips -> modal
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const closeBtn = document.querySelector('.close-btn');
+
+    function openModal(title, desc, img){ modalTitle.textContent = title; modalDesc.textContent = desc; modalImg.src = img; modal.style.display = 'flex'; document.body.style.overflow='hidden'; }
+    function closeModal(){ modal.style.display='none'; document.body.style.overflow='auto'; }
+
+    document.querySelectorAll('.place').forEach(p=>p.addEventListener('click', ()=> openModal(p.dataset.title,p.dataset.desc,p.dataset.img)));
+    document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click', ()=> openModal(c.dataset.title,c.dataset.desc,c.dataset.img)));
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+
+    // touch swipe support for carousel
+    let startX=0, isDown=false;
+    track.addEventListener('pointerdown', (e)=>{ isDown=true; startX = e.clientX; track.style.transition='none'; });
+    track.addEventListener('pointermove', (e)=>{ if(!isDown) return; const diff = e.clientX - startX; track.style.transform = `translateX(${ -pos + diff }px)`; });
+    track.addEventListener('pointerup', (e)=>{ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; const diff = e.clientX - startX; if(diff < -60) { pos = Math.min(pos+step, max);} else if(diff > 60) { pos = Math.max(pos-step,0);} track.style.transform = `translateX(-${pos}px)`; });
+    track.addEventListener('pointerleave', ()=>{ if(isDown){ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; track.style.transform = `translateX(-${pos}px)`; } });
+
+  </script>
+</body>
+</html>

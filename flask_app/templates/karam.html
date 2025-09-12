@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karam Festival of Jharkhand</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fdfcf7;
+      color: #2c3e2c;
+    }
+
+    /* Header */
+    header {
+      background: url("https://i.ytimg.com/vi/1PVmQOZURIM/maxresdefault.jpg") center/cover no-repeat;
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(44, 62, 44, 0.65);
+      z-index: 0;
+    }
+
+    header h1, header p {
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      font-size: 42px;
+      margin: 0;
+      animation: fadeInDown 1.2s ease;
+    }
+    header p {
+      font-size: 18px;
+      margin-top: 15px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    /* Section */
+    section {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    section h2 {
+      color: #1e5631;
+      margin-bottom: 15px;
+      border-left: 6px solid #3c9d5e;
+      padding-left: 10px;
+    }
+    section p, section li {
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #2c6e49;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin: 40px 0;
+      padding-left: 30px;
+      border-left: 3px solid #3c9d5e;
+    }
+    .timeline-item {
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .timeline-item:before {
+      content: "🌿";
+      position: absolute;
+      left: -25px;
+      font-size: 22px;
+      background: #fff;
+      padding: 2px;
+    }
+    .timeline-item h4 {
+      margin: 0 0 5px;
+      color: #1e5631;
+    }
+
+    /* Gallery */
+    .gallery {
+      position: relative;
+      max-width: 900px;
+      margin: 30px auto;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+    .gallery img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      display: none;
+    }
+    .gallery img.active {
+      display: block;
+      animation: fadeIn 1.2s ease;
+    }
+    .gallery button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(30,86,49,0.7);
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    .gallery button:hover { background: rgba(60,157,94,0.9); }
+    .gallery .prev { left: 10px; }
+    .gallery .next { right: 10px; }
+
+    /* Highlight */
+    .highlight {
+      background: #e8f5e9;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      border-left: 6px solid #3c9d5e;
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #1e5631;
+      color: white;
+      margin-top: 40px;
+    }
+
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes fadeInDown { from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);} }
+    @keyframes fadeInUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 28px; }
+      .gallery img { height: 250px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌿 Karam Festival of Jharkhand 🌾</h1>
+    <p>A vibrant harvest and youth festival dedicated to Karam Devta — celebrating nature, prosperity, and community bonding among Jharkhand’s tribal communities.</p>
+  </header>
+
+  <section>
+    <h2>What is Karam Festival?</h2>
+    <p>The Karam Festival is a harvest celebration observed mainly by Ho, Mundadri, Oraon, Santhali, and Nagpuri tribes. Also known as Jawa Festival in some regions, it is one of the grandest festivals after Sarhul.</p>
+    <div class="cards">
+      <div class="card"><h3>📅 When</h3><p>11th day of lunar month of Bhadra (Aug–Sep)</p></div>
+      <div class="card"><h3>🙏 Deity</h3><p>Karam Devta – God of youth, power, and prosperity</p></div>
+      <div class="card"><h3>👥 Who</h3><p>Celebrated by Ho, Mundadri, Oraon, Santhali, Nagpuri tribes</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The Sacred Karam Tree</h2>
+    <p>The Karam tree symbolizes fertility, prosperity, and divine blessings. Ritual branches are planted in fresh sand with seven sacred seeds: rice, barley, maize, wheat, gram, horse gram, and lentil — representing agricultural diversity and life force.</p>
+  </section>
+
+  <section>
+    <h2>Festival Rituals</h2>
+    <div class="timeline">
+      <div class="timeline-item"><h4>🌱 Preparations</h4><p>Youths gather wood, fruits, flowers, and sand to set up the sacred courtyard or akhra.</p></div>
+      <div class="timeline-item"><h4>🌿 Branch Installation</h4><p>Karam branches are smeared with milk and rice beer, then ceremonially placed.</p></div>
+      <div class="timeline-item"><h4>🙏 Worship</h4><p>Prayers to Karam Devta for prosperity, fertility, and good harvest.</p></div>
+      <div class="timeline-item"><h4>💐 Jawa Exchange</h4><p>Girls exchange jawa flowers symbolizing sisterhood, friendship, and welfare.</p></div>
+      <div class="timeline-item"><h4>🌊 Immersion Ceremony</h4><p>The next day, sacred branches are immersed in rivers or ponds, returning them to nature.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Music & Dance</h2>
+    <p>The festival comes alive with vibrant cultural expressions:</p>
+    <ul>
+      <li>💃 <b>Karma Naach</b> – signature circular dance around the Karam tree</li>
+      <li>👭 <b>Jhumar Dance</b> – performed by women for prosperity</li>
+      <li>🥁 Rhythmic drumbeats and traditional <b>Karam songs</b></li>
+      <li>🎶 <b>Siring folk songs</b> sung by women</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Festival Glimpses</h2>
+    <div class="gallery">
+      <img src="https://indroyc.com/wp-content/uploads/2012/09/karma-celebrations.jpg" class="active" alt="Karma Dance">
+      <img src="https://utsav.gov.in/public/uploads/event_cover_image/event_683/166115539381102155.jpg" alt="Karam Tree Worship">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Karam_puja_4.jpg/640px-Karam_puja_4.jpg" alt="Community Dance">
+      <img src="https://files.prokerala.com/news/photos/imgs/1024/purulia-karam-festival-celebrations-1925452.jpg" alt="Community Feast">
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Community Feast & Foods</h2>
+    <ul>
+      <li>🍶 <b>Hariya</b> – traditional rice beer</li>
+      <li>🥗 Tribal delicacies and seasonal vegetables</li>
+      <li>🥮 Pitha and other local festive dishes</li>
+    </ul>
+    <p>The feast represents unity, sharing, and abundance in community life.</p>
+  </section>
+
+  <section>
+    <h2>Environmental Significance</h2>
+    <p>The Karam Festival is deeply tied to ecology and agriculture:</p>
+    <ul>
+      <li>🌱 Ritual planting of seeds symbolizes agricultural diversity</li>
+      <li>🌾 Stems of Chirchitti and Sindwar are used as natural pest control</li>
+      <li>🌳 Promotes tree reverence and ecological balance</li>
+    </ul>
+    <div class="highlight">🌍 Karam Festival teaches sustainable living, ecological respect, and balance with nature.</div>
+  </section>
+
+  <section>
+    <h2>Cultural Impact & Modern Relevance</h2>
+    <p>The festival preserves tribal traditions, fosters community unity, and connects youth with cultural roots. Today, it also inspires environmental awareness and sustainable practices.</p>
+  </section>
+
+  <footer>
+    <p>🌿 Karam Festival of Jharkhand | Celebrating Nature, Youth & Prosperity 🌾</p>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll(".gallery img");
+    let index = 0;
+
+    function showSlide(n) {
+      slides.forEach((slide, i) => slide.classList.remove("active"));
+      slides[n].classList.add("active");
+    }
+
+    document.querySelector(".next").addEventListener("click", () => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    });
+
+    document.querySelector(".prev").addEventListener("click", () => {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    });
+
+    setInterval(() => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }, 4000);
+  </script>
+</body>
+</html>

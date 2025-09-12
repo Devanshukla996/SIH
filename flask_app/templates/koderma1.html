@@ -1,0 +1,270 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Koderma — Green Travel Guide</title>
+  <meta name="description" content="Koderma travel guide — experiences, culture, transport, gallery. Green themed Lonely Planet style template." />
+  <style>
+    :root{
+      --green-700:#2e7d32;
+      --green-500:#66bb6a;
+      --accent:#a5d6a7;
+      --bg:#f1f8f2;
+      --card:#ffffff;
+      --muted:#556b2f;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:#1b1b1b}
+
+    /* Close button styling */
+    .page-close {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: #c62828;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+    .page-close:hover {
+      background: #a31414;
+    }
+    
+    /* Navbar */
+    .nav{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,var(--green-700),var(--green-500));color:#fff;padding:12px 6%;display:flex;align-items:center;gap:16px}
+    .brand{font-weight:700;font-size:1.1rem}
+    .nav-links{margin-left:auto;display:flex;gap:14px}
+    .nav-links a{color:rgba(255,255,255,0.95);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
+    .nav-links a:hover, .nav-links a.active{background:rgba(255,255,255,0.12)}
+
+    /* Hero */
+    .hero{height:62vh;background-image:linear-gradient(120deg,rgba(46,125,50,0.45),rgba(102,187,106,0.15)),url('https://pbs.twimg.com/media/FrEfGpMWAAAg2Qc.jpg:large');background-size:cover;background-position:center;display:flex;align-items:center}
+    .hero-inner{width:100%;padding:4rem 8%;color:#fff}
+    .hero h1{margin:0;font-size:3rem;letter-spacing:0.4px}
+    .hero p{margin:10px 0 0;font-size:1.05rem;opacity:0.95}
+    .cta{display:inline-block;margin-top:18px;padding:10px 16px;border-radius:999px;background:var(--card);color:var(--green-700);font-weight:700;text-decoration:none;box-shadow:0 6px 18px rgba(46,125,50,0.12)}
+
+    /* Layout sections */
+    main{max-width:1200px;margin:-40px auto 60px;padding:0 4%}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 8px 20px rgba(34,60,41,0.06);}
+    .row{display:flex;gap:20px}
+
+    /* Overview */
+    .facts{display:flex;gap:18px;margin-top:-30px}
+    .fact{flex:1;padding:16px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(245,255,245,0.95));border-left:6px solid var(--green-500)}
+    .fact h3{margin:0;color:var(--muted)}
+    .fact p{margin:8px 0 0;font-weight:600}
+
+    /* Carousel */
+    .carousel-wrap{margin-top:28px;position:relative}
+    .carousel{display:flex;gap:16px;overflow:hidden;padding-bottom:8px}
+    .track{display:flex;transition:transform 450ms cubic-bezier(.22,.9,.3,1);}
+    .place{min-width:300px;max-width:320px;border-radius:12px;background:var(--card);overflow:hidden;box-shadow:0 6px 20px rgba(46,125,50,0.08);cursor:pointer;transform-origin:center}
+    .place img{width:100%;height:200px;object-fit:cover;display:block}
+    .place .info{padding:12px}
+    .place h4{margin:0 0 8px;font-size:1.05rem;color:var(--green-700)}
+    .place ul{margin:0;padding-left:18px;color:#444;font-size:0.95rem}
+
+    .arrow{position:absolute;top:45%;transform:translateY(-50%);background:rgba(255,255,255,0.92);border:none;width:44px;height:44px;border-radius:999px;display:grid;place-items:center;box-shadow:0 6px 18px rgba(33,33,33,0.12);cursor:pointer}
+    .arrow.left{left:-10px}
+    .arrow.right{right:-10px}
+
+    /* Culture */
+    .culture{margin-top:28px;display:flex;gap:14px;overflow:auto;padding:10px 0}
+    .culture::-webkit-scrollbar{display:none}
+    .chip{flex:0 0 auto;background:linear-gradient(180deg,#fff,#f7fff8);padding:14px;border-radius:10px;min-width:200px;text-align:center;border:1px solid rgba(46,125,50,0.06);box-shadow:0 6px 16px rgba(46,125,50,0.04);cursor:pointer}
+    .chip h4{margin:0;color:var(--green-700)}
+    .chip p{margin:8px 0 0;font-size:0.95rem;color:#3b3b3b}
+
+    /* Info */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    .info-card{padding:16px;border-radius:10px;background:linear-gradient(180deg,#fff,#fbfff7);border-left:6px solid var(--green-500)}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px;transition:transform 220ms}
+    .gallery img:hover{transform:scale(1.04)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;padding:20px;z-index:120}
+    .modal-card{background:var(--card);max-width:900px;width:100%;border-radius:10px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+    .modal-card img{width:100%;height:100%;object-fit:cover}
+    .modal-text{padding:20px}
+    .modal-text h3{margin-top:0;color:var(--green-700)}
+    .close-btn{position:absolute;top:18px;right:24px;background:#fff;border-radius:50%;width:40px;height:40px;border:none;display:grid;place-items:center;cursor:pointer}
+
+    @media (max-width:980px){.row{flex-direction:column}.grid{grid-template-columns:repeat(2,1fr)}.modal-card{grid-template-columns:1fr}}
+    @media (max-width:560px){.nav-links{display:none}.hero h1{font-size:2rem}.facts{flex-direction:column}.grid{grid-template-columns:1fr}.place{min-width:78%;}}
+  </style>
+</head>
+<body>
+
+<!-- Close button -->
+<button class="page-close" onclick="window.location.href='/landing'"aria-label="Close Page">✕</button>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Koderma</h1>
+      <p>Mica Capital • Scenic Hills • Reservoir Escapes — a green cultural district</p>
+      <a class="cta" href="#experiences">Explore highlights</a>
+    </div>
+  </section>
+
+  <main>
+    <!-- Overview -->
+    <section id="overview" class="card">
+      <div class="facts">
+        <div class="fact"><h3>Best time</h3><p>Oct – Mar</p></div>
+        <div class="fact"><h3>How to get there</h3><p>Rail: Koderma Jn. | Air: Ranchi (~160 km), Gaya (~130 km)</p></div>
+        <div class="fact"><h3>Highlights</h3><p>Tilaiya Dam • Satagawan Caves • Dhwajadhari Hills</p></div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:12px;align-items:center;">
+        <div style="flex:1">
+          <p style="margin:0;color:#445f3b;font-weight:600">Quick intro</p>
+          <p style="margin:6px 0 0;color:#444">Known as the “Mica capital of India,” Koderma is blessed with hills, forests, dams and ancient temples. A quiet district ideal for nature, culture and pilgrim tourism.</p>
+        </div>
+        <div style="width:220px">
+          <img style="width:100%;border-radius:10px" src="https://static.india.gov.in/npiprod/odop/uploads/mica_c2b5a530e7.jpg" alt="Koderma">
+        </div>
+      </div>
+    </section>
+
+    <!-- Experiences -->
+    <section id="experiences" class="card carousel-wrap">
+      <h2 style="margin:0 0 12px;color:var(--green-700)">Top Experiences</h2>
+      <button class="arrow left">❮</button>
+      <div class="carousel"><div class="track" id="track">
+        <div class="place" data-title="Tilaiya Dam" data-desc="A scenic reservoir built on Barakar river, great for boating, sunrise views and photography." data-img="https://upload.wikimedia.org/wikipedia/commons/1/1f/Tilaiya_Dam.jpg">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/TILAIYA_DAMM.jpg/250px-TILAIYA_DAMM.jpg" alt="Tilaiya Dam"><div class="info"><h4>Tilaiya Dam</h4><ul><li>Boating</li><li>Sunrise views</li><li>Picnic spot</li></ul></div>
+        </div>
+        <div class="place" data-title="Satagawan Caves" data-desc="Rock caves with mythological connections, surrounded by forests — a spot for explorers." data-img="https://source.unsplash.com/900x600/?cave">
+          <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/66/c8/e4/koderma.jpg?w=1200&h=1200&s=1" alt="Satagawan Caves"><div class="info"><h4>Satagawan Caves</h4><ul><li>Ancient caves</li><li>Exploration</li><li>Forests nearby</li></ul></div>
+        </div>
+        <div class="place" data-title="Dhwajadhari Hills" data-desc="Sacred hilltop temple offering panoramic views of valleys, a trekker and pilgrim favourite." data-img="https://source.unsplash.com/900x600/?hill,temple">
+          <img src="https://seawatersports.com/images/places/dhwajadhari-hill.png" alt="Dhwajadhari Hills"><div class="info"><h4>Dhwajadhari Hills</h4><ul><li>Pilgrimage</li><li>Trekking</li><li>Scenic views</li></ul></div>
+        </div>
+        <div class="place" data-title="Koderma Wildlife Sanctuary" data-desc="Forested sanctuary with deer, leopards and peacocks — ideal for nature enthusiasts." data-img="https://source.unsplash.com/900x600/?forest,wildlife">
+          <img src="https://vushii.com/uploads/1803426252_Koderma%20Wildlife%20Sanctuary.jpg" alt="Koderma Wildlife Sanctuary"><div class="info"><h4>Koderma Wildlife Sanctuary</h4><ul><li>Wildlife</li><li>Forests</li><li>Eco-tourism</li></ul></div>
+        </div>
+        <div class="place" data-title="Makhdumpur Dargah" data-desc="A famous Sufi shrine attracting pilgrims of all faiths. Known for its Urs festival" data-img="https://source.unsplash.com/900x600/?forest,wildlife">
+          <img src="https://content.jdmagicbox.com/comp/patna/b3/0612px612.x612.220311222452.w7b3/catalogue/dargah-sharif-pir-mujib-ullah-qadri-rahamtullah-aalay-phulwarisharif-patna-63axqtlpxk.jpg" alt="Makhdumpur Dargah"><div class="info"><h4>Makhdumpur Dargah</h4><ul><li>Religious Significance</li><li>Cultural Harmony</li><li>Local Attraction</li></ul></div>
+        </div>
+      </div></div>
+      <button class="arrow right">❯</button>
+    </section>
+
+    <!-- Culture -->
+    <section id="culture" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Culture & Insights</h2>
+      <div class="culture">
+        <div class="chip" data-title="Festivals" data-desc="Durga Puja, Chhath, Karma and Sarhul are widely celebrated. Tribal folk music and dance bring the hills alive." data-img="https://media.assettype.com/deccanherald%2F2023-09%2Ff61050b3-c4c3-42a2-8e02-ad6863fbe292%2FPTI09_25_2023_000235B.jpg?w=undefined&auto=format%2Ccompress&fit=max">
+          <h4>Festivals</h4><p>Durga Puja • Chhath • Tribal Karma</p>
+        </div>
+        <div class="chip" data-title="Cuisine" data-desc="Staples include rice, dal, litti-chokha, pitha and tilkut. Traditional sweets are popular in fairs." data-img="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgAKHzjWbrjpgzUXobKrKPaKvu66DXveiMQ7xUFw01mFqVtiu2uTbY8RRK1ZAT-he84aEpm2ZnsJG90WDJs7MEydrSgzatrjZG7S-tBYi164HjiIltuctNho50KSzB9yxgFYtlBTOfZmGo/s1600/DSC_1273%5B1%5D+k.jpg">
+          <h4>Cuisine</h4><p>Litti-Chokha & Pitha</p>
+        </div>
+        <div class="chip" data-title="Handicrafts" data-desc="Sohrai art, bamboo crafts and terracotta items are made by local communities." data-img="https://static.wixstatic.com/media/9dd462_f43d1c675f2f4f6782b8a2f21bde82da~mv2.jpg/v1/fill/w_980,h_726,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/9dd462_f43d1c675f2f4f6782b8a2f21bde82da~mv2.jpg">
+          <h4>Handicrafts</h4><p>Sohrai painting & crafts</p>
+        </div>
+        <div class="chip" data-title="Traditions" data-desc="Fusion of tribal and regional culture. Folk dances like Jhumar and Chhau performed in festivities." data-img="https://upload.wikimedia.org/wikipedia/commons/1/1d/Chhau_Nritya_%281%29.jpg">
+          <h4>Traditions</h4><p>Chhau & Jhumar dances</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info -->
+    <section id="info" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Practical Information</h2>
+      <div class="grid">
+        <div class="info-card"><h4 style="margin:0;color:var(--green-700)">Transport</h4><p>Rail: Koderma Junction (on Howrah–Delhi line). Air: Ranchi (160 km), Gaya (130 km). Road: NH-31 passes through Koderma.</p></div>
+        <div class="info-card"><h4 style="margin:0;color:var(--green-700)">Where to stay</h4><p>Budget hotels in Koderma town; eco-lodges and guest houses near Tilaiya Dam & wildlife sanctuary.</p></div>
+        <div class="info-card"><h4 style="margin:0;color:var(--green-700)">Safety & tips</h4><p>Carry essentials for treks, respect local customs, and avoid deep forest zones without guides.</p></div>
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section class="card" style="margin-top:20px">
+      <h2 style="color:var(--green-700);margin-top:0">On the map</h2>
+      <div style="height:320px;border-radius:10px;overflow:hidden;border:1px solid rgba(46,125,50,0.08);">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d365218.9160518789!2d85.375!3d24.45!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f2e90a13f2e2ff%3A0x4dfb8574ed47e2f9!2sKoderma%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1693751012345!5m2!1sen!2sin" width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="card">
+      <h2 style="color:var(--green-700);margin-top:0">Photo gallery</h2>
+      <div class="gallery">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/43/92/3b/koderma-reserve-forest.jpg?w=900&h=-1&s=1" alt="gallery1">
+         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuEWfzcOkpPfhBkRXDQlOU7yCGFSxjgx0pdw&s" alt="gallery2">
+        <img src="https://www.shutterstock.com/image-photo/terracotta-sculpture-maluti-jharkhand-india-260nw-1420076072.jpg" alt="gallery3">
+        <img src="https://www.photobank.in/img/preview/16260778422T3A8054.JPG" alt="gallery4">
+        <img src="https://c.ndtvimg.com/2020-11/kvlkm7r8_chhath-puja-2020_625x300_17_November_20.jpg" alt="gallery5">
+        <img src="https://pbs.twimg.com/media/EyRUW_6U4AAsoe-.jpg:large" alt="gallery6">
+      </div>
+    </section>
+
+     </main>
+
+  <!-- Modal for place & chips -->
+  <div class="modal" id="modal">
+    <button class="close-btn" aria-label="close">✕</button>
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <img id="modalImg" src="" alt="">
+      <div class="modal-text">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click', (e)=>{
+      e.preventDefault(); document.querySelectorAll('.nav-links a').forEach(x=>x.classList.remove('active'));
+      a.classList.add('active'); const id = a.getAttribute('href'); document.querySelector(id).scrollIntoView({behavior:'smooth',block:'start'});
+    }));
+
+    // Carousel controls
+    const track = document.getElementById('track');
+    const left = document.querySelector('.arrow.left');
+    const right = document.querySelector('.arrow.right');
+    let pos = 0; const step = 320; const max = track.children.length*320 - step*3; // show 3 items
+
+    right.addEventListener('click', ()=>{ pos = Math.min(pos+step, max); track.style.transform = `translateX(-${pos}px)`});
+    left.addEventListener('click', ()=>{ pos = Math.max(pos-step, 0); track.style.transform = `translateX(-${pos}px)`});
+
+    // Clickable places & chips -> modal
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const closeBtn = document.querySelector('.close-btn');
+
+    function openModal(title, desc, img){ modalTitle.textContent = title; modalDesc.textContent = desc; modalImg.src = img; modal.style.display = 'flex'; document.body.style.overflow='hidden'; }
+    function closeModal(){ modal.style.display='none'; document.body.style.overflow='auto'; }
+
+    document.querySelectorAll('.place').forEach(p=>p.addEventListener('click', ()=> openModal(p.dataset.title,p.dataset.desc,p.dataset.img)));
+    document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click', ()=> openModal(c.dataset.title,c.dataset.desc,c.dataset.img)));
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+
+    // touch swipe support for carousel
+    let startX=0, currentTranslate=0, isDown=false;
+    track.addEventListener('pointerdown', (e)=>{ isDown=true; startX = e.clientX; track.style.transition='none'; });
+    track.addEventListener('pointermove', (e)=>{ if(!isDown) return; const diff = e.clientX - startX; track.style.transform = `translateX(${ -pos + diff }px)`; });
+    track.addEventListener('pointerup', (e)=>{ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; const diff = e.clientX - startX; if(diff < -60) { pos = Math.min(pos+step, max);} else if(diff > 60) { pos = Math.max(pos-step,0);} track.style.transform = `translateX(-${pos}px)`; });
+    track.addEventListener('pointerleave', ()=>{ if(isDown){ isDown=false; track.style.transition='transform 450ms cubic-bezier(.22,.9,.3,1)'; track.style.transform = `translateX(-${pos}px)`; } });
+
+  </script>
+</body>
+</html>
+

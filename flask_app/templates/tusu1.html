@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tusu Parab: The Harvest Festival of Jharkhand</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0fdf4;
+      color: #064e3b;
+    }
+
+    header {
+      background: url("https://static.asianetnews.com/images/w-1280,h-720,imgid-01dykxgrq54zdwa649pedyb189,imgname-tusu-parab-jpg.jpg") center/cover no-repeat;
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(4, 120, 87, 0.6); /* Deep green overlay */
+      z-index: 0;
+    }
+    header h1, header p {
+      position: relative;
+      z-index: 1;
+    }
+    header h1 {
+      font-size: 42px;
+      margin: 0;
+      animation: fadeInDown 1.2s ease;
+    }
+    header p {
+      font-size: 18px;
+      margin-top: 15px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    section h2 {
+      color: #065f46;
+      margin-bottom: 15px;
+      border-left: 6px solid #34d399; /* light green accent */
+      padding-left: 10px;
+    }
+    section p, section li {
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #047857;
+    }
+
+    .timeline {
+      position: relative;
+      margin: 40px 0;
+      padding-left: 30px;
+      border-left: 3px solid #34d399;
+    }
+    .timeline-item {
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .timeline-item:before {
+      content: "🌿";
+      position: absolute;
+      left: -25px;
+      font-size: 22px;
+      background: #fff;
+      padding: 2px;
+    }
+    .timeline-item h4 {
+      margin: 0 0 5px;
+      color: #065f46;
+    }
+
+    .gallery {
+      position: relative;
+      max-width: 900px;
+      margin: 30px auto;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+    .gallery img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      display: none;
+    }
+    .gallery img.active {
+      display: block;
+      animation: fadeIn 1.2s ease;
+    }
+    .gallery button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(6, 95, 70, 0.7);
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    .gallery button:hover { background: rgba(21, 128, 61, 0.9); }
+    .gallery .prev { left: 10px; }
+    .gallery .next { right: 10px; }
+
+    .highlight {
+      background: #ecfdf5;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      border-left: 6px solid #34d399;
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #047857;
+      color: white;
+      margin-top: 40px;
+    }
+
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes fadeInDown { from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);} }
+    @keyframes fadeInUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 28px; }
+      .gallery img { height: 250px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌾 Tusu Parab: The Harvest Festival of Jharkhand 🌿</h1>
+    <p>A vibrant tribal celebration of gratitude, music, and devotion, honoring the harvest and the life-giving force of nature.</p>
+  </header>
+
+  <section>
+    <h2>What is Tusu Parab?</h2>
+    <p>Tusu Parab is a folk harvest festival dedicated to Goddess Tusu, celebrated mainly in Jharkhand and nearby regions. It is marked by joy, music, and rituals that reflect the bond between people, nature, and community life.</p>
+    <div class="cards">
+      <div class="card"><h3>📅 When</h3><p>One month before Makar Sankranti, culminating on the last day of Paush.</p></div>
+      <div class="card"><h3>🌾 Why</h3><p>To honor nature, thank for a successful harvest, and celebrate community prosperity.</p></div>
+      <div class="card"><h3>👩‍🌾 Who</h3><p>Observed by tribal and farming communities, with unmarried girls playing a central role.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Festival Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item"><h4>Preparation Phase</h4><p>Begins a month before Sankranti with daily worship and crafting idols and frames.</p></div>
+      <div class="timeline-item"><h4>Main Celebration</h4><p>Culminates on Paush Sankranti with rituals, songs, and offerings.</p></div>
+      <div class="timeline-item"><h4>Grand Finale</h4><p>Immersion of idols and decorated frames into rivers during Makar Sankranti.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Festival Glimpses</h2>
+    <div class="gallery">
+      <img src="https://creativetribals.com/wp-content/uploads/2023/12/TUSU_MELA-1024x717.webp" class="active" alt="Tusu Idol Decoration">
+      <img src="https://dy3rma73kowlp.cloudfront.net/uploads/2024/01/dahar-tusu-dhanbad-happy-new-year-2023.jpg" alt="Women Singing Tusu Songs">
+      <img src="https://image-timescontent.timesgroup.com/thumb/465096.webp" alt="Procession Towards River">
+      <img src="https://121clicks.com/wp-content/uploads/2021/05/tusu_festival_pritam_sen_11.jpg" alt="Procession Towards River">
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Key Traditions</h2>
+    <ul>
+      <li>🎨 <b>Idol Creation</b> – Clay idols of Tusu crafted with devotion</li>
+      <li>🎋 <b>Bamboo Frame Decoration</b> – Girls decorate colorful bamboo structures</li>
+      <li>🪔 <b>Daily Worship</b> – Lamps lit in clay pots with sweets and flowers</li>
+      <li>🌊 <b>Immersion Ceremony</b> – Processions carrying idols to rivers</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Music and Dance</h2>
+    <p>Tusu songs, described as "scintillating songs full of life and taste," are the heart of the festival. Sung in local dialects, these songs preserve linguistic heritage and echo gratitude to nature. Communities also dance during processions, expressing unity and joy.</p>
+  </section>
+
+  <section>
+    <h2>Women's Role</h2>
+    <p>Unmarried girls lead the rituals, decorations, and songs, symbolizing empowerment and cultural leadership. The festival strengthens bonds as mothers pass traditions to daughters, ensuring continuity of heritage.</p>
+  </section>
+
+  <section>
+    <h2>Modern Relevance</h2>
+    <p>Even in urban Jharkhand, Tusu Parab thrives as a symbol of agricultural prosperity, unity, and respect for nature. It adapts to modern times while preserving its essence.</p>
+    <div class="highlight">🌍 Tusu Parab celebrates gratitude, continuity, and community – values deeply needed in today’s world.</div>
+  </section>
+
+  <footer>
+    <p>🌾 Tusu Parab of Jharkhand | A Festival of Gratitude, Music & Nature 🌿</p>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll(".gallery img");
+    let index = 0;
+
+    function showSlide(n) {
+      slides.forEach((slide, i) => slide.classList.remove("active"));
+      slides[n].classList.add("active");
+    }
+
+    document.querySelector(".next").addEventListener("click", () => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    });
+
+    document.querySelector(".prev").addEventListener("click", () => {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    });
+
+    setInterval(() => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }, 4000);
+  </script>
+</body>
+</html>

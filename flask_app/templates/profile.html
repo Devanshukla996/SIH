@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Page</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI", sans-serif; }
+  body {
+    background: linear-gradient(135deg, #a5d6a7, #e8f5e9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .profile-card {
+    width: 360px;
+    height: 500px;
+    background: #ccc url("https://hips.hearstapps.com/hmg-prod/images/deva-cassel-wears-black-shirt-black-coat-outside-dior-news-photo-1748439433.pjpeg") center/cover no-repeat;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  }
+
+  .profile-info {
+    background: rgba(255,255,255,0.97);
+    border-radius: 16px;
+    padding: 20px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(76,175,80,0.25);
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .profile-pic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #4CAF50;
+    background: url("https://hips.hearstapps.com/hmg-prod/images/deva-cassel-wears-black-shirt-black-coat-outside-dior-news-photo-1748439433.pjpeg") center/cover no-repeat;
+    margin-top: -65px;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  input.name-input {
+    width: 100%;
+    padding: 10px 14px;
+    margin-top: 16px;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+    transition: 0.3s;
+  }
+
+  input.name-input:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 6px rgba(76,175,80,0.6);
+  }
+
+  .role-label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    color: #2e7d32;
+  }
+
+  .role-select {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 2px solid #4CAF50;
+    width: 100%;
+    font-size: 14px;
+    background: #f1f8f4;
+    transition: 0.3s;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .role-select:focus {
+    border-color: #2e7d32;
+    box-shadow: 0 0 6px rgba(76,175,80,0.6);
+    outline: none;
+  }
+
+  input[type="file"] { display: none; }
+
+  .upload-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(76,175,80,0.95);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    transition: background 0.3s;
+  }
+
+  .upload-btn:hover { background: rgba(46,125,50,0.95); }
+
+  .complete-btn {
+    width: 100%;
+    padding: 14px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 0 0 20px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .complete-btn:hover { background: #2e7d32; }
+</style>
+</head>
+<body>
+
+<div class="profile-card" id="profileCard">
+  <!-- Upload Button -->
+  <label for="file-upload" class="upload-btn">Change Photo</label>
+  <input type="file" id="file-upload" accept="image/*">
+
+  <!-- Floating Info -->
+  <div class="profile-info">
+    <div class="profile-pic" id="profilePreview"></div>
+
+    <!-- Editable Name -->
+    <input type="text" class="name-input" placeholder="Enter your name">
+
+    <!-- Login As -->
+    <div class="role-label">Login As</div>
+    <select class="role-select" id="login-as">
+      <option value="user">User</option>
+      <option value="customer">Customer</option>
+      <option value="guide">Guide</option>
+      <option value="service-provider">Service Provider</option>
+    </select>
+  </div>
+
+  <!-- Bottom Button -->
+
+  <button class="complete-btn" onclick="window.location.href='/landing'">Complete Profile</button>
+</div>
+
+<script>
+  const fileInput = document.getElementById("file-upload");
+  const profileCard = document.getElementById("profileCard");
+  const profilePreview = document.getElementById("profilePreview");
+
+  fileInput.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+
+      // Update the big card background
+      profileCard.style.backgroundImage = `url(${imageUrl})`;
+      profileCard.style.backgroundSize = "cover";
+      profileCard.style.backgroundPosition = "center";
+
+      // Update the small circular profile picture
+      profilePreview.style.backgroundImage = `url(${imageUrl})`;
+      profilePreview.style.backgroundSize = "cover";
+      profilePreview.style.backgroundPosition = "center";
+    }
+  });
+</script>
+
+</body>
+</html>

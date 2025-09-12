@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sohrai Festival of Jharkhand</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5fff7;
+      color: #2c3e2c;
+    }
+
+    /* Header */
+    header {
+      background: url("https://static.toiimg.com/thumb/msid-114864019,width-1280,height-720,resizemode-72/114864019.jpg") center/cover no-repeat;
+      color: white;
+      padding: 100px 20px;
+      text-align: center;
+      position: relative;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(30, 86, 49, 0.6);
+      z-index: 0;
+    }
+    header h1, header p {
+      position: relative;
+      z-index: 1;
+    }
+    header h1 {
+      font-size: 42px;
+      margin: 0;
+      animation: fadeInDown 1.2s ease;
+    }
+    header p {
+      font-size: 18px;
+      margin-top: 15px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    section h2 {
+      color: #1e5631;
+      margin-bottom: 15px;
+      border-left: 6px solid #3c9d5e;
+      padding-left: 10px;
+    }
+    section p {
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #2c6e49;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin: 40px 0;
+      padding-left: 30px;
+      border-left: 3px solid #3c9d5e;
+    }
+    .timeline-item {
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .timeline-item:before {
+      content: "🌾";
+      position: absolute;
+      left: -25px;
+      font-size: 22px;
+      background: #fff;
+      padding: 2px;
+    }
+    .timeline-item h4 {
+      margin: 0 0 5px;
+      color: #1e5631;
+    }
+
+    /* Gallery */
+    .gallery {
+      position: relative;
+      max-width: 900px;
+      margin: 30px auto;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+    .gallery img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      display: none;
+    }
+    .gallery img.active {
+      display: block;
+      animation: fadeIn 1.2s ease;
+    }
+    .gallery button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(30,86,49,0.7);
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    .gallery button:hover {
+      background: rgba(60,157,94,0.9);
+    }
+    .gallery .prev { left: 10px; }
+    .gallery .next { right: 10px; }
+
+    .highlight {
+      background: #e8f5e9;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      border-left: 6px solid #3c9d5e;
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #1e5631;
+      color: white;
+      margin-top: 40px;
+    }
+
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes fadeInDown { from {opacity:0; transform:translateY(-20px);} to {opacity:1; transform:translateY(0);} }
+    @keyframes fadeInUp { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 28px; }
+      .gallery img { height: 250px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header>
+    <h1>🌾 Sohrai Festival of Jharkhand 🎨</h1>
+    <p>A harvest and cattle festival that blends gratitude, tribal traditions, and stunning wall paintings.</p>
+  </header>
+
+  <!-- Overview -->
+  <section>
+    <h2>What is Sohrai?</h2>
+    <p>Sohrai is a post-harvest and cattle festival celebrated by tribal communities in Jharkhand. It coincides with the new moon after Diwali, marking the end of harvest and honoring cattle as sacred companions of farming life.</p>
+    <div class="cards">
+      <div class="card"><h3>📅 When</h3><p>Right after Diwali (Oct–Nov), lasting 3–5 days.</p></div>
+      <div class="card"><h3>🌾 Why</h3><p>To celebrate the rice harvest, honor cattle, and express gratitude towards nature.</p></div>
+      <div class="card"><h3>👥 Who</h3><p>Celebrated by Santhal, Munda, Oraon, Kurmi, Agaria, and many other tribal groups.</p></div>
+    </div>
+  </section>
+
+  <!-- Rituals Timeline -->
+  <section>
+    <h2>Festival Rituals</h2>
+    <div class="timeline">
+      <div class="timeline-item"><h4>Day 1: Preparation</h4><p>Homes and cattle sheds are cleaned, walls whitewashed, and natural pigments prepared.</p></div>
+      <div class="timeline-item"><h4>Day 2: Cattle Worship</h4><p>Cattle are bathed, decorated with vermillion and flowers, and revered as divine beings.</p></div>
+      <div class="timeline-item"><h4>Evening Rituals</h4><p>Diyas are lit, offerings made to Gaurea (animal deity), and villages celebrate with songs, dances, and feasts.</p></div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section>
+    <h2>Sohrai Glimpses</h2>
+    <div class="gallery">
+      <img src="https://utsav.gov.in/public/uploads/event_picture_image/event_2682/1727238095353241949.jpg" class="active" alt="Sohrai Wall Art">
+      <img src="https://reteation.com/wp-content/uploads/2022/12/IMG_9561-min.jpg" alt="Sohrai Paintings">
+      <img src="https://dy3rma73kowlp.cloudfront.net/uploads/2024/01/sohrai-parv-jharkhand-rajnagar-seraikela-kharsawan.jpg" alt="Decorated Cattle">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoxikgetKMPsvxyJwwH0R8ZW9kA91T3NATEw&s" alt="Women Painting Walls">
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- Sohrai Art -->
+  <section>
+    <h2>The Sohrai Art Tradition</h2>
+    <p>Sohrai is world-renowned for its <b>wall paintings</b>, especially in Hazaribagh. Women use natural pigments from earth, clay, and plants to create motifs of animals, plants, and ancestral symbols on mud walls. Each color holds meaning — red for fertility, black for divinity, and white for prosperity.</p>
+  </section>
+
+  <!-- Cultural Importance -->
+  <section>
+    <h2>Cultural & Economic Impact</h2>
+    <ul>
+      <li>🎭 Preserves tribal identity and traditions</li>
+      <li>🎨 Promotes indigenous Sohrai art globally</li>
+      <li>🌍 Boosts eco-cultural tourism in Jharkhand</li>
+      <li>📚 Transfers ancient wisdom to younger generations</li>
+    </ul>
+    <div class="highlight">Sohrai teaches us gratitude, sustainability, and harmony with nature — values deeply relevant even today.</div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>🌾 Sohrai Festival of Jharkhand | A Celebration of Harvest, Cattle, and Art 🎨</p>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll(".gallery img");
+    let index = 0;
+
+    function showSlide(n) {
+      slides.forEach((slide, i) => slide.classList.remove("active"));
+      slides[n].classList.add("active");
+    }
+
+    document.querySelector(".next").addEventListener("click", () => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    });
+
+    document.querySelector(".prev").addEventListener("click", () => {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    });
+
+    setInterval(() => {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    }, 4000);
+  </script>
+</body>
+</html>
