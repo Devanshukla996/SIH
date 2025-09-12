@@ -14,10 +14,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Import db and models
-from models import db, Person, Student
 
 # Initialize SQLAlchemy with app
-db.init_app(app)
+
 
 # Create database if it doesn't exist
 host = 'localhost'
