@@ -21,7 +21,7 @@
 
 | Team Member | Role & Contributions |
 |-------------|--------------------|
-| **Vaishanavi Chaurasiya** | Team **leader**, coordinated tasks, and handled **bug fixes**. |
+| **Vaishanavi Chaurasiya** | Team **leader**, coordinated tasks, Research and handled **bug fixes**. |
 | Yash Gupta         | Developed the **AI agent** and **chatbot** for personalized guidance. |
 | Kartika Choudhary  | Managed **marketing**, **frontend development**, and the **dashboard**. |
 | Devansh Shukla     | Worked on **backend development** and **project hosting**. |
